@@ -5,3 +5,7 @@ from django.http import HttpResponse
 
 def hy(request):
     return render(request, 'exams/exam.html')
+
+
+def rahul():
+    return "This line is made by rahul"
