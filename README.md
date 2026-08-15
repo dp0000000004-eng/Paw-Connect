@@ -175,3 +175,128 @@ campus-connect/
 ```
 
 **⚠️Note on `settings.py`:** set `TEMPLATES[0]['DIRS'] = [BASE_DIR / "templates"]` so Django finds the shared `base.html`, and keep `APP_DIRS: True` so it also finds each app's own namespaced templates.
+
+# Contributing to PawConnect
+
+Setup and workflow guide for the PawBytes team.
+
+## 1. Clone the Repo (one-time)
+
+```bash
+git clone https://github.com/dp0000000004-eng/Paw-Connect.git
+cd Paw-Connect
+```
+
+## 2. Set Up Your Environment (one-time)
+
+Create and activate a virtual environment:
+
+```bash
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# Mac/Linux/WSL
+source venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Create a `.env` file in the project root (this is **not** in git — get the actual values from the group):
+
+```
+SECRET_KEY=your-django-secret-key
+AI_API_KEY=your-ai-api-key
+DEBUG=True
+```
+
+Run migrations and start the server to confirm everything works:
+
+```bash
+python manage.py migrate
+python manage.py runserver
+```
+
+## 3. Project Structure
+
+Each Django app is self-contained — work inside your own app's folder only:
+
+```
+Paw-Connect/
+├── accounts/          # login, signup, roles
+├── attendance/        # mark/view attendance
+├── notices/           # announcements
+├── exams/             # exam schedule + results
+├── ai_assistant/      # AI study assistant
+├── templates/
+│   └── layout.html    # shared layout — all pages extend this
+├── static/
+├── manage.py
+└── requirements.txt
+```
+
+Each app has its own `models.py`, `views.py`, `urls.py`, and namespaced `templates/<appname>/` + `static/<appname>/` folders. Don't edit another app's files without asking in the group first.
+
+## 4. Branching
+
+Never work directly on `main`. Always branch off it:
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/<module-name>
+```
+
+Examples: `feature/notices`, `feature/attendance`, `feature/exams`, `feature/accounts`, `feature/ai-assistant`
+
+## 5. Committing
+
+Commit small and often — not one giant commit at the end.
+
+```bash
+git add .
+git commit -m "Add Notice model and list view"
+```
+
+Write clear, short commit messages describing what changed.
+
+## 6. Pushing & Opening a Pull Request
+
+```bash
+git push origin feature/<module-name>
+```
+
+Then on GitHub:
+1. Open the repo — you'll see a prompt to compare & open a pull request for your branch
+2. Base: `main` ← Compare: `feature/<module-name>`
+3. Add a short description of what you built
+4. Click **Create pull request**
+
+## 7. Review & Merge
+
+- Another teammate reviews the PR before merging — check it runs locally, no conflicts with `main`
+- Once approved, click **Merge pull request**
+- Delete the branch after merging
+
+## 8. Stay in Sync
+
+Before starting any new work, always pull the latest `main`:
+
+```bash
+git checkout main
+git pull origin main
+```
+
+This avoids painful merge conflicts later.
+
+## Working Rules
+
+- All page templates extend the shared `templates/layout.html` — don't create a separate layout per app
+- Keep static/template files namespaced under your app's own folder (e.g. `notices/templates/notices/`, `notices/static/notices/`)
+- Stuck for more than ~30 minutes? Ask the group instead of sitting on it
+- Never commit `.env`, `venv/`, or `db.sqlite3` — already excluded in `.gitignore`
