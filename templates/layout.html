@@ -10,11 +10,34 @@
         {% endblock %}
     </title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=NTR&display=swap');
+    </style>
 </head>
 <body>
-    <h1>
-        Hello From Main Template
-    </h1>
+    <section class="sec-nav">
+
+        <!-- Navigation -->
+        <header class="navbar">
+
+            <div class="logo">
+                PawByte
+            </div>
+
+            <nav>
+                <a href="#" class="active">Home</a>
+                <a href="#" class="">About</a>
+                <a href="#">Services</a>
+                <a href="#">Contact</a>
+            </nav>
+
+            <div class="profile-circle">
+                
+            </div>
+
+        </header>
+    </section>
+<hr class="slimline">
     {% block body %}
     {% endblock %}
 </body>
