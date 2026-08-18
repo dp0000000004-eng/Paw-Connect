@@ -1,0 +1,455 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: #06142E;
+
+    /* Your complete page background */
+    background-image:
+        radial-gradient(
+            circle at 55% 35%,
+            #1683FF 0%,
+            #0057D9 25%,
+            #06142E 70%
+        );
+
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    color: #F8FAFF;
+}
+
+/* MAIN HERO */
+
+.hero {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    padding: 25px 5%;
+    box-shadow: none;
+    border: none;
+}
+
+
+/* NAVBAR */
+
+.navbar {
+    height: 70px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /*backdrop-filter: blur(10px);*/
+    box-shadow: none;
+    position: fixed;
+    z-index: 9999;
+    background: radial-gradient(
+      circle at 55% 35%,
+            #1683FF 0%,
+            #0057D9 25%,
+            #06142E 70%
+            
+    );
+}
+/*nav*/
+.sec-nav{
+    width: 100%;
+    background: transparent;
+}
+
+
+/* LOGO */
+
+.logo {
+    font-family: "Playfair Display", serif;
+
+    font-size: 32px;
+    font-weight: 800;
+
+    color: #f5bd35;
+    transform: translateX(+0.5cm);
+}
+
+
+/* NAVIGATION */
+
+nav {
+    display: flex;
+    gap: 45px;
+    margin-left: auto;
+    margin-right: 35px;
+}
+
+nav a {
+    color: #f3c34a;
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+nav a:hover,
+nav a.active {
+    color: white;
+    transform: translateY(-2px);
+}
+
+
+/* PROFILE CIRCLE */
+
+.profile-circle {
+    width: 56px;
+    height: 56px;
+
+    border: 3px solid white;
+
+    border-radius: 50%;
+}
+
+
+/* HERO CONTENT */
+
+.hero-content {
+    min-height: 430px;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+}
+
+
+/* HERO TEXT */
+
+.hero-text {
+    position: relative;
+    z-index: 5;
+
+    margin-top: -30px;
+}
+
+.hero-text h1 {
+    font-family: Arial, sans-serif;
+
+    font-size: clamp(55px, 6vw, 90px);
+
+    line-height: 1.05;
+
+    color: white;
+}
+
+.hero-text h1 span {
+    color: #f4bd32;
+}
+
+.hero-text p {
+    color: #e5ffff;
+
+    font-size: 17px;
+
+    margin-top: 20px;
+
+    max-width: 450px;
+}
+
+
+/* BUTTON */
+
+.learn-btn {
+    margin-top: 25px;
+
+    padding: 13px 28px;
+
+    border: none;
+    border-radius: 30px;
+
+    background: #f4bd32;
+    color: #06212b;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.learn-btn:hover {
+    background: rgba(207, 36, 196, 0.55);
+    transform: translateY(-3px);
+}
+
+
+/* PERSON */
+
+.person {
+    position: absolute;
+
+    right: 3%;
+    bottom: -10px;
+
+    width: 330px;
+
+    z-index: 3;
+}
+
+.person img {
+    width: 100%;
+    display: block;
+}
+
+
+/* SERVICES */
+
+.services {
+    position: relative;
+
+    margin-top: -20px;
+
+    z-index: 6;
+}
+
+.services h2 {
+    text-align: center;
+
+    font-family: sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 50; 
+    font-style:normal ;
+    font-size: 42px;
+
+    color: white;
+
+    margin-bottom: 20px;
+}
+
+
+/* SERVICE CONTAINER */
+
+.service-container {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 20px;
+}
+
+
+/* SERVICE CARD */
+
+.service-card {
+    cursor:pointer;
+    min-height: 115px;
+
+    padding: 22px;
+    font-family: 'NTR', sans-serif;
+
+    border-radius: 15px;
+
+    background: rgba(7, 29, 70, 0.55);
+
+    border: 3px solid rgba(22, 131, 255, 0.35);
+
+    position: relative;
+
+    transition: 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+
+    background: rgba(6, 107, 132, 0.95);
+}
+
+.service-card h3 {
+    color: #F8FAFF;
+
+    font-size: 25px;
+}
+
+.service-card p {
+    color: #b8c5d9;
+
+    font-size: 14px;
+
+    margin-top: 7px;
+}
+
+.service-card span {
+    position: absolute;
+
+    right: 18px;
+    top: 42px;
+
+    color: #f4b942;
+
+    font-size: 30px;
+
+    transition: 0.3s;
+}
+
+.service-card:hover span {
+    transform: translateX(7px);
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE
+   ========================= */
+
+@media (max-width: 768px) {
+
+    .hero {
+        padding: 25px 5%;
+    }
+
+    .navbar {
+        height: 60px;
+    }
+
+    .logo {
+        font-size: 25px;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .profile-circle {
+        width: 42px;
+        height: 42px;
+    }
+
+    .hero-content {
+        min-height: 600px;
+
+        align-items: flex-start;
+    }
+
+    .hero-text {
+        margin-top: 45px;
+    }
+
+    .hero-text h1 {
+        font-size: 52px;
+    }
+
+    .hero-text p {
+        font-size: 14px;
+
+        max-width: 300px;
+    }
+
+    .person {
+        width: 230px;
+
+        right: -20px;
+        bottom: 80px;
+    }
+
+    .services {
+        margin-top: -5px;
+    }
+
+    .services h2 {
+        font-size: 30px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    .service-container {
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 12px;
+    }
+
+    .service-card {
+        min-height: 100px;
+
+        padding: 15px;
+    }
+
+    .service-card h3 {
+        font-size: 15px;
+    }
+
+    .service-card span {
+        right: 12px;
+        top: 35px;
+    }
+}
+
+
+/* SMALL PHONES */
+
+@media (max-width: 450px) {
+
+    .hero-text h1 {
+        font-size: 44px;
+    }
+
+    .person {
+        width: 190px;
+
+        bottom: 105px;
+    }
+
+    .service-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .service-card p {
+        display: none;
+    }
+}
+
+.slimline{
+    display: none;
+
+}
+.liquid {
+    position: relative;
+    display: inline-block;
+    font-size: 70px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color:transparent;
+    -webkit-text-stroke: 2px white;
+    cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+}
+.liquid::before{
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0%;
+    white-space: nowrap;
+    overflow: hidden;
+    -webkit-text-stroke: 2px white;
+    color: #0e043c;
+    transition: width 0.5s ease;
+
+}
+.liquid:hover::before {
+    width: 100%;
+}
