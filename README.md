@@ -72,7 +72,7 @@ The goal is a project that's genuinely useful day-to-day on campus, buildable by
 ## MVP Scope ( Mark ✓ If Complet a Task)
 
 **Must-have (MVP):**
-- [x] Login/signup with role-based redirect (student/faculty/admin dashboards)
+- [ ] Login/signup with role-based redirect (student/faculty/admin dashboards)
 - [ ] Student can view their attendance %
 - [ ] Faculty/admin can mark attendance
 - [ ] Notices board — post (faculty/admin) and view (all)
