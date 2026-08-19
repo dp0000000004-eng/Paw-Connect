@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse 
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.db import IntegrityError
 
 # Create your views here.
 
@@ -11,28 +12,27 @@ def home(request):
 
 
 def login_view(request):
-    if request.method == "POST":
 
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        raw_password = request.POST.get('password')
+    try:
+        if request.method == "POST":
 
-        user = User(
-            username=username,
-            email=email
-        )
-        user.set_password(raw_password)
+            username = request.POST.get('username')
+            email = request.POST.get('email')
+            raw_password = request.POST.get('password')
 
-        user.save()
+            user = User(
+                username=username,
+                email=email
+            )
 
-        messages.success(
-            request,
-            message="Account Created Successfully"
-        )
+            user.set_password(raw_password)
 
-    else:
+            user.save()
 
-        messages.error(
-            request,
-            message="Something Went Wrong :( "
-        )
+            messages.success(request, "Account created Sussessfully")
+
+    except IntegrityError:
+        messages.error(request, "Username exists in this name try another :( ")
+        
+
+    return render(request, 'login.html')
