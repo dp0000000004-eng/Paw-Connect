@@ -33,11 +33,11 @@ The goal is a project that's genuinely useful day-to-day on campus, buildable by
 
 | # | Module | Description | Owner |
 |---|--------|-------------|-------|
-| 1 | **FrontEnd** | Full FrontEnd with UI | TBD |
+| 1 | **FrontEnd** | Full FrontEnd with UI | CR |
 | 2 | **Attendance** | Mark/view attendance, extends existing Student Tracker | TBD |
 | 3 | **Documentation** | Post/view announcements, filter by department/year | TBD |
 | 4 | **Exams & Results** | Exam schedules, upload/view results (Exam, ExamResult models) | TBD |
-| 5 | **BackEnd & AI Study Assistant** | Topic-based question generation + AI answer feedback | Deba |
+| 5 | **BackEnd & AI Study Assistant** | Topic-based question generation + AI answer feedback | TBD |
 
 ## Data Models (high level)
 
