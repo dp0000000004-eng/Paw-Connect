@@ -117,11 +117,14 @@ nav a.active {
 /* PROFILE CIRCLE */
 
 
-.nav__right {
+.nav__right a {
+
     display: flex;
   align-items: center;
   gap: 8px;
+  background-color: #06142E;
   flex-shrink: 0;
+  text-decoration:none;
 
 }
 
@@ -167,6 +170,7 @@ width: 30px;
     margin-top: -30px;
 }
 
+
 .hero-text h1 {
     font-family: Arial, sans-serif;
 
@@ -175,6 +179,7 @@ width: 30px;
     line-height: 1.05;
 
     color: white;
+    cursor: none;
 }
 
 .hero-text h1 span {
@@ -194,47 +199,24 @@ width: 30px;
 
 /* BUTTON */
 
-.learn-btn {
+.hero-text a{
+    font-family:'NTR', sans-serif;
     margin-top: 25px;
-
     padding: 13px 28px;
-
     border: none;
     border-radius: 30px;
-
     background: #f4bd32;
     color: #06212b;
-
     font-size: 15px;
     font-weight: 700;
-
     cursor: pointer;
-
+    text-decoration: none;
     transition: 0.3s;
 }
 
-.learn-btn:hover {
+.hero-text a:hover {
     background: rgba(207, 36, 196, 0.55);
     transform: translateY(-3px);
-}
-
-
-/* PERSON */
-
-.person {
-    position: absolute;
-
-    right: 3%;
-    bottom: -10px;
-
-    width: 330px;
-
-    z-index: 3;
-}
-
-.person img {
-    width: 100%;
-    display: block;
 }
 
 

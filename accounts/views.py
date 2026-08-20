@@ -11,7 +11,7 @@ def home(request):
     return render(request, 'welcome.html')
 
 
-def login_view(request):
+def createAccount(request):
 
     try:
         if request.method == "POST":
