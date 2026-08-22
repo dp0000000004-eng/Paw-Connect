@@ -23,7 +23,6 @@ def createAccount(request):
                 username=username,
                 email=email
             )
-
             user.set_password(raw_password)
 
             user.save()
@@ -34,4 +33,4 @@ def createAccount(request):
         messages.error(request, "Username exists in this name try another :( ")
         
 
-    return render(request, 'login.html')
+    return render(request, 'create_acc.html')
