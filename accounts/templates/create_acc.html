@@ -10,23 +10,36 @@
   <link rel="stylesheet" href="{% static 'css/create.css' %}">
 </head>
 <body>
+
+
   <div class="login-container">
+
+    
+    {% if messages %}
+      {% for message in messages %}
+        <p class="error-msg">
+          {{ message }}
+        </p>
+      {% endfor %}
+    {% endif %}
+
     <form class="login-box" method="POST" >
+      {% csrf_token %}
       <h2>Create Account</h2>
       <div class="input-group">
         <span class="icon">👤</span>
-        <input type="text" placeholder="Username" required>
+        <input type="text" name="username" placeholder="Username" required>
       </div>
       <div class="input-group">
         <span class="icon">✉️</span>
-        <input type="email" placeholder="email" required>
+        <input type="email" name="email" placeholder="email" required>
       </div>
       <div class="input-group">
         <span class="icon">🔒
         </span>
-        <input type="password" placeholder=" Conform Password" required>
+        <input type="password" name="password" placeholder=" Enter Password" required>
       </div>
-      <button type="submit">Create</button>
+      <input type="submit" value="Create">
     </form>
      
     

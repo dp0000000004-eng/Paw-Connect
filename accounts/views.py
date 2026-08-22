@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db import IntegrityError
@@ -27,7 +27,7 @@ def createAccount(request):
 
             user.save()
 
-            messages.success(request, "Account created Sussessfully")
+            return redirect('home')
 
     except IntegrityError:
         messages.error(request, "Username exists in this name try another :( ")
