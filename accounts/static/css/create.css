@@ -70,7 +70,7 @@ body {
 
 
 /* Button */
-button {
+.button {
   width: 100%;
   padding: 10px;
   border: none;
@@ -82,7 +82,7 @@ button {
   justify-content: center;
 }
 
-button:hover {
+.button:hover {
   background: #320c9c;
   transition: ease 0.75s;
 }
