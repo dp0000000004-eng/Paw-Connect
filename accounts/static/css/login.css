@@ -8,7 +8,7 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(to top, #2e003e, #4b0082, #6a0dad);
-  background-image: url('db.jpeg'); 
+  background-image: url('../images/login_bg.jpeg'); 
   background-size: cover;
   background-position: center;
   height: 100vh;

@@ -30,18 +30,13 @@
                 <a href="#">Contact</a>
             </nav>
             <div class="nav__right">
-                <a href="#" title="Login">
-                    Login
-                </a>
-            <!-- {% if user.is_authenticated %}
-                <a href="" class="nav__user nav__user--link " title="Account settings">
+            {% if user.is_authenticated %}
+                <a href="" title="Account settings">
                     <span class="nav__avatar">{{ user.username|slice:":1"|upper }}</span>
-                    <span class="nav__username">{{ user.username }}</span>
                 </a>
-                <a href="" class="btn btn--ghost btn--sm">Log out</a>
             {% else %}
                 <a href="" class="profile-circle">Log in</a>
-            {% endif %} -->
+            {% endif %}
              </div>
         </header>
     </section>
