@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
-  <link rel="stylesheet" href="{% static 'css/create.css' %}">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -25,21 +25,20 @@
 
     <form class="login-box" method="POST" >
       {% csrf_token %}
-      <h2>Create Account</h2>
+      <h2>Login </h2>
       <div class="input-group">
         <span class="icon">👤</span>
         <input type="text" name="username" placeholder="Username" required>
-      </div>
-      <div class="input-group">
-        <span class="icon">✉️</span>
-        <input type="email" name="email" placeholder="email" required>
       </div>
       <div class="input-group">
         <span class="icon">🔒
         </span>
         <input type="password" name="password" placeholder=" Enter Password" required>
       </div>
-      <input class="button" type="submit" value="Create">
+      <input class="button" type="submit" value="Login">
+      <p class="info-cls">
+        if not have a account <a href="#" >Sign in</a>
+      </p>
     </form>
      
     

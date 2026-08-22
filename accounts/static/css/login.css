@@ -8,7 +8,7 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: linear-gradient(to top, #2e003e, #4b0082, #6a0dad);
-  background-image: url('../images/login_bg.jpeg'); 
+  background-image: url('db.jpeg'); 
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -112,4 +112,21 @@ body {
   color:red;
   font-family:'NTR', sans-serif;
   background-color: transparent black;
+}
+
+.info-cls {
+    font-family:arial;
+    color:#ffffff;
+
+}
+
+.info-cls a{
+    text-decoration:none;
+    color:#6a0dad;
+    transition:ease 0.75s;
+}
+
+.info-cls a:hover {
+    text-decoration:underline;
+    color:#6a0dad;
 }
