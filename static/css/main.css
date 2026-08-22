@@ -124,9 +124,9 @@ nav a.active {
     display: flex;
   align-items: center;
   gap: 8px;
+  size:50%;
   border:thin white ;
   background-color: #43088b;
-  flex-shrink: 0;
   border-radius:50%;
   padding:6px;
   color:gold;
