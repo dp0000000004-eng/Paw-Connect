@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+
+
+
+
+/* Background styling */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to top, #2e003e, #4b0082, #6a0dad);
+  background-image: url('../images/login_bg.jpeg'); 
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Login box */
+.login-box {
+  background: rgba(235, 231, 231, 0.1);
+  padding: 30px;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+  color: #131313;
+  width: 300px;
+  text-align: center;
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+}
+
+/* Input fields */
+.input-group {
+  color: #ebe6e6;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  background: rgba(15, 9, 9, 0.2);
+  border-radius: 50px;
+  padding: 5px;
+}
+
+.input-group .icon {
+  margin: 0 8px;
+}
+
+.input-group input {
+  border: none;
+  background: transparent;
+  outline: none;
+  color: #ebe6e6;
+  flex: 1;
+  padding: 8px;
+}
+
+/* Options */
+.options {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+/* Button */
+.button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #e7e1e1;
+  color: #0b0401;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.button:hover {
+  background: #320c9c;
+  transition: ease 0.75s;
+}
+
+/* Register text */
+.register {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.register a {
+  color: #070705;
+  text-decoration: underline;
+}
+
+/* Footer logo */
+.footer-logo {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.error-msg {
+  text-align:center;
+  color:red;
+  font-family:'NTR', sans-serif;
+  background-color: transparent black;
+}

@@ -1,0 +1,48 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="{% static 'css/create.css' %}">
+</head>
+<body>
+
+
+  <div class="login-container">
+
+    
+    {% if messages %}
+      {% for message in messages %}
+        <p class="error-msg">
+          {{ message }}
+        </p>
+      {% endfor %}
+    {% endif %}
+
+    <form class="login-box" method="POST" >
+      {% csrf_token %}
+      <h2>Create Account</h2>
+      <div class="input-group">
+        <span class="icon">👤</span>
+        <input type="text" name="username" placeholder="Username" required>
+      </div>
+      <div class="input-group">
+        <span class="icon">✉️</span>
+        <input type="email" name="email" placeholder="email" required>
+      </div>
+      <div class="input-group">
+        <span class="icon">🔒
+        </span>
+        <input type="password" name="password" placeholder=" Enter Password" required>
+      </div>
+      <input class="button" type="submit" value="Create">
+    </form>
+     
+    
+  </div>
+</body>
+</html>
