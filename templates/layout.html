@@ -35,7 +35,7 @@
                     <span class="nav__avatar">{{ user.username|slice:":1"|upper }}</span>
                 </a>
             {% else %}
-                <a href="" class="profile-circle">Log in</a>
+                <a href="{% url 'user:login' %}" class="profile-circle">Login</a>
             {% endif %}
              </div>
         </header>

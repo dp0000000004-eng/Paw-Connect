@@ -32,7 +32,7 @@ def createAccount(request):
 
     except IntegrityError:
         messages.error(request, "Username exists in this name try another :( ")
-        
+
 
     return render(
         request, 
@@ -69,3 +69,4 @@ def login_view(request):
         request,
         'Login.html'
     )
+
