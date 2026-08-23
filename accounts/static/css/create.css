@@ -113,3 +113,20 @@ body {
   font-family:'NTR', sans-serif;
   background-color: transparent black;
 }
+
+.info-cls {
+    font-family:arial;
+    color:#ffffff;
+
+}
+
+.info-cls a{
+    text-decoration:none;
+    color:#6a0dad;
+    transition:ease 0.75s;
+}
+
+.info-cls a:hover {
+    text-decoration:underline;
+    color:#6a0dad;
+}
