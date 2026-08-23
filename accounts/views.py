@@ -28,7 +28,7 @@ def createAccount(request):
 
             user.save()
 
-            return redirect('home')
+            return redirect('use:home')
 
     except IntegrityError:
         messages.error(request, "Username exists in this name try another :( ")

@@ -10,7 +10,7 @@ class Collage_Meta_Data(models.Model):
     )
 
     
-class Departments(models.MOdel):
+class Departments(models.Model):
     name = models.CharField(max_length=255)
     code = models.CharField(max_length=24)
 
