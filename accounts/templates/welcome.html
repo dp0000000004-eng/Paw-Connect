@@ -18,9 +18,16 @@
                     Learn today. Build your skills.
                     Create your future.
                 </p><br><br>
+                {% if user.is_authenticated %}
+                <a href="" class="learn-btn">
+                    Explore More →
+                </a>
+                {% else %}
                 <a href="{% url 'user:create_account' %}" class="learn-btn">
                     Create account →
                 </a>
+                {% endif %}
+                
             </div>
         </div>
 
