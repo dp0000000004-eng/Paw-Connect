@@ -14,8 +14,11 @@
     </title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=NTR&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=NTR&display=swap');
     </style>
+    {% block style %}
+        
+    {% endblock %}
 </head>
 <body>
     <section class="sec-nav">
@@ -24,8 +27,8 @@
                 PawByte
             </div>
             <nav>
-                <a href="#" class="active">Home</a>
-                <a href="#" class="">About</a>
+                <a href="{% url 'user:home' %}" class="active">Home</a>
+                <a href="{% url 'user:about' %}" class="">About</a>
                 <a href="#">Services</a>
                 <a href="#">Contact</a>
             </nav>

@@ -1,16 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Govt. Polytechnic, Angul</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="clg.css">
-</head>
 
-<body>
+{% extends 'layout.html' %}
+
+{% load static %}
+
+
+    {% block title %}
+        Govt. Polytechnic, Angul
+    {% endblock %}
+
+    {% block style %}
+        <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    {% endblock %}
+
+{% block body %}
 
     <main class="hero">
         <h1>
@@ -228,5 +232,4 @@
 
     </main>
 
-</body>
-</html>
+{% endblock %}
