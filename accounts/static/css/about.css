@@ -76,6 +76,12 @@ body {
    MAIN TITLE
 ======================================== */
 
+.main-Head {
+    font-size:100px;
+    font-family: 'NTR', sans-serif;
+    color:goldenrod;
+}
+
 .title {
     position: relative;
 
