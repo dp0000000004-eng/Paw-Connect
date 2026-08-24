@@ -73,3 +73,9 @@ def login_view(request):
 
 def Israt(request):
     return HttpResponse("Hello From Israt")
+
+
+
+def about_view(request):
+
+    return render(request, 'about.html')

@@ -44,7 +44,7 @@ body {
             rgba(0, 0, 0, 0.15),
             rgba(0, 0, 0, 0.28)
         ),
-        url("campus.jpg") center center / cover repeat;
+        url("../images/campus.jpg") center center / cover repeat;
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
