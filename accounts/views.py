@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.db import IntegrityError
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -28,7 +29,7 @@ def createAccount(request):
 
             user.save()
 
-            return redirect('use:home')
+            return redirect('user:home')
 
     except IntegrityError:
         messages.error(request, "Username exists in this name try another :( ")
@@ -70,3 +71,5 @@ def login_view(request):
         'Login.html'
     )
 
+def Israt(request):
+    return HttpResponse("Hello From Israt")
