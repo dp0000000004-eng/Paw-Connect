@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>
+        Paw AI
+    </h1>
+    {% for chat in chats %}
+        <p>
+            you: {{ chat.prompt }}
+        </p>
+        <p>
+            Response: {{ chat.response }}
+        </p>
+    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+        <label>
+            Prompt
+        </label><br>
+        <input type="text" name="prompt" placeholder="prompt"><br>
+        <input type="submit">
+    </form>
+</body>
+</html>

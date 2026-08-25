@@ -8,7 +8,7 @@ client = OpenAI(
 
 completion = client.chat.completions.create(
   model="nvidia/nemotron-3-ultra-550b-a55b",
-  messages=[{"role":"w","content":"Write a limerick about the wonders of GPU computing."}],
+  messages=[{"role":"assistant","content":"Write a limerick about the wonders of GPU computing."}],
   temperature=1,
   top_p=0.95,
   max_tokens=1384,
