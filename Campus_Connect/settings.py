@@ -75,19 +75,19 @@ WSGI_APPLICATION = 'Campus_Connect.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
-import dj_database_url
-
 DATABASES = {
-    'default': dj_database_url.parse('postgresql://paw_db_wba9_user:FrxEnDCynTZFpKkNOkrmNGvKcewFch1s@dpg-da657nbncjis73ao492g-a.singapore-postgres.render.com/paw_db_wba9')
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+
+# import dj_database_url
+
+# DATABASES = {
+#     'default': dj_database_url.parse('postgresql://paw_db_wba9_user:FrxEnDCynTZFpKkNOkrmNGvKcewFch1s@dpg-da657nbncjis73ao492g-a.singapore-postgres.render.com/paw_db_wba9')
+# }
 
 
 

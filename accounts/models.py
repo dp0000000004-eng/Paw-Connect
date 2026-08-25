@@ -33,3 +33,18 @@ class Students(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} {self.branch}"
+
+
+
+class HOD_Model(models.Model):
+    name = models.CharField(max_length=255)
+    department = models.ForeignKey(
+        Departments,
+        on_delete=models.CASCADE,
+        related_name="department_name"
+    )
+    description = models.CharField(max_length=3000)
+
+
+    def __str__(self):
+        return f"{self.name} {self.department} {self.description}"

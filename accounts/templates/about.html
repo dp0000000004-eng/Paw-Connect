@@ -1,6 +1,5 @@
 
 
-
 {% extends 'layout.html' %}
 
 {% load static %}
@@ -27,126 +26,31 @@
 
 
         <!-- Profile Cards -->
-        <section class="cards">
+        
+            <section class="cards">
+                {% for hod in hods %}
 
-            <!-- Card 1 -->
-            <article class="card">
+                <!-- Card 1 -->
+                    <article class="card">
 
-                <div class="profile">
-                    <span><img src="char.png"</span>
-                </div>
+                        <div class="profile">
+                            <span><img src="char.png"</span>
+                        </div>
 
-                <h2 class="name">
-                    Char Name
-                </h2>
+                        <h2 class="name">
+                            {{ hod.name }}
+                        </h2>
 
-                <p class="role">
-                    Skill Development &amp;<br>
-                    Technical Education<br>
-                    Department, Odisha
-                </p>
+                        <p class="role">
+                            {{ hod.description }}
+                        </p>
 
-            </article>
-
-
-            <!-- Card 2 -->
-            <article class="card">
-
-                <div class="profile">
-                    <span>02</span>
-                </div>
-
-                <h2 class="name">
-                    Char Name
-                </h2>
-
-                <p class="role">
-                    Skill Development &amp;<br>
-                    Technical Education<br>
-                    Department, Odisha
-                </p>
-
-            </article>
-
-
-            <!-- Card 3 -->
-            <article class="card">
-
-                <div class="profile">
-                    <span>03</span>
-                </div>
-
-                <h2 class="name">
-                    Char Name
-                </h2>
-
-                <p class="role">
-                    Skill Development &amp;<br>
-                    Technical Education<br>
-                    Department, Odisha
-                </p>
-
-            </article>
-
-
-            <!-- Card 4 -->
-            <article class="card">
-
-                <div class="profile">
-                    <span>04</span>
-                </div>
-
-                <h2 class="name">
-                    Char Name
-                </h2>
-
-                <p class="role">
-                    Skill Development &amp;<br>
-                    Technical Education<br>
-                    Department, Odisha
-                </p>
-
-            </article>
-
-
-            <!-- Card 5 -->
-            <article class="card">
-
-                <div class="profile">
-                    <span>05</span>
-                </div>
-
-                <h2 class="name">
-                    Char Name
-                </h2>
-
-                <p class="role">
-                    Skill Development &amp;<br>
-                    Technical Education<br>
-                    Department, Odisha
-                </p>
-
-            </article>
-
-
-            <!-- Card 6 -->
-            <article class="card">
-
-                <div class="profile">
-                    <span>06</span>
-                </div>
-
-                <h2 class="name">
-                    Char Name
-                </h2>
-
-                <p class="role">
-                    Skill Development &amp;<br>
-                    Technical Education<br>
-                    Department, Odisha
-                </p>
-
-            </article>
+                    </article>
+                {% empty %}
+                    <h1>
+                        No Data Available
+                    </h1>
+                {% endfor %}
            
         </section>
         <h1> BRANCHS</h1>
