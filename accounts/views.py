@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.db import IntegrityError
 from django.http import HttpResponse
+from .models import HOD_Model
 
 # Create your views here.
 
@@ -78,4 +79,14 @@ def Israt(request):
 
 def about_view(request):
 
-    return render(request, 'about.html')
+    hods = HOD_Model.objects.all()
+
+
+
+    return render(
+        request, 
+        'about.html',
+        {
+            "hods":hods
+        }
+    )
