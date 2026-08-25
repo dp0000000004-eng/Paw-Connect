@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import Chat
 from openai import OpenAI
+from dotenv import load_dotenv
+import os
 
 # Create your views here.
 
@@ -9,13 +11,15 @@ def chat(request):
 
     if request.method == "POST":
 
+        load_dotenv()
+
         chat = Chat()
 
         prompt = request.POST.get('prompt')
 
         client = OpenAI(
             base_url = "https://integrate.api.nvidia.com/v1",
-            api_key = "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"
+            api_key = os.getenv('NVIDIA_AI_API_KEY')
         )
 
         completion = client.chat.completions.create(
