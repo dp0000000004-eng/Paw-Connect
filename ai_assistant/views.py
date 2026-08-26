@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Chat
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+
 import random
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -12,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def chat(request):
+
 
     greetings = [
 
@@ -49,7 +52,7 @@ def chat(request):
         messages = [
             {
                 "role":"assistant",
-                "content":prompt 
+                "content":"don't give ans using .md format give in normal paragraph use white space tag insted " + prompt 
             }
         ],
 
@@ -71,7 +74,11 @@ def chat(request):
             if chunk.choices[0].delta.content is not None:
                 response += chunk.choices[0].delta.content + " "
 
+
+        user = User.objects.get(username=request.user.username)
+
         chat.prompt = prompt
+        chat.user = user
         chat.response = response
         chat.save()
 

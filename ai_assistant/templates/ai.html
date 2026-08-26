@@ -1,34 +1,76 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paw AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/ai.css' %}">
 </head>
 <body>
-    <h1>
-        Paw AI
-    </h1>
-    
-        <h1>
-            {{ greets }}
-        </h1>
-    
+
+<header>
+  <div class="mark">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="12" cy="15.5" rx="5.2" ry="4.3" fill="#0B1220"/>
+      <ellipse cx="5.6" cy="9.2" rx="1.9" ry="2.3" fill="#0B1220"/>
+      <ellipse cx="10.2" cy="6.2" rx="1.9" ry="2.4" fill="#0B1220"/>
+      <ellipse cx="13.8" cy="6.2" rx="1.9" ry="2.4" fill="#0B1220"/>
+      <ellipse cx="18.4" cy="9.2" rx="1.9" ry="2.3" fill="#0B1220"/>
+    </svg>
+  </div>
+  <h1 id="brand">Paw AI <span>· study assistant</span></h1>
+  <a href="{% url 'user:home' %}" class="Home" >Home</a>
+  <div class="status"><span class="dot"></span> Online</div>
+</header>
+
+<main class="chat-box">
+  <h2 class="greet">{{ greets }}</h2>
+  <p class="greet-sub">Ask about your syllabus, exams, or notices — I'll pull from PawConnect.</p>
+
+  <div class="chat" id="chatLog">
     {% for chat in chats %}
-        <p>
-            you: {{ chat.prompt }}
-        </p>
-        <p>
-            Paw Ai: {{ chat.response }}
-        </p>
+      <div class="row user">
+        <div class="avatar">👤</div>
+        <div class="bubble">
+          <div class="who">You</div>
+          {{ chat.prompt }}
+        </div>
+      </div>
+      <div class="row bot">
+        <div class="avatar">👾</div>
+        <div class="bubble">
+          <div class="who">Paw AI</div>
+          {{ chat.response }}
+        </div>
+      </div>
+    {% empty %}
+      <div class="row bot">
+        <div class="avatar">AI</div>
+        <div class="bubble">
+          <div class="who">Paw AI</div>
+          Hello! How can I help today?
+        </div>
+      </div>
     {% endfor %}
-    <form method="post">
-        {% csrf_token %}
-        <label>
-            Prompt
-        </label><br>
-        <input type="text" name="prompt" placeholder="prompt"><br>
-        <input type="submit">
-    </form>
+  </div>
+
+  <form method="post" id="chatForm">
+    {% csrf_token %}
+    <label for="prompt">Prompt</label>
+    <input type="text" id="prompt" name="prompt" placeholder="Ask Paw AI anything…" autocomplete="off" required>
+    <input type="submit" value="&#10148;">
+  </form>
+</main>
+
+<script>
+  // Auto-scroll to the latest message on load, and after each POST reload.
+  const log = document.getElementById('chatLog');
+  if (log) log.scrollTop = log.scrollHeight;
+</script>
+
 </body>
 </html>
