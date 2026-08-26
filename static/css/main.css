@@ -44,134 +44,85 @@ body {
 
 
 /* NAVBAR */
-
-.navbar {
-    height: 70px;
+/* Universal transparent nav — sits on top of page content */
+.sec-nav {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 75px;
+    z-index: 1000;
+}
 
+.navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /*backdrop-filter: blur(10px);*/
-    box-shadow: none;
-    position: fixed;
-    z-index: 9999;
-    background: radial-gradient(
-      circle at 55% 35%,
-            #1683FF 0%,
-            #0057D9 25%,
-            #06142E 70%
-            
-    );
+    padding: 16px 32px;
+    background: rgba(20, 17, 13, 0.5);   /* dark, semi-transparent — tweak alpha as needed */
+    backdrop-filter: blur(10px);          /* frosted-glass effect so text stays readable over any bg */
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
-/*nav*/
-.sec-nav{
-    width: 100%;
-    background: transparent;
-}
-
-
-/* LOGO */
 
 .logo {
-    font-family: sans-serif;
-
-    font-size: 32px;
-    font-weight: 800;
-
-    color: #f5bd35;
-    transform: translateX(+0.5cm);
-}
-
-
-/* NAVIGATION */
-
-nav {
-    display: flex;
-    gap: 45px;
-    margin-left: auto;
-    margin-right: 35px;
-}
-
-nav a {
-    font-family: 'NTR', sans-serif;
-    color: #f3c34a;
-
-    text-decoration: none;
-
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 600;
-
-    transition: 0.3s;
+    color: #f2ede3;
 }
 
-nav a:hover,
-nav a.active {
-    color: white;
-    transform: translateY(-2px);
-}
-
-
-/* PROFILE CIRCLE */
-
-
-.nav__right a {
-    font-family: 'NTR', sans-serif;
-
+.navbar nav {
     display: flex;
-  align-items: center;
-  gap: 8px;
-  size:50%;
-  border:thin white ;
-  background-color: #43088b;
-  border-radius:50%;
-  padding:6px;
-  color:gold;
-  text-decoration:none;
-  transition: ease 0.75s;
-  margin-right:4px;
-
+    gap: 24px;
 }
 
-.nav__right a:hover {
-    font-family: 'NTR', sans-serif;
+.navbar nav a {
+    color: #a8a196;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
 
+.navbar nav a:hover,
+.navbar nav a.active {
+    color: #ef9f27;   /* your amber accent */
+}
+
+.nav__right {
     display: flex;
-  align-items: center;
-  gap: 8px;
-  border:thin white ;
-  background-color: #43088b;
-  flex-shrink: 0;
-  border-radius:50%;
-  padding:6px;
-  color:white;
-  text-decoration:none;
-
+    align-items: center;
 }
 
+/* Perfect circle avatar */
+.nav__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #2c2620;
+    color: #ef9f27;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    aspect-ratio: 1 / 1;   /* guarantees circle even if width/height ever mismatch */
+}
+
+/* Login link when not authenticated */
 .profile-circle {
-width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--panel-hover);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text);
+    padding: 8px 18px;
+    border-radius: 20px;
+    background: #ef9f27;
+    color: #2c1a02;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
 }
 
-.profile-circle span {
-    top:6px;
+/* Since nav is fixed/floating, push page content down so it's not hidden underneath */
+body {
+    padding-top: 72px;   /* roughly navbar height — adjust to match actual rendered height */
 }
-
-
-
 
 /* HERO CONTENT */
 

@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.db import IntegrityError
 from django.http import HttpResponse
 from .models import HOD_Model
+from .forms import FeedbackForm
 
 # Create your views here.
 
@@ -90,3 +91,22 @@ def about_view(request):
             "hods":hods
         }
     )
+
+
+def feedback(request):
+    if request.method == "POST":
+
+        form = FeedbackForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('user:home')
+
+        else:
+            form = FeedbackForm()
+
+
+    # return render(
+    #     request,
+    #     'feed'
+    # )
