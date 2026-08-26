@@ -9,12 +9,17 @@
     <h1>
         Paw AI
     </h1>
+    
+        <h1>
+            {{ greets }}
+        </h1>
+    
     {% for chat in chats %}
         <p>
             you: {{ chat.prompt }}
         </p>
         <p>
-            Response: {{ chat.response }}
+            Paw Ai: {{ chat.response }}
         </p>
     {% endfor %}
     <form method="post">
