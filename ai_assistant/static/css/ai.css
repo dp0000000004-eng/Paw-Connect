@@ -1,0 +1,197 @@
+:root{
+  --bg: #0B1220;
+  --panel: #111A2B;
+  --panel-raised: #16213A;
+  --border: #22304A;
+  --amber: #F5A623;
+  --teal: #2DD4BF;
+  --text: #E8ECF4;
+  --muted: #8792A8;
+}
+*{ box-sizing: border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background:
+    radial-gradient(1100px 500px at 15% -10%, rgba(45,212,191,0.08), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(245,166,35,0.07), transparent 55%),
+    var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+/* ---------- header ---------- */
+header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:18px 28px;
+  border-bottom:1px solid var(--border);
+  backdrop-filter: blur(6px);
+}
+.mark{
+  width:34px; height:34px;
+  border-radius:10px;
+  background: linear-gradient(135deg, var(--teal), var(--amber));
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.mark svg{ width:19px; height:19px; }
+#brand{
+  font-family:'Space Grotesk', sans-serif;
+  font-size:1.05rem;
+  font-weight:600;
+  letter-spacing:0.01em;
+  margin:0;
+}
+#brand span{ color: var(--muted); font-weight:400; }
+.status{
+  margin-left:auto;
+  display:flex; align-items:center; gap:8px;
+  font-size:0.78rem;
+  color: var(--muted);
+}
+.dot{
+  width:7px; height:7px; border-radius:50%;
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(45,212,191,0.18);
+}
+
+/* ---------- main ---------- */
+main.chat-box{
+  flex:1;
+  width:100%;
+  max-width:760px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  padding:0 20px;
+  min-height:0;
+}
+
+.greet{
+  font-family:'Space Grotesk', sans-serif;
+  font-weight:600;
+  font-size:clamp(1.4rem, 3vw, 1.9rem);
+  margin:28px 0 4px;
+}
+.greet-sub{
+  color:var(--muted);
+  font-size:0.9rem;
+  margin:0 0 22px;
+}
+
+.chat{
+  flex:1;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  padding-bottom:18px;
+}
+
+.row{ display:flex; gap:10px; max-width:82%; }
+.row.user{ align-self:flex-end; flex-direction:row-reverse; }
+.row.bot{ align-self:flex-start; }
+
+.avatar{
+  width:28px; height:28px; border-radius:8px;
+  flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.7rem; font-weight:600;
+  font-family:'Space Grotesk', sans-serif;
+}
+.row.user .avatar{ background: rgba(245,166,35,0.16); color: var(--amber); }
+.row.bot .avatar{ background: rgba(45,212,191,0.16); color: var(--teal); }
+
+.bubble{
+  padding:11px 15px;
+  border-radius:14px;
+  font-size:0.92rem;
+  line-height:1.5;
+  border:1px solid var(--border);
+  overflow-wrap:break-word;
+}
+.row.user .bubble{
+  background: var(--panel-raised);
+  border-top-right-radius:4px;
+}
+.row.bot .bubble{
+  background: var(--panel);
+  border-top-left-radius:4px;
+}
+.who{
+  font-size:0.68rem;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:var(--muted);
+  margin-bottom:4px;
+  font-weight:600;
+}
+
+/* ---------- form ---------- */
+form{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  margin:14px 0 22px;
+  background: var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+}
+form label{ display:none; }
+form input[type="text"]{
+  flex:1;
+  background:transparent;
+  border:none;
+  outline:none;
+  color:var(--text);
+  font-family:'Inter', sans-serif;
+  font-size:0.94rem;
+  padding:8px 6px;
+}
+form input[type="text"]::placeholder{ color: var(--muted); }
+form input[type="submit"]{
+  appearance:none;
+  border:none;
+  width:38px; height:38px;
+  border-radius:11px;
+  background: linear-gradient(135deg, var(--teal), var(--amber));
+  color:#0B1220;
+  font-size:1rem;
+  font-weight:700;
+  cursor:pointer;
+  flex-shrink:0;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+form input[type="submit"]:hover{ transform: translateY(-1px); opacity:0.92; }
+form input[type="submit"]:active{ transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce){
+  form input[type="submit"]{ transition:none; }
+}
+
+@media (max-width: 480px){
+  header{ padding:14px 18px; }
+  main.chat-box{ padding:0 14px; }
+  .row{ max-width:92%; }
+}
+
+
+.Home {
+  text-decoration: none;
+  color:#2DD4BF;
+
+}
+
+
+.Home:hover {
+  text-decoration: underline;
+  color:#2DD4BF;
+
+}
+

@@ -19,8 +19,8 @@
                     Create your future.
                 </p><br><br>
                 {% if user.is_authenticated %}
-                <a href="" class="learn-btn">
-                    Explore More →
+                <a href="{% url 'ai:ai_view' %}" class="learn-btn">
+                    Paw AI →
                 </a>
                 {% else %}
                 <a href="{% url 'user:create_account' %}" class="learn-btn">
