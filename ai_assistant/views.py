@@ -3,11 +3,31 @@ from .models import Chat
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+import random
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+
+
+@login_required
 def chat(request):
+
+    greetings = [
+
+    f"Nice to see you, {request.user.username}. What’s new?",
+    f"Hey {request.user.username}, glad you’re here!",
+    f"Good to catch up with you, {request.user.username}",
+    f"Hello {request.user.username}, how’s your day going?",
+    f"Great to have you around, {request.user.username}!",
+    f"Hi {request.user.username}, always a pleasure!",
+    f"{request.user.username}, it’s wonderful to see you again!",
+    f"Hey there, {request.user.username} — what’s happening?",
+    f"Welcome back, {request.user.username}!",
+    f"{request.user.username}, you always brighten the chat!"
     
+    ]
+
 
     if request.method == "POST":
 
@@ -19,7 +39,8 @@ def chat(request):
 
         client = OpenAI(
             base_url = "https://integrate.api.nvidia.com/v1",
-            api_key = os.getenv('NVIDIA_AI_API_KEY')
+            api_key = os.getenv('NVIDIA_AI_API_KEY'),
+            timeout=60.0
         )
 
         completion = client.chat.completions.create(
@@ -28,7 +49,7 @@ def chat(request):
         messages = [
             {
                 "role":"assistant",
-                "content":prompt
+                "content":prompt 
             }
         ],
 
@@ -56,11 +77,14 @@ def chat(request):
 
     chats = Chat.objects.all()
 
+    greets = random.choice(greetings)
+
 
     return render(
         request, 
         'ai.html',
         {
-            "chats":chats
+            "chats":chats,
+            "greets":greets
         }
     )
