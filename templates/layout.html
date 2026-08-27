@@ -26,11 +26,11 @@
             <div class="logo">
                 PawByte
             </div>
-            <nav>
-                <a href="{% url 'user:home' %}" class="active">Home</a>
-                <a href="{% url 'user:about' %}" class="">About</a>
-                <a href="#">Services</a>
-                <a href="#">Contact</a>
+            <nav class="navLinks">
+                <a id="navEl" href="{% url 'user:home' %}" class="active">Home</a>
+                <a id="navEl" href="{% url 'user:about' %}" class="">About</a>
+                <a id="navEl" href="#" class="" >Services</a>
+                <a id="navEl" href="#" class="" >Contact</a>
             </nav>
             <div class="nav__right">
             {% if user.is_authenticated %}
@@ -48,6 +48,7 @@
     <!-- Plugin Body -->
     {% block body %}
     {% endblock %}
+    <script src="{% static 'components/NavLink.js' %}"></script>
 
     
 </body>
