@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Exams
+{% endblock %}
+
+{% block body %}
+{% for syllabus in syllabuss %}
+    <h1>
+        {{ syllabus.branch }} -> Link <a href="{{ syllabus.link }}" target="_blank">
+        Click Here
+    </a>
+    </h1>
+    
+{% endfor %}
+{% endblock %}
