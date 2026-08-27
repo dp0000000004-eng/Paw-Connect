@@ -15,7 +15,9 @@ body {
 }
 
 body {
-    background: #f7f7f7;
+    margin-top: 0%;
+    padding-top: 0%;
+    background: #06142E;
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -31,6 +33,8 @@ body {
     position: static;
 
     width: 100%;
+    margin-top:0px;
+    padding-top:0px;
     min-height: 100vh;
 
     overflow: hidden;
@@ -59,11 +63,11 @@ body {
     position: absolute;
     inset: 0;
 
-    background: linear-gradient(
+    /* background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.05),
         rgba(0, 0, 0, 0.12)
-    );
+    ); */
 
     z-index: 0;
     
