@@ -27,9 +27,9 @@
                 PawByte
             </div>
             <nav class="navLinks">
-                <a id="navEl" href="{% url 'user:home' %}" class="active">Home</a>
+                <a id="navEl" href="{% url 'user:home' %}" class="">Home</a>
                 <a id="navEl" href="{% url 'user:about' %}" class="">About</a>
-                <a id="navEl" href="#" class="" >Services</a>
+                <a id="navEl" href="{% url 'user:feedback' %}" class="" >Feedback</a>
                 <a id="navEl" href="#" class="" >Contact</a>
             </nav>
             <div class="nav__right">

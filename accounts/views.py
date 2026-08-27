@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.db import IntegrityError
 from django.http import HttpResponse
-from .models import HOD_Model
+from .models import HOD_Model, FeedBack
 from .forms import FeedbackForm
 
 # Create your views here.
@@ -94,19 +94,29 @@ def about_view(request):
 
 
 def feedback(request):
+
     if request.method == "POST":
 
-        form = FeedbackForm(request.POST)
+        user = User.objects.get(
+            username = request.user
+        )
+        username = user
 
-        if form.is_valid():
-            form.save()
-            return redirect('user:home')
+        description = request.POST.get('description')
 
-        else:
-            form = FeedbackForm()
+        feedback = FeedBack(
+            user=username,
+            description=description
+        )
+
+        feedback.save()
+
+        return redirect(
+            'user:home'
+        )
 
 
-    # return render(
-    #     request,
-    #     'feed'
-    # )
+    return render(
+        request,
+        'feedback.html'
+    )
