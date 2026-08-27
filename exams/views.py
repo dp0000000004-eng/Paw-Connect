@@ -1,15 +1,33 @@
 from django.shortcuts import render
-from .models import Syllabus
+from .models import Syllabus, Semester
+from accounts.models import Departments
 
 # Create your views here.
 
-def syllabus(request):
-    syllabuss = Syllabus.objects.all()
+
+def departments(request):
+
+    branches = Departments.objects.all()
 
     return render(
         request,
-        'exams/exam.html',
+        'exams/branchs.html',
         {
-            "syllabuss":syllabuss
+            "branches":branches
+        }
+    )
+
+
+
+def syllabus(request, branch_id):
+    syllabuses = Syllabus.objects.get
+
+    print(syllabus)
+
+    return render(
+        request,
+        'exams/links.html',
+        {
+            "syllabuses":syllabuses
         }
     )

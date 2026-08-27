@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Exams
+{% endblock %}
+
+{% block body %}
+    {% for syllabus in syllabuses %}
+        <h1>
+            {{ syllabus.semester }} <sup>th</sup>Semester <a href="{{ syllabus.link }}" target="_blank">Click Here</a>
+        </h1>
+    {% endfor %}
+{% endblock %}

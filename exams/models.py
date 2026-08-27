@@ -12,18 +12,25 @@ class Semester(models.Model):
 
 
 class Syllabus(models.Model):
+
+
     branch = models.ForeignKey(
+
         Departments,
-        on_delete=models.CASCADE,
+        on_delete = models.CASCADE,
         related_name="dep_branch"
+        
     )
     semester = models.ForeignKey(
+
         Semester,
         on_delete=models.CASCADE,
         related_name="semester_model",
         null=True
+
     )
     link = models.URLField()
 
     def __str__(self):
         return self.link
+
