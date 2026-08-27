@@ -1,0 +1,24 @@
+
+
+{% extends 'layout.html' %}
+
+{% load static %}
+
+
+{% block title %}
+    Feedback
+{% endblock %}
+
+{% block body %}
+
+    <h1>
+        Feedback
+    </h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="description" placeholder="description">
+        <input type="submit">
+    </form>
+
+{% endblock %}

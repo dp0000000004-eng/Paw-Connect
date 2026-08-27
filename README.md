@@ -1,19 +1,9 @@
-# Campus Connect 
+# Campus Connect
 ## Unified College Portal with AI Study Assistant
 
 5th Semister major project — Diploma in Computer Engineering & IoT, Government Polytechnic Angul.
 
 **Group:** PawBytes
-
-<!-- ## Theme — Cat Branding 🐾
-
-The portal follows a light cat theme for personality and visual identity in the demo/presentation, layered on top of the same dark minimal aesthetic — no impact on functionality or build complexity.
-
-- **Logo/favicon:** paw print or cat silhouette
-- **Loading states:** paw-print spinner
-- **Empty states:** playful cat-toned copy (e.g. "purr-fectly quiet here — no notices yet")
-- **AI Study Assistant persona:** framed as a "study buddy cat" giving feedback — cosmetic copy layer over the same API calls
-- **Color palette:** dark theme with an orange-tabby or black-cat accent, consistent with existing dark navy/amber preference -->
 
 ## Idea
 
@@ -23,11 +13,28 @@ The goal is a project that's genuinely useful day-to-day on campus, buildable by
 
 ## Tech Stack
 
-- **Backend:** Django 
-- **Frontend:** Django templates + HTML + CSS +JS
+- **Backend:** Django
+- **Frontend:** Django templates + HTML + CSS + JS
 - **Database:** PostgreSQL
-- **AI:** External LLM API 
-- **Deployment:** Vercel 
+- **AI:** External LLM API
+- **Deployment:** Vercel
+
+## Screenshots
+
+# Home
+![Home page](screenshots/home.png)
+
+# About
+![About page](screenshots/About.png)
+
+# Paw AI — Study Assistant
+![Paw AI chat](screenshots/pawai.png)
+
+# Login
+![Login page](screenshots/login.png)
+
+# Sign Up
+![Sign up page](screenshots/CreateUser.png)
 
 ## Modules & Team Split (5 people)
 
@@ -68,8 +75,7 @@ The goal is a project that's genuinely useful day-to-day on campus, buildable by
 5. Django sends the answer back to the AI API asking for feedback/score
 6. Feedback is displayed and saved to `Answer` model
 
-
-## MVP Scope ( Mark ✓ If Complet a Task)
+## MVP Scope (Mark ✓ If Complete a Task)
 
 **Must-have (MVP):**
 - [x] Login/signup with role-based redirect (student/faculty/admin dashboards)
@@ -89,12 +95,12 @@ The goal is a project that's genuinely useful day-to-day on campus, buildable by
 - Real-time chat/notifications (WebSockets)
 - Any custom-trained ML model
 
-## Repo Structure (suggested)
+## Repo Structure
 
-Each app has its own **namespaced** templates and static folders (app name repeated inside, e.g. `attendance/templates/attendance/`) so filenames never collide across apps. Shared layout (navbar, footer, global theme) lives once at the project root in `templates/base.html`, and every app template extends it.
+Each app has its own **namespaced** templates and static folders (app name repeated inside, e.g. `attendance/templates/attendance/`) so filenames never collide across apps. Shared layout (navbar, footer, global theme) lives once at the project root in `templates/layout.html`, and every app template extends it.
 
 ```
-campus-connect/
+Paw-Connect/
 ├── accounts/
 │   ├── templates/
 │   │   └── accounts/
@@ -155,13 +161,13 @@ campus-connect/
 │   └── urls.py
 │
 ├── templates/                  # project-level, shared across all apps
-│   └── base.html                # navbar, footer, global theme — every app template extends this
+│   └── layout.html              # navbar, footer, global theme — every app template extends this
 │
 ├── static/                     # project-level, shared across all apps
 │   └── css/
 │       └── main.css             # global theme: colors, fonts, layout
 │
-├── campus_connect/              # project settings
+├── Campus_Connect/              # project settings
 │   ├── settings.py
 │   ├── urls.py                  # includes each app's urls.py
 │   └── wsgi.py
@@ -170,7 +176,9 @@ campus-connect/
 └── README.md
 ```
 
-**⚠️Note on `settings.py`:** set `TEMPLATES[0]['DIRS'] = [BASE_DIR / "templates"]` so Django finds the shared `base.html`, and keep `APP_DIRS: True` so it also finds each app's own namespaced templates.
+**⚠️ Note on `settings.py`:** set `TEMPLATES[0]['DIRS'] = [BASE_DIR / "templates"]` so Django finds the shared `layout.html`, and keep `APP_DIRS: True` so it also finds each app's own namespaced templates.
+
+---
 
 # Contributing to PawConnect
 
@@ -220,23 +228,7 @@ python manage.py runserver
 
 ## 3. Project Structure
 
-Each Django app is self-contained — work inside your own app's folder only:
-
-```
-Paw-Connect/
-├── accounts/          # login, signup, roles
-├── attendance/        # mark/view attendance
-├── notices/           # announcements
-├── exams/             # exam schedule + results
-├── ai_assistant/      # AI study assistant
-├── templates/
-│   └── layout.html    # shared layout — all pages extend this
-├── static/
-├── manage.py
-└── requirements.txt
-```
-
-Each app has its own `models.py`, `views.py`, `urls.py`, and namespaced `templates/<appname>/` + `static/<appname>/` folders. Don't edit another app's files without asking in the group first.
+Each Django app is self-contained — work inside your own app's folder only. See **Repo Structure** above.
 
 ## 4. Branching
 

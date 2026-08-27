@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,22 +9,27 @@
 
 
     <!-- Plugin title -->
+
     <title>
         {% block title %}
+
         {% endblock %}
     </title>
+
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <style>
-            @import url('https://fonts.googleapis.com/css2?family=NTR&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=NTR&display=swap');
     </style>
+
     {% block style %}
-        
+
     {% endblock %}
+
 </head>
 <body>
     <section class="sec-nav">
         <header class="navbar">
-            <div class="logo">
+            <div class="logo" id="logo">
                 PawByte
             </div>
             <nav class="navLinks">
@@ -34,7 +40,7 @@
             </nav>
             <div class="nav__right">
             {% if user.is_authenticated %}
-                <a href="" title="Account settings">
+                <a href="{% url 'user:logout' %}" title="Account settings">
                     <span class="nav__avatar">{{ user.username|slice:":1"|upper }}</span>
                 </a>
             {% else %}
@@ -50,6 +56,6 @@
     {% endblock %}
     <script src="{% static 'components/NavLink.js' %}"></script>
 
-    
+
 </body>
 </html>
