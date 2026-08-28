@@ -64,4 +64,4 @@ class Contact(models.Model):
     contact_no = models.IntegerField()
 
     def __str__(self):
-        return self.email
+        return f"Email - {self.email} Contact - {self.contact_no}"
