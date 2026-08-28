@@ -57,3 +57,11 @@ class FeedBack(models.Model):
 
     def __str__(self):
         return self.description
+
+
+class Contact(models.Model):
+    email = models.EmailField()
+    contact_no = models.IntegerField()
+
+    def __str__(self):
+        return self.email
