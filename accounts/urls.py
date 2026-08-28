@@ -11,5 +11,6 @@ urlpatterns = [
     path('israt/', views.Israt, name="israt"),
     path('about/', views.about_view, name="about"),
     path('feedback/', views.feedback, name="feedback"),
+    path('contact/', views.contact_view, name="contact"),
     path('logout/', views.logout_view, name="logout"),
 ]
