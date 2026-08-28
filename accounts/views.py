@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import HOD_Model, FeedBack
 from .forms import FeedbackForm
+from .models import Contact
 
 # Create your views here.
 
@@ -74,6 +75,8 @@ def login_view(request):
         'Login.html'
     )
 
+
+@login_required
 def Israt(request):
     return HttpResponse("Hello From Israt")
 
@@ -93,7 +96,7 @@ def about_view(request):
         }
     )
 
-
+@login_required
 def feedback(request):
 
     if request.method == "POST":
@@ -127,3 +130,16 @@ def feedback(request):
 def logout_view(request):
     logout(request)
     return redirect('user:home')
+
+
+def contact_view(request):
+
+    datas = Contact.objects.all()[0]
+
+    return render(
+        request,
+        'contact.html',
+        {
+            'datas':datas
+        }
+    )
