@@ -175,10 +175,33 @@ form input[type="submit"]:active{ transform: translateY(0); }
   form input[type="submit"]{ transition:none; }
 }
 
-@media (max-width: 480px){
-  header{ padding:14px 18px; }
-  main.chat-box{ padding:0 14px; }
-  .row{ max-width:92%; }
+@media (max-width: 640px){
+  header{
+    flex-wrap: wrap;
+    padding: 12px 14px;
+    gap: 8px;
+  }
+  #brand{
+    font-size: 0.95rem;
+    flex: 1;
+    min-width: 0;
+  }
+  #brand span{ display: none; }
+  .status{ margin-left: 0; }
+  .Home{
+    margin-left: auto;
+    padding: 8px 4px;
+  }
+  main.chat-box{ padding: 0 12px; }
+  .greet{ margin-top: 16px; }
+  .row{ max-width: 100%; }
+  form{
+    margin: 8px 0 16px;
+    padding: 10px;
+  }
+  form input[type="text"]{
+    font-size: 16px;
+  }
 }
 
 

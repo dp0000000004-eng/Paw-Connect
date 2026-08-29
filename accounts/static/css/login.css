@@ -3,6 +3,16 @@
 
 
 
+* {
+  box-sizing: border-box;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+}
+
 /* Background styling */
 body {
   margin: 0;
@@ -11,7 +21,8 @@ body {
   background-image: url('../images/login_bg.jpeg'); 
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,11 +31,12 @@ body {
 /* Login box */
 .login-box {
   background: rgba(235, 231, 231, 0.1);
-  padding: 30px;
+  padding: 30px 22px;
   border-radius: 10px;
   backdrop-filter: blur(6px);
   color: #131313;
-  width: 300px;
+  width: 100%;
+  max-width: 380px;
   text-align: center;
 }
 
@@ -54,6 +66,8 @@ body {
   color: #ebe6e6;
   flex: 1;
   padding: 8px;
+  font-size: 16px;
+  min-width: 0;
 }
 
 /* Options */

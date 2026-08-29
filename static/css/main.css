@@ -9,10 +9,19 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+img,
+svg,
+video {
+    max-width: 100%;
+    height: auto;
 }
 
 body {
     margin: 0;
+    overflow-x: hidden;
     background: #06142E;
 
     /* Your complete page background */
@@ -57,6 +66,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
     padding: 16px 32px;
     background: rgba(20, 17, 13, 0.5);   /* dark, semi-transparent — tweak alpha as needed */
     backdrop-filter: blur(10px);          /* frosted-glass effect so text stays readable over any bg */
@@ -68,28 +78,68 @@ body {
     font-size: 18px;
     font-weight: 600;
     color: #f2ede3;
+    text-decoration: none;
+    flex-shrink: 0;
 }
 
-.navbar nav {
+.navbar .navLinks {
     display: flex;
+    align-items: center;
     gap: 24px;
 }
 
-.navbar nav a {
+.navbar .navLinks a {
     color: #a8a196;
     text-decoration: none;
     font-size: 14px;
     transition: color 0.2s ease;
 }
 
-.navbar nav a:hover,
-.navbar nav a.active {
+.navbar .navLinks a:hover,
+.navbar .navLinks a.active {
     color: #ef9f27;   /* your amber accent */
 }
 
 .nav__right {
     display: flex;
     align-items: center;
+    margin-left: auto;
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #f2ede3;
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
 /* Perfect circle avatar */
@@ -110,6 +160,9 @@ body {
 
 /* Login link when not authenticated */
 .profile-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 8px 18px;
     border-radius: 20px;
     background: #ef9f27;
@@ -117,11 +170,64 @@ body {
     text-decoration: none;
     font-size: 13px;
     font-weight: 500;
+    white-space: nowrap;
 }
 
 /* Since nav is fixed/floating, push page content down so it's not hidden underneath */
 body {
     padding-top: 72px;   /* roughly navbar height — adjust to match actual rendered height */
+}
+
+/* Shared inner pages (contact, feedback, exams) */
+.page {
+    width: min(920px, 92%);
+    margin: 0 auto 48px;
+    padding: 24px 0 40px;
+}
+
+.page h1,
+.page h1 a {
+    font-size: clamp(1.4rem, 5vw, 2.2rem);
+    line-height: 1.25;
+    word-break: break-word;
+    color: #F8FAFF;
+}
+
+.page a {
+    color: #f4bd32;
+}
+
+.page form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.page input[type="text"],
+.page input[type="email"],
+.page textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(7, 29, 70, 0.55);
+    color: #F8FAFF;
+    font-size: 16px;
+}
+
+.page input[type="submit"],
+.page button {
+    width: fit-content;
+    min-height: 44px;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 30px;
+    background: #f4bd32;
+    color: #06212b;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
 }
 
 /* HERO CONTENT */
@@ -143,18 +249,20 @@ body {
     z-index: 5;
 
     margin-top: -30px;
+    max-width: 100%;
 }
 
 
 .hero-text h1 {
     font-family: Arial, sans-serif;
 
-    font-size: clamp(55px, 6vw, 90px);
+    font-size: clamp(36px, 8vw, 90px);
 
     line-height: 1.05;
 
     color: white;
     cursor: none;
+    overflow-wrap: break-word;
 }
 
 .hero-text h1 span {
@@ -176,6 +284,7 @@ body {
 /* BUTTON */
 
 .hero-text a{
+    display: inline-block;
     font-family:'NTR', sans-serif;
     margin-top: 25px;
     padding: 13px 28px;
@@ -262,6 +371,7 @@ body {
     color: #F8FAFF;
 
     font-size: 25px;
+    padding-right: 28px;
 }
 
 .service-card p {
@@ -290,115 +400,6 @@ body {
 }
 
 
-/* =========================
-   MOBILE RESPONSIVE
-   ========================= */
-
-@media (max-width: 768px) {
-
-    .hero {
-        padding: 25px 5%;
-    }
-
-    .navbar {
-        height: 60px;
-    }
-
-    .logo {
-        font-size: 25px;
-    }
-
-    nav {
-        display: none;
-    }
-
-    .profile-circle {
-        width: 42px;
-        height: 42px;
-    }
-
-    .hero-content {
-        min-height: 600px;
-
-        align-items: flex-start;
-    }
-
-    .hero-text {
-        margin-top: 45px;
-    }
-
-    .hero-text h1 {
-        font-size: 52px;
-    }
-
-    .hero-text p {
-        font-size: 14px;
-
-        max-width: 300px;
-    }
-
-    .person {
-        width: 230px;
-
-        right: -20px;
-        bottom: 80px;
-    }
-
-    .services {
-        margin-top: -5px;
-    }
-
-    .services h2 {
-        font-size: 30px;
-        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    }
-
-    .service-container {
-        grid-template-columns: repeat(2, 1fr);
-
-        gap: 12px;
-    }
-
-    .service-card {
-        min-height: 100px;
-
-        padding: 15px;
-    }
-
-    .service-card h3 {
-        font-size: 15px;
-    }
-
-    .service-card span {
-        right: 12px;
-        top: 35px;
-    }
-}
-
-
-/* SMALL PHONES */
-
-@media (max-width: 450px) {
-
-    .hero-text h1 {
-        font-size: 44px;
-    }
-
-    .person {
-        width: 190px;
-
-        bottom: 105px;
-    }
-
-    .service-container {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .service-card p {
-        display: none;
-    }
-}
-
 .slimline{
     display: none;
 
@@ -406,7 +407,7 @@ body {
 .liquid {
     position: relative;
     display: inline-block;
-    font-size: 70px;
+    font-size: clamp(32px, 10vw, 70px);
     font-weight: 800;
     letter-spacing: 1px;
     color:transparent;
@@ -414,6 +415,7 @@ body {
     cursor: pointer;
     white-space: nowrap;
     user-select: none;
+    max-width: 100%;
 }
 .liquid::before{
     content: attr(data-text);
@@ -430,4 +432,211 @@ body {
 }
 .liquid:hover::before {
     width: 100%;
+}
+
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 1100px) {
+    .service-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE
+   ========================= */
+
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 64px;
+        background-attachment: scroll;
+    }
+
+    .hero {
+        padding: 16px 5% 40px;
+        min-height: auto;
+    }
+
+    .navbar {
+        flex-wrap: nowrap;
+        padding: 10px 16px;
+        min-height: 56px;
+        height: auto;
+        position: relative;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .nav-toggle {
+        display: flex;
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+
+    .nav__right {
+        margin-left: 8px;
+    }
+
+    .navbar .navLinks {
+        display: none;
+        position: absolute;
+        top: calc(100% + 1px);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        padding: 10px 16px 16px;
+        background: rgba(12, 14, 22, 0.97);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .navbar .navLinks.is-open {
+        display: flex;
+    }
+
+    .navbar .navLinks a {
+        display: block;
+        padding: 14px 12px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+
+    .navbar .navLinks a:hover,
+    .navbar .navLinks a.active {
+        background: rgba(239, 159, 39, 0.12);
+    }
+
+    .profile-circle {
+        width: auto;
+        height: auto;
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .hero-content {
+        min-height: 0;
+        align-items: flex-start;
+        padding: 12px 0 8px;
+    }
+
+    .hero-text {
+        margin-top: 12px;
+    }
+
+    .hero-text h1 {
+        font-size: clamp(36px, 11vw, 52px);
+        cursor: auto;
+    }
+
+    .hero-text p {
+        font-size: 15px;
+        max-width: 100%;
+    }
+
+    .hero-text a {
+        min-height: 44px;
+        padding: 12px 24px;
+    }
+
+    .liquid {
+        font-size: clamp(28px, 11vw, 44px);
+        -webkit-text-stroke-width: 1px;
+        letter-spacing: 0;
+    }
+
+    .liquid::before {
+        -webkit-text-stroke-width: 1px;
+    }
+
+    .person {
+        width: 230px;
+
+        right: -20px;
+        bottom: 80px;
+    }
+
+    .services {
+        margin-top: 24px;
+    }
+
+    .services h2 {
+        font-size: 28px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    .service-container {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+    .service-card {
+        min-height: 88px;
+
+        padding: 16px 16px 16px 18px;
+    }
+
+    .service-card h3 {
+        font-size: 18px;
+        padding-right: 32px;
+    }
+
+    .service-card p {
+        font-size: 14px;
+        display: block;
+    }
+
+    .service-card span {
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 22px;
+    }
+
+    .service-card:hover {
+        transform: none;
+    }
+}
+
+
+/* SMALL PHONES */
+
+@media (max-width: 450px) {
+
+    .hero-text h1 {
+        font-size: 36px;
+    }
+
+    .navbar {
+        padding: 8px 12px;
+    }
+
+    .person {
+        width: 190px;
+
+        bottom: 105px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .service-card,
+    .hero-text a,
+    .liquid::before {
+        transition: none;
+    }
 }
