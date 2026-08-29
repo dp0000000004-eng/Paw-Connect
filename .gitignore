@@ -15,6 +15,7 @@ ENV/
 local_settings.py
 db.sqlite3-journal
 media/
+db.sqlite3
  
 # Static files (collected)
 staticfiles/
