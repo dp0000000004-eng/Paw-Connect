@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block body %}
+<section class="page">
 {% for branch in branches %}
     <h1><a href="{% url 'exam:syllabus' branch.id %}">{{ branch }}</a></h1>
-    
 {% endfor %}
+</section>
 {% endblock %}

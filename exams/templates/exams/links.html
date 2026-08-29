@@ -5,9 +5,11 @@
 {% endblock %}
 
 {% block body %}
+<section class="page">
     {% for syllabus in syllabuses %}
         <h1>
-            {{ syllabus.semester }} <sup>th</sup>Semester <a href="{{ syllabus.link }}" target="_blank">Click Here</a>
+            {{ syllabus.semester }} <sup>th</sup> Semester <a href="{{ syllabus.link }}" target="_blank">Click Here</a>
         </h1>
     {% endfor %}
+</section>
 {% endblock %}

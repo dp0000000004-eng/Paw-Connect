@@ -30,14 +30,19 @@
 <body>
     <section class="sec-nav">
         <header class="navbar">
-            <div class="logo" id="logo">
+            <a href="{% url 'user:home' %}" class="logo" id="logo">
                 PawByte
-            </div>
-            <nav class="navLinks">
-                <a id="navEl" href="{% url 'user:home' %}" class="">Home</a>
-                <a id="navEl" href="{% url 'user:about' %}" class="">About</a>
-                <a id="navEl" href="{% url 'user:feedback' %}" class="" >Feedback</a>
-                <a id="navEl" href="{% url 'user:contact' %}" class="" >Contact</a>
+            </a>
+            <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="navLinks" id="siteNav">
+                <a href="{% url 'user:home' %}">Home</a>
+                <a href="{% url 'user:about' %}">About</a>
+                <a href="{% url 'user:feedback' %}">Feedback</a>
+                <a href="{% url 'user:contact' %}">Contact</a>
             </nav>
             <div class="nav__right">
             {% if user.is_authenticated %}

@@ -16,7 +16,7 @@ body {
 
 body {
     margin-top: 0%;
-    padding-top: 0%;
+    padding-top: 72px;
     background: #06142E;
     background-attachment: fixed;
     background-size: cover;
@@ -34,7 +34,7 @@ body {
 
     width: 100%;
     margin-top:0px;
-    padding-top:0px;
+    padding-top: 24px;
     min-height: 100vh;
 
     overflow: hidden;
@@ -81,9 +81,13 @@ body {
 ======================================== */
 
 .main-Head {
-    font-size:100px;
+    font-size: clamp(32px, 8vw, 100px);
     font-family: 'NTR', sans-serif;
-    color:goldenrod;
+    color: goldenrod;
+    text-align: center;
+    padding: 0 16px;
+    line-height: 1.1;
+    word-break: break-word;
 }
 
 .title {
@@ -131,7 +135,7 @@ body {
 
     gap: 28px;
 
-    margin-top: 230px;
+    margin-top: 48px;
 
     padding-bottom: 50px;
    
@@ -183,11 +187,28 @@ body {
         inset 0 0 25px rgba(255, 255, 255, 0.10);
 }
 
+.branchs {
+    width: min(920px, 94%);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin: 24px auto 48px;
+    padding: 0 0 40px;
+}
+
+.hero > h1 {
+    font-size: clamp(22px, 6vw, 40px);
+    color: #F8FAFF;
+    text-align: center;
+    margin: 32px 16px 0;
+}
+
 .branch {
     position: relative;
 
     min-height: 100px;
-    width: 100vh;
+    width: 100%;
+    max-width: 100%;
     padding: 18px 15px;
 
     display: flex;
@@ -217,8 +238,8 @@ body {
      
 }
 .branch:hover{
-    transform: scale(2);
-    transition: 1s;
+    transform: translateY(-6px);
+    transition: 0.3s ease;
 }
 
 
@@ -359,8 +380,10 @@ body {
 
     .hero {
         min-height: 100vh;
-
+        background-attachment: scroll;
         background-position: center;
+        overflow: visible;
+        padding-bottom: 32px;
     }
 
 
@@ -374,20 +397,28 @@ body {
 
 
     .cards {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
 
         gap: 15px;
 
-        margin-top: 70px;
+        margin-top: 40px;
     }
 
 
     .card {
-        min-height: 220px;
+        min-height: 180px;
 
         padding: 14px 10px;
 
         border-radius: 16px;
+    }
+
+    .card:hover {
+        transform: none;
+    }
+
+    .branch:hover {
+        transform: none;
     }
 
 
@@ -404,6 +435,11 @@ body {
 
     .role {
         font-size: 12px;
+        max-width: 100%;
+    }
+
+    .br-role {
+        font-size: 16px;
     }
 }
 

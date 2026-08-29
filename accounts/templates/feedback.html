@@ -10,15 +10,15 @@
 {% endblock %}
 
 {% block body %}
+    <section class="page">
+        <h1>
+            Feedback
+        </h1>
 
-    <h1>
-        Feedback
-    </h1>
-
-    <form method="post">
-        {% csrf_token %}
-        <input type="text" name="description" placeholder="description">
-        <input type="submit">
-    </form>
-
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="description" placeholder="description">
+            <input type="submit" value="Send">
+        </form>
+    </section>
 {% endblock %}
