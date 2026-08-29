@@ -40,15 +40,15 @@ def createAccount(request):
     except IntegrityError:
         messages.error(request, "Username exists in this name try another :( ")
 
-    msg = EmailMessage()
-    msg['Subject'] = "test"
-    msg['From'] = "dp0000000004@gmail.com"
-    msg['To'] = "rahulsahu2007@gmail.com"
-    msg.set_content("hello, from project")
+    # msg = EmailMessage()
+    # msg['Subject'] = "test"
+    # msg['From'] = "dp0000000004@gmail.com"
+    # msg['To'] = "rahulsahu2007@gmail.com"
+    # msg.set_content("hello, from project")
 
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465 ) as server:
-        server.login("dp0000000004@gmail.com", "PASSWORD")
-        server.send_message(msg)
+    # with smtplib.SMTP_SSL('smtp.gmail.com', 465 ) as server:
+    #     server.login("dp0000000004@gmail.com", "PASSWORD")
+    #     server.send_message(msg)
 
 
     return render(
