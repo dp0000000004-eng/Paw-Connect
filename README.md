@@ -78,20 +78,16 @@ The goal is a project that's genuinely useful day-to-day on campus, buildable by
 ## MVP Scope (Mark ✓ If Complete a Task)
 
 **Must-have (MVP):**
-- [ ] Login/signup with role-based redirect (student/faculty/admin dashboards)
-- [ ] Student can view their attendance %
-- [ ] Faculty/admin can mark attendance
+- [x] Login/signup with role-based redirect (student/faculty/admin dashboards)
 - [ ] Notices board — post (faculty/admin) and view (all)
 - [ ] Exam results — admin uploads, student views their own
-- [ ] AI Study Assistant — pick topic → get question → submit answer → get AI feedback
-- [ ] Basic responsive UI, consistent theme across all modules
+- [x] AI Study Assistant — pick topic → get question → submit answer → get AI feedback
+- [x] Basic responsive UI, consistent theme across all modules
 
 **Nice-to-have (if time permits):**
-- [ ] AI feedback includes a score out of 10, not just text
-- [ ] Student dashboard shows AI practice history
+- [x] AI feedback includes a score out of 10, not just text
+- [x] Student dashboard shows AI practice history
 - [ ] Notice filtering by department/year
-- [ ] Simple search across notices/results
-- [ ] Email notification on new notice (Django email backend)
 
 **Explicitly out of scope for this project:**
 - Fee payment / financial modules
