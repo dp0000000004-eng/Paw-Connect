@@ -22,19 +22,19 @@ The goal is a project that's genuinely useful day-to-day on campus, buildable by
 ## Screenshots
 
 # Home
-![Home page](screenshots/home.png)
+![Home page](Screenshots/home.png)
 
 # About
-![About page](screenshots/About.png)
+![About page](Screenshots/About.png)
 
 # Paw AI — Study Assistant
-![Paw AI chat](screenshots/pawai.png)
+![Paw AI chat](Screenshots/pawai.png)
 
 # Login
-![Login page](screenshots/login.png)
+![Login page](Screenshots/login.png)
 
 # Sign Up
-![Sign up page](screenshots/CreateUser.png)
+![Sign up page](Screenshots/CreateUser.png)
 
 ## Modules & Team Split (5 people)
 
