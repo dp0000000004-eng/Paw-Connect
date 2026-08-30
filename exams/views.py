@@ -20,7 +20,7 @@ def departments(request):
 
 
 def syllabus(request, branch_id):
-    syllabuses = Syllabus.objects.get
+    syllabuses = Syllabus.objects.filter(branch=branch_id)
 
     print(syllabus)
 
