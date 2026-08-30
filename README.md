@@ -22,16 +22,16 @@ The goal is a project that's genuinely useful day-to-day on campus, buildable by
 ## Screenshots
 
 # Home
-![Home page](Screenshots/home.png)
+![Home page](Screenshots/Home.png)
 
 # About
 ![About page](Screenshots/About.png)
 
 # Paw AI — Study Assistant
-![Paw AI chat](Screenshots/pawai.png)
+![Paw AI chat](Screenshots/PawAI.png)
 
 # Login
-![Login page](Screenshots/login.png)
+![Login page](Screenshots/Login.png)
 
 # Sign Up
 ![Sign up page](Screenshots/CreateUser.png)
