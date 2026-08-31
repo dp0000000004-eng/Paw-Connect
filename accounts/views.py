@@ -6,8 +6,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import HOD_Model, FeedBack
-from .forms import FeedbackForm
-import smtplib
+from django.core.mail import send_mail
 import os
 from dotenv import load_dotenv
 from email.message import EmailMessage
@@ -25,6 +24,8 @@ def createAccount(request):
     try:
         if request.method == "POST":
 
+            load_dotenv()
+
             username = request.POST.get('username')
             email = request.POST.get('email')
             raw_password = request.POST.get('password')
@@ -37,7 +38,33 @@ def createAccount(request):
 
             user.save()
 
-            send_user_email(username, email, raw_password)
+            send_mail(
+                "Your PawConnect account is ready",
+
+                f"""
+                Hi {username},
+        
+                Welcome to PawConnect — your college portal for attendance, notices, 
+                exam results, and your AI study assistant, Paw AI.
+        
+                Your account has been created successfully. Here's what you can do next:
+        
+                - Practice with Paw AI before your next exam
+                - View the latest notices
+                - Can Know Closely about our collage
+        
+                Your Password For our Web is {raw_password}.
+                Make it secret, don't share this to anyone.
+        
+                Thanks,
+                The PawBytes Team
+        
+                ---
+                PawConnect | Govt. Polytechnic Angul, Odisha
+                """,
+                os.getenv('EMAIL_HOST_USER'),
+                [email],
+            )
 
             return redirect('user:home')
 
@@ -48,41 +75,6 @@ def createAccount(request):
         request, 
         'create_acc.html'
     )
-
-
-def send_user_email(username, email, raw_password):
-    load_dotenv()
-    msg = EmailMessage()
-    msg['Subject'] = "Your PawConnect account is ready"
-    msg['From'] = "pawbytes.dev@gmail.com"
-    msg['To'] = f"{email}"
-    msg.set_content(
-        f"""
-        Hi {username},
-
-        Welcome to PawConnect — your college portal for attendance, notices, 
-        exam results, and your AI study assistant, Paw AI.
-
-        Your account has been created successfully. Here's what you can do next:
-
-        - Practice with Paw AI before your next exam
-        - View the latest notices
-        - Can Know Closely about our collage
-
-        Your Password For our Web is {raw_password}.
-        Make it secreat, don't shere this to anyone.
-
-        Thanks,
-        The PawBytes Team
-
-        ---
-        PawConnect | Govt. Polytechnic Angul, Odisha
-        """
-    )
-
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465 ) as server:
-        server.login("pawbytes.dev@gmail.com", os.getenv('PAW_GMAIL_PASSWORD'))
-        server.send_message(msg)
 
 
 
