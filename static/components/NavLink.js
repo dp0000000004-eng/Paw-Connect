@@ -1,3 +1,6 @@
+import logo from "./Logo.js"
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.querySelectorAll(".navLinks a");
     const toggle = document.querySelector(".nav-toggle");
@@ -43,3 +46,5 @@ document.addEventListener("DOMContentLoaded", () => {
         if (window.innerWidth > 768) closeNav();
     });
 });
+
+logo()

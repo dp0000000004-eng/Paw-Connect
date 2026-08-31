@@ -344,6 +344,7 @@ body {
 /* SERVICE CARD */
 
 .service-card {
+    text-decoration:none;
     cursor:pointer;
     min-height: 115px;
 
@@ -368,6 +369,7 @@ body {
 }
 
 .service-card h3 {
+    text-decoration:none;
     color: #F8FAFF;
 
     font-size: 25px;
@@ -375,6 +377,7 @@ body {
 }
 
 .service-card p {
+    text-decoration:none;
     color: #b8c5d9;
 
     font-size: 14px;

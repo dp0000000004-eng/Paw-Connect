@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Chat
-from openai import OpenAI
+# from openai import OpenAI
 from dotenv import load_dotenv
 import os
 
@@ -36,53 +36,53 @@ def chat(request):
 
         load_dotenv()
 
-        chat = Chat()
+    #     chat = Chat()
 
-        prompt = request.POST.get('prompt')
+    #     prompt = request.POST.get('prompt')
 
-        client = OpenAI(
-            base_url = "https://integrate.api.nvidia.com/v1",
-            api_key = os.getenv('NVIDIA_AI_API_KEY'),
-            timeout=60.0
-        )
+    #     client = OpenAI(
+    #         base_url = "https://integrate.api.nvidia.com/v1",
+    #         api_key = os.getenv('NVIDIA_AI_API_KEY'),
+    #         timeout=60.0
+    #     )
 
-        completion = client.chat.completions.create(
-        model="nvidia/nemotron-3-ultra-550b-a55b",
+    #     completion = client.chat.completions.create(
+    #     model="nvidia/nemotron-3-ultra-550b-a55b",
 
-        messages = [
-            {
-                "role":"assistant",
-                "content":"don't give ans using .md format give in normal paragraph use white space tag insted " + prompt 
-            }
-        ],
+    #     messages = [
+    #         {
+    #             "role":"assistant",
+    #             "content":"don't give ans using .md format give in normal paragraph use white space tag insted " + prompt 
+    #         }
+    #     ],
 
-        temperature=1,
-        top_p=0.95,
-        max_tokens=1384,
-        extra_body={"chat_template_kwargs":{"enable_thinking":True}},
-        stream=True
-        )
+    #     temperature=1,
+    #     top_p=0.95,
+    #     max_tokens=1384,
+    #     extra_body={"chat_template_kwargs":{"enable_thinking":True}},
+    #     stream=True
+    #     )
 
-        response = ""
+    #     response = ""
 
-        for chunk in completion:
-            if not chunk.choices:
-                continue
-            reasoning = getattr(chunk.choices[0].delta, "reasoning_content", None)
-            if reasoning:
-                print(reasoning, end="")
-            if chunk.choices[0].delta.content is not None:
-                response += chunk.choices[0].delta.content + " "
+    #     for chunk in completion:
+    #         if not chunk.choices:
+    #             continue
+    #         reasoning = getattr(chunk.choices[0].delta, "reasoning_content", None)
+    #         if reasoning:
+    #             print(reasoning, end="")
+    #         if chunk.choices[0].delta.content is not None:
+    #             response += chunk.choices[0].delta.content + " "
 
 
-        user = User.objects.get(username=request.user.username)
+    #     user = User.objects.get(username=request.user.username)
 
-        chat.prompt = prompt
-        chat.user = user
-        chat.response = response
-        chat.save()
+    #     chat.prompt = prompt
+    #     chat.user = user
+    #     chat.response = response
+    #     chat.save()
 
-    chats = Chat.objects.all()
+    # chats = Chat.objects.all()
 
     greets = random.choice(greetings)
 
@@ -91,7 +91,7 @@ def chat(request):
         request, 
         'ai.html',
         {
-            "chats":chats,
+            # "chats":chats,
             "greets":greets
         }
     )
