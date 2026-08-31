@@ -28,10 +28,10 @@ The goal is a project that's genuinely useful day-to-day on campus, buildable by
 ![About page](Screenshots/About.png)
 
 # Paw AI — Study Assistant
-![Paw AI chat](Screenshots/pawAI.png)
+![Paw AI chat](Screenshots/PawAI.png)
 
 # Login
-![Login page](Screenshots/login.png)
+![Login page](Screenshots/Login.png)
 
 # Sign Up
 ![Sign up page](Screenshots/CreateUser.png)
