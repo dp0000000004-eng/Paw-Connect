@@ -1,5 +1,3 @@
-import logo from "./Logo.js"
-
 
 document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.querySelectorAll(".navLinks a");
@@ -46,5 +44,3 @@ document.addEventListener("DOMContentLoaded", () => {
         if (window.innerWidth > 768) closeNav();
     });
 });
-
-logo()
