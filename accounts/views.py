@@ -74,7 +74,7 @@ def createAccount(request):
                     ---
                     PawConnect | Govt. Polytechnic Angul, Odisha
                     """,
-                    os.getenv('EMAIL_HOST_USER'),  # "from" address
+                    os.environ.get('EMAIL_HOST_USER'),  # "from" address
                     [email],                       # "to" address (signup email)
                 )
 
