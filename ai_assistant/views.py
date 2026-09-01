@@ -4,6 +4,7 @@ from .models import Chat
 from dotenv import load_dotenv
 import os
 import random
+from openai import OpenAI
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -31,55 +32,55 @@ def chat(request):
     # Form submitted (user typed a prompt). AI reply is currently disabled.
     if request.method == "POST":
 
-        load_dotenv()  # Would load NVIDIA_AI_API_KEY when the API block is turned on
+        # Would load NVIDIA_AI_API_KEY when the API block is turned on
 
-    #     chat = Chat()
-    #
-    #     prompt = request.POST.get('prompt')
-    #
-    #     client = OpenAI(
-    #         base_url = "https://integrate.api.nvidia.com/v1",
-    #         api_key = os.getenv('NVIDIA_AI_API_KEY'),
-    #         timeout=60.0
-    #     )
-    #
-    #     completion = client.chat.completions.create(
-    #     model="nvidia/nemotron-3-ultra-550b-a55b",
-    #
-    #     messages = [
-    #         {
-    #             "role":"assistant",
-    #             "content":"don't give ans using .md format give in normal paragraph use white space tag insted " + prompt
-    #         }
-    #     ],
-    #
-    #     temperature=1,
-    #     top_p=0.95,
-    #     max_tokens=1384,
-    #     extra_body={"chat_template_kwargs":{"enable_thinking":True}},
-    #     stream=True
-    #     )
-    #
-    #     response = ""
-    #
-    #     for chunk in completion:
-    #         if not chunk.choices:
-    #             continue
-    #         reasoning = getattr(chunk.choices[0].delta, "reasoning_content", None)
-    #         if reasoning:
-    #             print(reasoning, end="")
-    #         if chunk.choices[0].delta.content is not None:
-    #             response += chunk.choices[0].delta.content + " "
-    #
-    #
-    #     user = User.objects.get(username=request.user.username)
-    #
-    #     chat.prompt = prompt
-    #     chat.user = user
-    #     chat.response = response
-    #     chat.save()
+        chat = Chat()
+    
+        prompt = request.POST.get('prompt')
+    
+        client = OpenAI(
+            base_url = "https://integrate.api.nvidia.com/v1",
+            api_key = os.environ.get('NVIDIA_AI_API_KEY'),
+            timeout=60.0
+        )
+    
+        completion = client.chat.completions.create(
+        model="nvidia/nemotron-3-ultra-550b-a55b",
+    
+        messages = [
+            {
+                "role":"assistant",
+                "content":"don't give ans using .md format give in normal paragraph use white space tag insted " + prompt
+            }
+        ],
+    
+        temperature=1,
+        top_p=0.95,
+        max_tokens=1384,
+        extra_body={"chat_template_kwargs":{"enable_thinking":True}},
+        stream=True
+        )
+    
+        response = ""
+    
+        for chunk in completion:
+            if not chunk.choices:
+                continue
+            reasoning = getattr(chunk.choices[0].delta, "reasoning_content", None)
+            if reasoning:
+                print(reasoning, end="")
+            if chunk.choices[0].delta.content is not None:
+                response += chunk.choices[0].delta.content + " "
+    
+    
+        user = User.objects.get(username=request.user.username)
+    
+        chat.prompt = prompt
+        chat.user = user
+        chat.response = response
+        chat.save()
 
-    # chats = Chat.objects.all()
+    chats = Chat.objects.all()
 
     # Random greeting from the list above
     greets = random.choice(greetings)

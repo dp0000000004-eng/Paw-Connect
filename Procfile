@@ -1,0 +1,1 @@
+web: gunicorn Campus_Connect.wsgi

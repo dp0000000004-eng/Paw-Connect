@@ -15,15 +15,17 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import os
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-m1*z$$08vc1qwic9m*r^^vlb0zhykvg51n8)!8=9cr+o87*d^v'
+SECRET_KEY = os.environ.get('')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = []
 
@@ -76,19 +78,19 @@ WSGI_APPLICATION = 'Campus_Connect.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
-# import dj_database_url
-
 # DATABASES = {
-#     'default': dj_database_url.parse('postgresql://paw_db_wba9_user:FrxEnDCynTZFpKkNOkrmNGvKcewFch1s@dpg-da657nbncjis73ao492g-a.singapore-postgres.render.com/paw_db_wba9')
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
 # }
+
+
+import dj_database_url
+
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+}
 
 
 
@@ -136,16 +138,10 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-    },
-}
+
 
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
 
 MAILERS = {
     "default": {
@@ -154,8 +150,8 @@ MAILERS = {
             "host": "smtp.gmail.com",
             "port": 465,
             "use_ssl": True,
-            "username": os.getenv("EMAIL_HOST_USER"),
-            "password": os.getenv("EMAIL_HOST_PASSWORD"),
+            "username": os.environ.get("EMAIL_HOST_USER"),
+            "password": os.environ.get("EMAIL_HOST_PASSWORD"),
         },
     },
 }
