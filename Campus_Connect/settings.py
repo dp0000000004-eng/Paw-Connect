@@ -31,6 +31,8 @@ ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOSTS')
 ]
 
+DEBUG=os.environ.get('DEBUG')
+
 
 # Application definition
 
@@ -157,3 +159,4 @@ MAILERS = {
         },
     },
 }
+
