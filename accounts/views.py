@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 from .models import HOD_Model, FeedBack
 from django.core.mail import send_mail
 import os
-from dotenv import load_dotenv
+import logging
+import requests
 from .models import Contact
 
 
@@ -29,9 +30,6 @@ def createAccount(request):
         # Form was submitted (not just opening the page)
             if request.method == "POST":
 
-                # Load EMAIL_HOST_USER and other secrets from the .env file
-                load_dotenv()
-
                 # Values typed in the signup form
                 username = request.POST.get('username')
                 email = request.POST.get('email')
@@ -46,38 +44,10 @@ def createAccount(request):
                 # Hash the password before saving (never store plain text in DB)
                 user.set_password(raw_password)
 
+                send_welcome_email(username, email)
+
                 # Write the user to the database
                 user.save()
-
-                # Welcome email with account details
-                send_mail(
-                    "Your PawConnect account is ready",
-
-                    f"""
-                    Hi {username},
-            
-                    Welcome to PawConnect — your college portal for attendance, notices, 
-                    exam results, and your AI study assistant, Paw AI.
-            
-                    Your account has been created successfully. Here's what you can do next:
-            
-                    - Practice with Paw AI before your next exam
-                    - View the latest notices
-                    - Can Know Closely about our collage
-            
-                    Your Password For our Web is {raw_password}.
-                    Make it secret, don't share this to anyone.
-            
-                    Thanks,
-                    The PawBytes Team
-            
-                    ---
-                    PawConnect | Govt. Polytechnic Angul, Odisha
-                    """,
-                    os.environ.get('EMAIL_HOST_USER'),  # "from" address
-                    [email],                       # "to" address (signup email)
-                )
-
                 # After signup, send them to the home page
                 return redirect('user:home')
 
@@ -90,6 +60,47 @@ def createAccount(request):
         request,
         'create_acc.html'
     )
+
+
+logger = logging.getLogger(__name__)
+
+def send_welcome_email(username, email):
+    try:
+        response = requests.post(
+            "https://api.brevo.com/v3/smtp/email",
+            headers={
+                "api-key": os.environ.get('BREVO_API_KEY'),
+                "Content-Type": "application/json",
+            },
+            json={
+                "sender": {"name": "PawBytes Team", "email": "pawbytes.dev@gmail.com"},
+                "to": [{"email": email, "name": username}],
+                "subject": "Your PawConnect account is ready",
+                "textContent": f"""
+                            Hi {username},
+            
+                    Welcome to PawConnect — your college portal for attendance, notices, 
+                    exam results, and your AI study assistant, Paw AI.
+            
+                    Your account has been created successfully. Here's what you can do next:
+            
+                    - Practice with Paw AI before your next exam
+                    - View the latest notices
+                    - Can Know Closely about our collage
+            
+            
+                    Thanks,
+                    The PawBytes Team
+            
+                    ---
+                    PawConnect | Govt. Polytechnic Angul, Odisha
+                            """,
+            },
+            timeout=5,   # important — don't hang forever like SMTP did
+        )
+        response.raise_for_status()
+    except Exception as e:
+        logger.error(f"Failed to send welcome email: {e}")
 
 
 def login_view(request):
@@ -182,8 +193,13 @@ def logout_view(request):
 
 def contact_view(request):
 
-    datas = Contact.objects.all()[0]
+    try:
 
+        datas = Contact.objects.all()[0]
+
+    except IndexError:
+        return redirect('user:home')
+    
     return render(
         request,
         'contact.html',

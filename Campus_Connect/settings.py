@@ -143,20 +143,3 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
 
-
-import os
-
-
-MAILERS = {
-    "default": {
-        "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
-        "OPTIONS": {
-            "host": "smtp.gmail.com",
-            "port": 465,
-            "use_ssl": True,
-            "username": os.environ.get("EMAIL_HOST_USER"),
-            "password": os.environ.get("EMAIL_HOST_PASSWORD"),
-        },
-    },
-}
-
