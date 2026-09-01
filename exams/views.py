@@ -1,8 +1,7 @@
+
 from django.shortcuts import render
 from .models import Syllabus, Semester
 from accounts.models import Departments
-
-# Create your views here.
 
 
 def departments(request):
@@ -13,21 +12,19 @@ def departments(request):
         request,
         'exams/branchs.html',
         {
-            "branches":branches
+            "branches": branches
         }
     )
 
 
-
 def syllabus(request, branch_id):
+    # Only syllabus records that belong to this department / branch
     syllabuses = Syllabus.objects.filter(branch=branch_id)
-
-    print(syllabus)
 
     return render(
         request,
         'exams/links.html',
         {
-            "syllabuses":syllabuses
+            "syllabuses": syllabuses
         }
     )
