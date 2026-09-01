@@ -1,4 +1,4 @@
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -163,15 +163,13 @@ class ViewTests(TestCase):
         response = self.client.get(reverse("user:logout"))
         self.assertRedirects(response, reverse("user:home"))
 
-    @patch("accounts.views.smtplib.SMTP_SSL")
-    def test_create_account_get(self, mock_smtp):
-        mock_smtp.return_value.__enter__.return_value = MagicMock()
+    def test_create_account_get(self):
         response = self.client.get(reverse("user:create_account"))
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "create_acc.html")
 
-    @patch("accounts.views.smtplib.SMTP_SSL")
-    def test_create_account_post_creates_user(self, mock_smtp):
-        mock_smtp.return_value.__enter__.return_value = MagicMock()
+    @patch("accounts.views.send_mail")
+    def test_create_account_post_creates_user(self, mock_send_mail):
         response = self.client.post(
             reverse("user:create_account"),
             {
@@ -183,9 +181,8 @@ class ViewTests(TestCase):
         self.assertRedirects(response, reverse("user:home"))
         self.assertTrue(User.objects.filter(username="newuser").exists())
 
-    @patch("accounts.views.smtplib.SMTP_SSL")
-    def test_create_account_duplicate_username(self, mock_smtp):
-        mock_smtp.return_value.__enter__.return_value = MagicMock()
+    @patch("accounts.views.send_mail")
+    def test_create_account_duplicate_username(self, mock_send_mail):
         response = self.client.post(
             reverse("user:create_account"),
             {
@@ -196,3 +193,117 @@ class ViewTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Username exists")
+        mock_send_mail.assert_not_called()
+
+
+class ExtraAccountViewTests(TestCase):
+    """More coverage for signup, sessions, and protected pages."""
+
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username="tester",
+            email="tester@example.com",
+            password="secret123",
+        )
+        Contact.objects.create(email="help@college.edu", contact_no=1112223334)
+
+    def test_home_uses_welcome_template(self):
+        response = self.client.get(reverse("user:home"))
+        self.assertTemplateUsed(response, "welcome.html")
+
+    def test_login_uses_login_template(self):
+        response = self.client.get(reverse("user:login"))
+        self.assertTemplateUsed(response, "Login.html")
+
+    def test_login_success_sets_session_user(self):
+        self.client.post(
+            reverse("user:login"),
+            {"username": "tester", "password": "secret123"},
+        )
+        response = self.client.get(reverse("user:israt"))
+        self.assertEqual(response.status_code, 200)
+
+    def test_logout_requires_login(self):
+        response = self.client.get(reverse("user:logout"))
+        self.assertEqual(response.status_code, 302)
+
+    def test_logout_ends_session(self):
+        self.client.login(username="tester", password="secret123")
+        self.client.get(reverse("user:logout"))
+        response = self.client.get(reverse("user:israt"))
+        self.assertEqual(response.status_code, 302)
+
+    def test_feedback_get_when_logged_in(self):
+        self.client.login(username="tester", password="secret123")
+        response = self.client.get(reverse("user:feedback"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "feedback.html")
+
+    def test_feedback_post_linked_to_logged_in_user(self):
+        self.client.login(username="tester", password="secret123")
+        self.client.post(
+            reverse("user:feedback"),
+            {"description": "Campus wifi is slow"},
+        )
+        feedback = FeedBack.objects.get(description="Campus wifi is slow")
+        self.assertEqual(feedback.user, self.user)
+
+    @patch("accounts.views.send_mail")
+    def test_create_account_hashes_password(self, mock_send_mail):
+        self.client.post(
+            reverse("user:create_account"),
+            {
+                "username": "hasheduser",
+                "email": "hash@example.com",
+                "password": "plainpass99",
+            },
+        )
+        user = User.objects.get(username="hasheduser")
+        self.assertNotEqual(user.password, "plainpass99")
+        self.assertTrue(user.check_password("plainpass99"))
+
+    @patch("accounts.views.send_mail")
+    def test_create_account_sends_welcome_email(self, mock_send_mail):
+        self.client.post(
+            reverse("user:create_account"),
+            {
+                "username": "mailuser",
+                "email": "mail@example.com",
+                "password": "mailpass99",
+            },
+        )
+        mock_send_mail.assert_called_once()
+        args, kwargs = mock_send_mail.call_args
+        self.assertEqual(args[0], "Your PawConnect account is ready")
+        self.assertIn("mailuser", args[1])
+        self.assertEqual(args[3], ["mail@example.com"])
+
+    @patch("accounts.views.send_mail")
+    def test_create_account_duplicate_does_not_add_user(self, mock_send_mail):
+        before = User.objects.count()
+        self.client.post(
+            reverse("user:create_account"),
+            {
+                "username": "tester",
+                "email": "dup@example.com",
+                "password": "anotherpass",
+            },
+        )
+        self.assertEqual(User.objects.count(), before)
+
+    def test_contact_uses_first_row(self):
+        Contact.objects.create(email="second@college.edu", contact_no=9998887776)
+        response = self.client.get(reverse("user:contact"))
+        self.assertContains(response, "help@college.edu")
+        self.assertNotContains(response, "second@college.edu")
+
+    def test_about_uses_about_template(self):
+        response = self.client.get(reverse("user:about"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "about.html")
+
+
+class ExtraFormTests(TestCase):
+    def test_student_form_missing_fields_invalid(self):
+        form = StudentForm(data={"first_name": "Only"})
+        self.assertFalse(form.is_valid())
