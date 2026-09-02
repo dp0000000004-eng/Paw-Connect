@@ -35,7 +35,7 @@ class Syllabus(models.Model):
         return self.link
 
 class StudyNotes(models.Model):
-    branch = models.Foreignkey(Departments, on_delete=models.CASCADE, related_name='dep_note')
+    branch = models.ForeignKey(Departments, on_delete=models.CASCADE, related_name='dep_note')
     semseter = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='semi_notes')
     link = models.URLField()
 
