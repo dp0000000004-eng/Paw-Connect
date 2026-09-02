@@ -1,7 +1,6 @@
 
 from django.shortcuts import render, redirect
 from .models import Chat
-from dotenv import load_dotenv
 import os
 import random
 from openai import OpenAI

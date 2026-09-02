@@ -21,4 +21,19 @@
             <input type="submit" value="Send">
         </form>
     </section>
+    <div class="feedbacks">
+        <h3>Users FeedBacks</h3>
+        {% for feedback in feedbacks %}
+        <h4>
+            👤{{ feedback.user }}
+        </h4>
+        <p>
+           {{ feedback.description }}
+        </p>
+        {% empty %}
+        <h1>
+            No FeedBacks Yet
+        </h1>
+        {% endfor %}
+    </div>
 {% endblock %}
