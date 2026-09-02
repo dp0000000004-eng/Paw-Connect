@@ -90,7 +90,7 @@ def chat(request):
         request,
         'ai.html',
         {
-            # "chats":chats,  # Past Q&A — uncomment when Chat.save() is enabled
+            "chats":chats,  # Past Q&A — uncomment when Chat.save() is enabled
             "greets": greets
         }
     )

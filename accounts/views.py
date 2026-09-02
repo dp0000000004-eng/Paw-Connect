@@ -73,7 +73,7 @@ def send_welcome_email(username, email):
                 "Content-Type": "application/json",
             },
             json={
-                "sender": {"name": "PawBytes Team", "email": "pawbytes.dev@gmail.com"},
+                "sender": {"name": "PawBytes Team", "email": os.environ.get('EMAIL_HOST_USER')},
                 "to": [{"email": email, "name": username}],
                 "subject": "Your PawConnect account is ready",
                 "textContent": f"""
@@ -96,7 +96,7 @@ def send_welcome_email(username, email):
                     PawConnect | Govt. Polytechnic Angul, Odisha
                             """,
             },
-            timeout=5,   # important — don't hang forever like SMTP did
+            timeout=5,  
         )
         response.raise_for_status()
     except Exception as e:
