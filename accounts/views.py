@@ -179,9 +179,14 @@ def feedback(request):
             'user:home'
         )
 
+    feedbacks = FeedBack.objects.all()
+
     return render(
         request,
-        'feedback.html'
+        'feedback.html',
+        {
+            'feedbacks':feedbacks
+        }
     )
 
 
