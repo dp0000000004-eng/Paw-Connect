@@ -7,7 +7,6 @@ from django.db import IntegrityError, transaction
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import HOD_Model, FeedBack
-from django.core.mail import send_mail
 import os
 import logging
 import requests
