@@ -40,6 +40,7 @@ class HOD_ModelSerializer(serializers.ModelSerializer):
         return bleach.clean(value)
     def validate_description(self, value):
         return bleach.clean(value)
+    department = serializers.StringRelatedField()
 
     class Meta:
         model = HOD_Model
