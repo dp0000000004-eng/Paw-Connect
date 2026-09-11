@@ -1,6 +1,6 @@
 
 from django.shortcuts import render
-from .models import Syllabus, Semester
+from .models import Syllabus
 from accounts.models import Departments
 
 
