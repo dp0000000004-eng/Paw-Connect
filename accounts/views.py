@@ -10,7 +10,12 @@ from .models import HOD_Model, FeedBack
 import os
 import logging
 import requests
+from dotenv import load_dotenv
+from .serializers import HOD_ModelSerializer
+from rest_framework.response import Response
 from .models import Contact
+from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 
 
 # ---------------------------------------------------------------------------
@@ -64,15 +69,16 @@ def createAccount(request):
 logger = logging.getLogger(__name__)
 
 def send_welcome_email(username, email):
+    load_dotenv()
     try:
         response = requests.post(
             "https://api.brevo.com/v3/smtp/email",
             headers={
-                "api-key": os.environ.get('BREVO_API_KEY'),
+                "api-key": os.getenv('BREVO_API_KEY'),
                 "Content-Type": "application/json",
             },
             json={
-                "sender": {"name": "PawBytes Team", "email": os.environ.get('EMAIL_HOST_USER')},
+                "sender": {"name": "PawBytes Team", "email": os.getenv('EMAIL_HOST_USER')},
                 "to": [{"email": email, "name": username}],
                 "subject": "Your PawConnect account is ready",
                 "textContent": f"""
@@ -140,16 +146,18 @@ def Israt(request):
     return HttpResponse("Hello From Israt")
 
 
+@api_view(['GET', "POST"])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def about_view(request):
 
     hods = HOD_Model.objects.all()
+    hods_serializer = HOD_ModelSerializer(hods, many=True)
 
-    return render(
-        request,
-        'about.html',
+    return Response(
         {
-            "hods": hods
-        }
+            "hods": hods_serializer.data
+        },
+        template_name='about.html'
     )
 
 
