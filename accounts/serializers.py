@@ -71,3 +71,27 @@ class StudentsSerializer(serializers.ModelSerializer):
             "max_value":10
         }
     }
+
+class ContactSerializer(serializers.ModelSerializer):
+    def validate_email(self, value):
+        return bleach.clean(value)
+    def validate_contact_no(self, value):
+        return bleach.clean(value)
+    class Meta:
+        model = Contact
+        fields = ['id', 'email', 'contact_no']
+
+    extra_kwags = {
+        "phone_no":{
+            "min_value":10,
+            "max_value":10
+        }
+    }
+
+
+
+class FeedBackSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+    class Meta:
+        model = FeedBack
+        fields = ['id', 'user', 'description']
