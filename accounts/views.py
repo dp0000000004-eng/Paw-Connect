@@ -16,6 +16,7 @@ from rest_framework.response import Response
 from .models import Contact
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
+from .serializers import FeedBackSerializer, ContactSerializer
 
 
 # ---------------------------------------------------------------------------
@@ -161,39 +162,42 @@ def about_view(request):
     )
 
 
-@login_required
+@api_view(['GET', 'POST'])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def feedback(request):
 
-    if request.method == "POST":
+    if request.user.is_authenticated:
 
-        # Logged-in user from the session
-        user = User.objects.get(
-            username=request.user
-        )
-        username = user
+        if request.method == "POST":
 
-        # Text from the feedback form
-        description = request.POST.get('description')
+            # Logged-in user from the session
+            user = User.objects.get(
+                username=request.user
+            )
+            username = user
 
-        feedback = FeedBack(
-            user=username,
-            description=description
-        )
+            # Text from the feedback form
+            description = request.POST.get('description')
 
-        feedback.save()
+            feedback = FeedBack(
+                user=username,
+                description=description
+            )
 
-        return redirect(
-            'user:home'
-        )
+            feedback.save()
+
+            return redirect(
+                'user:home'
+            )
 
     feedbacks = FeedBack.objects.all()
+    feedbacksSerializer = FeedBackSerializer(feedbacks, many=True)
 
-    return render(
-        request,
-        'feedback.html',
+    return Response(
         {
-            'feedbacks':feedbacks
-        }
+            'feedbacks':feedbacksSerializer.data
+        },
+        template_name="feedback.html"
     )
 
 
@@ -203,19 +207,17 @@ def logout_view(request):
     return redirect('user:home')
 
 
+
+@api_view(['GET', 'POST'])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def contact_view(request):
 
-    try:
-
-        datas = Contact.objects.all()[0]
-
-    except IndexError:
-        return redirect('user:home')
+    contacts = Contact.objects.all()
+    contactsSerializer = ContactSerializer(contacts, many=True)
     
-    return render(
-        request,
-        'contact.html',
+    return Response(
         {
-            'datas': datas
-        }
+            'datas': contactsSerializer.data
+        },
+        template_name="contact.html"
     )
