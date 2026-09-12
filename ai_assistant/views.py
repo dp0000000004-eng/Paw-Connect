@@ -5,10 +5,16 @@ import os
 import random
 from openai import OpenAI
 from django.contrib.auth.models import User
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, renderer_classes
+from .serializers import ChatSerializer
+from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 from django.contrib.auth.decorators import login_required
 
 
 @login_required
+@api_view(['GET', 'POST'])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
 def chat(request):
 
     # One of these lines is shown at the top of the chat UI
@@ -80,16 +86,16 @@ def chat(request):
         chat.save()
 
     chats = Chat.objects.all()
+    chatsSerializer = ChatSerializer(chats, many=True)
 
     # Random greeting from the list above
     greets = random.choice(greetings)
 
 
-    return render(
-        request,
-        'ai.html',
+    return Response(
         {
-            "chats":chats,  # Past Q&A — uncomment when Chat.save() is enabled
+            "chats":chatsSerializer.data,  # Past Q&A — uncomment when Chat.save() is enabled
             "greets": greets
-        }
+        },
+        template_name="ai.html"
     )

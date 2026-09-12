@@ -36,7 +36,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1'
 ]
 
-DEBUG=os.getenv('DEBUG')
+DEBUG=True
 
 
 # Application definition
