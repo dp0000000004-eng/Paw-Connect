@@ -6,6 +6,9 @@ from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 from rest_framework.response import Response
 from .serializers import SyllabusSerializer
+from rest_framework_xml.renderers import XMLRenderer
+from rest_framework_yaml.renderers import YAMLRenderer
+from rest_framework_csv.renderers import CSVRenderer
 
 
 def departments(request):
@@ -21,7 +24,7 @@ def departments(request):
     )
 
 @api_view(['GET', 'POST'])
-@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def syllabus(request, branch_id):
     # Only syllabus records that belong to this department / branch
     syllabuses = Syllabus.objects.filter(branch=branch_id)

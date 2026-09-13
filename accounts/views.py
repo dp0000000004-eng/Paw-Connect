@@ -17,6 +17,9 @@ from .models import Contact
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 from .serializers import FeedBackSerializer, ContactSerializer
+from rest_framework_xml.renderers import XMLRenderer
+from rest_framework_yaml.renderers import YAMLRenderer
+from rest_framework_csv.renderers import CSVRenderer
 
 
 # ---------------------------------------------------------------------------
@@ -148,7 +151,7 @@ def Israt(request):
 
 
 @api_view(['GET', "POST"])
-@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def about_view(request):
 
     hods = HOD_Model.objects.all()
@@ -163,7 +166,7 @@ def about_view(request):
 
 
 @api_view(['GET', 'POST'])
-@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def feedback(request):
 
     if request.user.is_authenticated:
@@ -209,7 +212,7 @@ def logout_view(request):
 
 
 @api_view(['GET', 'POST'])
-@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def contact_view(request):
 
     contacts = Contact.objects.all()
