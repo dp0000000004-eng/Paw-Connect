@@ -10,11 +10,14 @@ from rest_framework.decorators import api_view, renderer_classes
 from .serializers import ChatSerializer
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 from django.contrib.auth.decorators import login_required
+from rest_framework_xml.renderers import XMLRenderer
+from rest_framework_yaml.renderers import YAMLRenderer
+from rest_framework_csv.renderers import CSVRenderer
 
 
 @login_required
 @api_view(['GET', 'POST'])
-@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def chat(request):
 
     # One of these lines is shown at the top of the chat UI
