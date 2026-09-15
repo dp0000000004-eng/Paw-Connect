@@ -21,6 +21,7 @@
         @import url('https://fonts.googleapis.com/css2?family=NTR&display=swap');
     </style>
     <link rel="icon" type="image/svg+xml" href="{% static 'images/paw.svg' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 
     {% block style %}
 
@@ -31,7 +32,7 @@
     <section class="sec-nav">
         <header class="navbar">
             <a href="{% url 'user:home' %}" class="logo" id="logo">
-                PawByte
+                <img src="{% static 'images/brand.svg' %}" alt="PawByte" height="32">
             </a>
             <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">
                 <span></span>
@@ -64,4 +65,64 @@
 
 
 </body>
+<footer class="site-footer">
+    <div class="footer-top">
+
+        <div class="footer-col">
+            <h4>Modules</h4>
+            <a href="#">Attendance</a>
+            <a href="#">Notices</a>
+            <a href="#">Exams &amp; Results</a>
+            <a href="#">Paw AI Study Assistant</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>Account</h4>
+            <a href="#">Login</a>
+            <a href="3">Create Account</a>
+            <a href="#">Dashboard</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>About</h4>
+            <a href="#">About PawConnect</a>
+            <a href="#">Govt. Polytechnic Angul</a>
+            <a href="#">Meet the Team</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>Get in Touch</h4>
+            <a href="#">Feedback</a>
+            <a href="#">Contact</a>
+            <a href="https://github.com/dp0000000004-eng/Paw-Connect" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+
+    </div>
+
+    <div class="footer-social">
+        <a href="https://github.com/dp0000000004-eng/Paw-Connect" target="_blank" rel="noopener" aria-label="GitHub">
+            <i class="ti ti-brand-github"></i>
+        </a>
+        <a href="#" aria-label="Instagram">
+            <i class="ti ti-brand-instagram"></i>
+        </a>
+        <a href="#" aria-label="Email">
+            <i class="ti ti-mail"></i>
+        </a>
+        <span class="footer-divider">|</span>
+        <a href="#">Forum</a>
+        <a href="#">About</a>
+        <a href="#">Academy</a>
+    </div>
+
+    <div class="footer-bottom">
+        <p>
+            PawConnect is built by students, for students — attendance, notices, exam results,
+            and an AI study buddy, all in one campus portal.
+        </p>
+        <p class="footer-copyright">
+            &copy; 2026 PawBytes &middot; PawConnect | Govt. Polytechnic Angul, Odisha. All Rights Reserved.
+        </p>
+    </div>
+</footer>
 </html>

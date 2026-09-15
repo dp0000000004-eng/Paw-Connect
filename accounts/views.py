@@ -54,7 +54,6 @@ def createAccount(request):
 
                 send_welcome_email(username, email)
 
-                # Write the user to the database
                 user.save()
                 # After signup, send them to the home page
                 return redirect('user:home')
