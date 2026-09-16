@@ -773,3 +773,29 @@ body {
         min-width: 45%;
     }
 }
+/* 
+.page-loader {
+    position: fixed;
+    inset: 0;
+    background: #14110d;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.page-loader.active {
+    display: flex;
+}
+
+.loader-logo {
+    width: 64px;
+    height: 64px;
+    animation: pop 0.9s ease-in-out infinite;
+}
+
+@keyframes pop {
+    0%   { transform: scale(0.7); opacity: 0.4; }
+    50%  { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(0.7); opacity: 0.4; }
+} */
