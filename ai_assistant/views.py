@@ -88,7 +88,7 @@ def chat(request):
         chat.response = response
         chat.save()
 
-    chats = Chat.objects.all()
+    chats = Chat.objects.filter(user_id=request.user.id)
     chatsSerializer = ChatSerializer(chats, many=True)
 
     # Random greeting from the list above

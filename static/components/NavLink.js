@@ -44,3 +44,20 @@ document.addEventListener("DOMContentLoaded", () => {
         if (window.innerWidth > 768) closeNav();
     });
 });
+
+
+// const loader = document.getElementById("pageLoader");
+
+// document.querySelectorAll("a[href]").forEach(link => {
+//     link.addEventListener("click", (e) => {
+//         if (link.href.startsWith(window.location.origin) && !link.href.includes("#")) {
+//             loader.classList.add("active");
+//         }
+//     });
+// });
+
+// document.querySelectorAll("form").forEach(form => {
+//     form.addEventListener("submit", () => {
+//         loader.classList.add("active");
+//     });
+// });
