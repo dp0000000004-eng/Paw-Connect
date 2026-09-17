@@ -13,4 +13,4 @@ class ChatSerializer(serializers.ModelSerializer):
         return bleach.clean(value)
     class Meta:
         model = Chat
-        fields = ['id', 'user', 'response']
+        fields = ['id', 'user','prompt', 'response']
