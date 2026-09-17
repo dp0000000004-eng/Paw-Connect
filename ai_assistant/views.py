@@ -48,7 +48,7 @@ def chat(request):
     
         client = OpenAI(
             base_url = "https://integrate.api.nvidia.com/v1",
-            api_key = os.getenv('NVIDIA_AI_API_KEY'),
+            api_key = os.environ.get('NVIDIA_AI_API_KEY'),
             timeout=60.0
         )
     
