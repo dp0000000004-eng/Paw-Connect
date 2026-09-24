@@ -32,11 +32,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 
-ALLOWED_HOSTS = [
-    os.environ.get('ALLOW_HOSTS')
-]
+ALLOWED_HOSTS = os.environ.get('ALLOW_HOSTS')
 
-DEBUG=os.environ.get('DEBUG')
+
+DEBUG=False
 
 
 # Application definition
