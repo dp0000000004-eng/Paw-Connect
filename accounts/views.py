@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError, transaction
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import HOD_Model, FeedBack
 import os
@@ -77,11 +76,11 @@ def send_welcome_email(username, email):
         response = requests.post(
             "https://api.brevo.com/v3/smtp/email",
             headers={
-                "api-key": os.environ.get('BREVO_API_KEY'),
+                "api-key": os.getenv('BREVO_API_KEY'),
                 "Content-Type": "application/json",
             },
             json={
-                "sender": {"name": "PawBytes Team", "email": os.environ.get('EMAIL_HOST_USER')},
+                "sender": {"name": "PawBytes Team", "email": os.getenv('EMAIL_HOST_USER')},
                 "to": [{"email": email, "name": username}],
                 "subject": "Your PawConnect account is ready",
                 "textContent": f"""
@@ -108,7 +107,7 @@ def send_welcome_email(username, email):
         )
         response.raise_for_status()
     except Exception as e:
-        logger.error(f"Failed to send welcome email: {e}")
+        logger.error(f"Failed to send welcome email: {type(e).__name__} : {e}")
 
 
 def login_view(request):
@@ -143,10 +142,6 @@ def login_view(request):
         'Login.html'
     )
 
-
-@login_required
-def Israt(request):
-    return HttpResponse("Hello From Israt")
 
 
 @api_view(['GET', "POST"])
@@ -219,7 +214,7 @@ def contact_view(request):
     
     return Response(
         {
-            'datas': contactsSerializer.data
+            'datas': contactsSerializer.data[0]
         },
         template_name="contact.html"
     )

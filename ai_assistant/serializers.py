@@ -6,7 +6,7 @@ import bleach
 class ChatSerializer(serializers.ModelSerializer):
 
     def validate_user(self, value):
-        return bleach.clean(value)
+        return bleach.clean(str(value))
     def validate_prompt(self, value):
         return bleach.clean(value)
     def validate_response(self, value):

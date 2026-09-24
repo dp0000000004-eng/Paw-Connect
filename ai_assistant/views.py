@@ -13,7 +13,9 @@ from django.contrib.auth.decorators import login_required
 from rest_framework_xml.renderers import XMLRenderer
 from rest_framework_yaml.renderers import YAMLRenderer
 from rest_framework_csv.renderers import CSVRenderer
+from dotenv import load_dotenv
 
+load_dotenv()
 
 @login_required
 @api_view(['GET', 'POST'])
@@ -48,7 +50,7 @@ def chat(request):
     
         client = OpenAI(
             base_url = "https://integrate.api.nvidia.com/v1",
-            api_key = os.environ.get('NVIDIA_AI_API_KEY'),
+            api_key = os.getenv('NVIDIA_AI_API_KEY'),
             timeout=60.0
         )
     

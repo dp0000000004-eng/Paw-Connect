@@ -22,6 +22,8 @@ class CollageMetaSerializer(serializers.ModelSerializer):
         }
     }
 
+
+
 class DepartmentSerializer(serializers.ModelSerializer):
 
     def validate_name(self, value):
@@ -33,14 +35,15 @@ class DepartmentSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'code']
 
 class HOD_ModelSerializer(serializers.ModelSerializer):
+    department = serializers.StringRelatedField()
 
     def validate_name(self, value):
         return bleach.clean(value)
-    def validate_department(self, value):
+    def validate_department(self, value):              #ERROR
         return bleach.clean(value)
     def validate_description(self, value):
         return bleach.clean(value)
-    department = serializers.StringRelatedField()
+    
 
     class Meta:
         model = HOD_Model
@@ -50,13 +53,13 @@ class HOD_ModelSerializer(serializers.ModelSerializer):
 class StudentsSerializer(serializers.ModelSerializer):
 
     def validate_first_name(self, value):
-        return bleach.clean(value)
+        return bleach.clean(value, tags=[], strip=True)
     def validate_last_name(self, value):
         return bleach.clean(value)
     def validate_email(self, value):
         return bleach.clean(value)
     def validate_branch(self, value):
-        return bleach.clean(value)
+        return bleach.clean(str(value))
     def validate_register_no(self, value):
         return bleach.clean(value)
     def validate_phone_no(self, value):
