@@ -76,11 +76,11 @@ def send_welcome_email(username, email):
         response = requests.post(
             "https://api.brevo.com/v3/smtp/email",
             headers={
-                "api-key": os.getenv('BREVO_API_KEY'),
+                "api-key": os.environ.get('BREVO_API_KEY'),
                 "Content-Type": "application/json",
             },
             json={
-                "sender": {"name": "PawBytes Team", "email": os.getenv('EMAIL_HOST_USER')},
+                "sender": {"name": "PawBytes Team", "email": os.environ.get('EMAIL_HOST_USER')},
                 "to": [{"email": email, "name": username}],
                 "subject": "Your PawConnect account is ready",
                 "textContent": f"""
