@@ -211,10 +211,16 @@ def contact_view(request):
 
     contacts = Contact.objects.all()
     contactsSerializer = ContactSerializer(contacts, many=True)
+
+
+    try:
     
-    return Response(
-        {
-            'datas': contactsSerializer.data[0]
-        },
-        template_name="contact.html"
-    )
+        return Response(
+            {
+                'datas': contactsSerializer.data[0]
+            },
+            template_name="contact.html"
+        )
+    
+    except IndexError:
+        return redirect('user:home')
