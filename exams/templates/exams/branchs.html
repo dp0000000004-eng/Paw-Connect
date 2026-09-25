@@ -5,9 +5,42 @@
 {% endblock %}
 
 {% block body %}
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+
+    th,
+    td {
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #fafafa;
+    }
+</style>
 <section class="page">
-{% for branch in branches %}
-    <h1><a href="{% url 'exam:syllabus' branch.id %}">{{ branch }}</a></h1>
-{% endfor %}
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>branch</th>
+        </tr>
+        {% for branch in branches %}
+        <tr>
+            <td>{{ branch.id }}</td>
+            <td>
+                <h1><a href="{% url 'exam:syllabus' branch.id %}">{{ branch.name }}</a></h1>
+            </td>
+            {% endfor %}
+        </tr>
+    </table>
 </section>
 {% endblock %}
