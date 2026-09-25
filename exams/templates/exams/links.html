@@ -5,11 +5,52 @@
 {% endblock %}
 
 {% block body %}
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        background: #fff;
+    }
+
+    th, td {
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    tr:first-child {
+        background: #f2f2f2;
+        font-weight: bold;
+    }
+
+    tr:not(:first-child):hover {
+        background: #f9f9f9;
+    }
+
+    a {
+        color: #333;
+        text-decoration: none;
+    }
+</style>
 <section class="page">
-    {% for syllabus in syllabuses %}
-        <h1>
-            {{ syllabus.semester }} <sup>th</sup> Semester <a href="{{ syllabus.link }}" target="_blank">Click Here</a>
-        </h1>
-    {% endfor %}
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>semester</td>
+            <td>Link</td>
+        </tr>
+
+        {% for syllabus in syllabuses %}
+            <tr>
+                <td>{{ syllabus.id }}</td>
+                <td>{{ syllabus.semester }}  <sup>th</sup> Semester </td>
+                <td><a href="{{ syllabus.link }}" target="_blank"><i class="fa-solid fa-download"></i>   </a></td>
+                    
+            </tr>
+        {% endfor %}
+    </table>
 </section>
 {% endblock %}
+
+
