@@ -1,4 +1,3 @@
-
 from django.shortcuts import render
 from .models import Syllabus, Semester
 from accounts.models import Departments
@@ -22,6 +21,7 @@ def departments(request):
             "branches": branches
         }
     )
+
 
 @api_view(['GET', 'POST'])
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
