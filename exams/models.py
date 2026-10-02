@@ -32,7 +32,7 @@ class Syllabus(models.Model):
     link = models.URLField()
 
     def __str__(self):
-        return self.link
+        return f"{self.link} - {self.semester}"
 
 class StudyNotes(models.Model):
     branch = models.ForeignKey(Departments, on_delete=models.CASCADE, related_name='dep_note')

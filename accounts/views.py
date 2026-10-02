@@ -34,38 +34,31 @@ def createAccount(request):
     try:
         with transaction.atomic():
             
-        # Form was submitted (not just opening the page)
             if request.method == "POST":
 
-                # Values typed in the signup form
                 username = request.POST.get('username')
                 email = request.POST.get('email')
                 raw_password = request.POST.get('password')
 
-                # New user object (password is set separately so it is hashed)
                 user = User(
                     username=username,
                     email=email
                 )
 
-                # Hash the password before saving (never store plain text in DB)
                 user.set_password(raw_password)
 
                 send_welcome_email(username, email)
 
                 user.save()
-                # After signup, send them to the home page
 
                 login(
                     request, user
                 )
                 return redirect('user:home')
 
-    # Username (or another unique field) already taken
     except IntegrityError:
         messages.error(request, "Username exists in this name try another :( ")
 
-    # GET request, or signup failed: show the form again
     return render(
         request,
         'create_acc.html'
@@ -80,11 +73,11 @@ def send_welcome_email(username, email):
         response = requests.post(
             "https://api.brevo.com/v3/smtp/email",
             headers={
-                "api-key": os.getenv('BREVO_API_KEY'),
+                "api-key": os.environ.get('BREVO_API_KEY'),
                 "Content-Type": "application/json",
             },
             json={
-                "sender": {"name": "PawBytes Team", "email": os.getenv('EMAIL_HOST_USER')},
+                "sender": {"name": "PawBytes Team", "email": os.environ.get('EMAIL_HOST_USER')},
                 "to": [{"email": email, "name": username}],
                 "subject": "Your PawConnect account is ready",
                 "textContent": f"""
@@ -119,14 +112,12 @@ def login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        # Returns a User if credentials match, otherwise None
         user = authenticate(
             username=username,
             password=password
         )
 
         if user is not None:
-            # Create the logged-in session (request.user becomes this user)
             login(
                 request,
                 user
@@ -135,7 +126,6 @@ def login_view(request):
             return redirect('user:home')
 
         else:
-            # Wrong username or password
             messages.error(
                 request,
                 "Invalid Credentials! "
@@ -171,13 +161,11 @@ def feedback(request):
 
         if request.method == "POST":
 
-            # Logged-in user from the session
             user = User.objects.get(
                 username=request.user
             )
             username = user
 
-            # Text from the feedback form
             description = request.POST.get('description')
 
             feedback = FeedBack(

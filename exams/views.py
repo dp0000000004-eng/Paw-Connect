@@ -26,7 +26,6 @@ def departments(request):
 @api_view(['GET', 'POST'])
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def syllabus(request, branch_id):
-    # Only syllabus records that belong to this department / branch
     syllabuses = Syllabus.objects.filter(branch=branch_id)
     syllabusesSerializer = SyllabusSerializer(syllabuses, many=True)
 
