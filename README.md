@@ -112,19 +112,7 @@ Paw-Connect/
 │   ├── models.py
 │   ├── views.py
 │   └── urls.py
-│
-├── attendance/
-│   ├── templates/
-│   │   └── attendance/
-│   │       ├── mark.html
-│   │       └── view.html
-│   ├── static/
-│   │   └── attendance/
-│   │       └── style.css
-│   ├── models.py
-│   ├── views.py
-│   └── urls.py
-│
+|
 ├── notices/
 │   ├── templates/
 │   │   └── notices/
@@ -171,6 +159,7 @@ Paw-Connect/
 │   ├── settings.py
 │   ├── urls.py                  # includes each app's urls.py
 │   └── wsgi.py
+|
 ├── manage.py
 ├── requirements.txt
 └── README.md

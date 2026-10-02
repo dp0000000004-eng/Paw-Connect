@@ -22,7 +22,6 @@ load_dotenv()
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def chat(request):
 
-    # One of these lines is shown at the top of the chat UI
     greetings = [
 
     f"Nice to see you, {request.user.username}. What’s new?",
@@ -39,7 +38,6 @@ def chat(request):
     ]
 
 
-    # Form submitted (user typed a prompt). AI reply is currently disabled.
     if request.method == "POST":
 
 
@@ -50,7 +48,7 @@ def chat(request):
     
         client = OpenAI(
             base_url = "https://integrate.api.nvidia.com/v1",
-            api_key = os.getenv('NVIDIA_AI_API_KEY'),
+            api_key = os.environ.get('NVIDIA_AI_API_KEY'),
             timeout=60.0
         )
     
@@ -58,6 +56,7 @@ def chat(request):
         model="nvidia/nemotron-3-ultra-550b-a55b",
     
         messages = [
+            
             {
                 "role":"system",
                 "content":"""
@@ -151,7 +150,6 @@ def chat(request):
     chats = Chat.objects.filter(user_id=request.user.id)
     chatsSerializer = ChatSerializer(chats, many=True)
 
-    # Random greeting from the list above
     greets = random.choice(greetings)
 
 
