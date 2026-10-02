@@ -55,6 +55,10 @@ def createAccount(request):
 
                 user.save()
                 # After signup, send them to the home page
+
+                login(
+                    request, user
+                )
                 return redirect('user:home')
 
     # Username (or another unique field) already taken
