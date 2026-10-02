@@ -43,7 +43,7 @@
       </div>
       <div class="row bot">
         <div class="avatar">👾</div>
-        <div class="bubble">
+        <div class="bubbleR">
           <div class="who">Paw AI</div>
           {{ chat.response }}
         </div>
@@ -66,11 +66,21 @@
     <input type="submit" value="&#10148;">
   </form>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <script>
   // Auto-scroll to the latest message on load, and after each POST reload.
   const log = document.getElementById('chatLog');
   if (log) log.scrollTop = log.scrollHeight;
+
+  const contents = document.querySelectorAll('.bubbleR')
+
+  contents.forEach((content) => {
+    const markdown = content.textContent;
+    console.log(markdown);
+    content.innerHTML = marked.parse(markdown);
+  });
+
 </script>
 
 </body>

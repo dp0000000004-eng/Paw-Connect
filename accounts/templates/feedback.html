@@ -5,6 +5,13 @@
 {% load static %}
 
 
+{% block style %}
+
+<link rel="stylesheet" href="{% static 'css/feedback.css' %}">
+
+{% endblock %}
+
+
 {% block title %}
     Feedback
 {% endblock %}
@@ -17,10 +24,12 @@
 
         <form method="post">
             {% csrf_token %}
-            <input type="text" name="description" placeholder="description">
+            <input type="text" name="Put You Feedback" placeholder="description">
             <input type="submit" value="Send">
         </form>
     </section>
+
+
     <div class="feedbacks">
         <h3>Users FeedBacks</h3>
         {% for feedback in feedbacks %}
