@@ -33,11 +33,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
+    os.environ.get('ALLOWED_HOSTS'),
 ]
 
 
-DEBUG=True
+DEBUG=False
 
 
 # Application definition
