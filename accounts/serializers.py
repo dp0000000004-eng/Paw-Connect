@@ -71,7 +71,7 @@ class StudentsSerializer(serializers.ModelSerializer):
     extra_kwags = {
         "phone_no":{
             "min_value":10,
-            "max_value":10
+            "max_value":13
         }
     }
 
@@ -87,7 +87,7 @@ class ContactSerializer(serializers.ModelSerializer):
     extra_kwags = {
         "phone_no":{
             "min_value":10,
-            "max_value":10
+            "max_value":13
         }
     }
 
