@@ -76,20 +76,20 @@
             <a href="#">Attendance</a>
             <a href="#">Notices</a>
             <a href="#">Exams &amp; Results</a>
-            <a href="#">Paw AI Study Assistant</a>
+            <a href="{% url 'ai:ai_view' %}">Paw AI Study Assistant</a>
         </div>
 
         <div class="footer-col">
             <h4>Account</h4>
-            <a href="#">Login</a>
-            <a href="3">Create Account</a>
+            <a href="{% url 'user:login' %}">Login</a>
+            <a href="{% url 'user:create_account' %}">Create Account</a>
             <a href="#">Dashboard</a>
         </div>
 
         <div class="footer-col">
             <h4>About</h4>
             <a href="#">About PawConnect</a>
-            <a href="#">Govt. Polytechnic Angul</a>
+            <a href="https://gpangul.org/" target="_blank">Govt. Polytechnic Angul</a>
             <a href="#">Meet the Team</a>
         </div>
 

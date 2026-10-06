@@ -25,15 +25,15 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# os.environ.get("DEBUG", "False") == "True"
+# os.getenv("DEBUG", "False") == "True"
 
 
 
 ALLOWED_HOSTS = [
-    os.environ.get('ALLOWED_HOSTS'),
+    os.getenv('ALLOWED_HOSTS'),
 ]
 
 
@@ -101,7 +101,7 @@ DATABASES = {
 # import dj_database_url
 
 # DATABASES = {
-#     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+#     'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
 # }
 
 
