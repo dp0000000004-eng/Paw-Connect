@@ -15,6 +15,13 @@
 
 <header>
   <div class="mark">
+{% if messages %}
+    {% for message in messages %}
+      <div role="alert" style="margin: 16px auto; max-width: 720px; padding: 12px 16px; color: #991b1b; background:#22304A ; border: 1px solid #22304A ; border-radius: 8px;">
+        {{ message }}
+      </div>
+    {% endfor %}
+{% endif %}
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <ellipse cx="12" cy="15.5" rx="5.2" ry="4.3" fill="#0B1220"/>
       <ellipse cx="5.6" cy="9.2" rx="1.9" ry="2.3" fill="#0B1220"/>
@@ -27,6 +34,8 @@
   <a href="{% url 'user:home' %}" class="Home" >Home</a>
   <div class="status"><span class="dot"></span> Online</div>
 </header>
+
+
 
 <main class="chat-box">
   <h2 class="greet">{{ greets }}</h2>
