@@ -51,6 +51,10 @@ def createAccount(request):
 
                 user.save()
 
+                username = ""
+                email = ""
+                raw_password = ""
+
                 login(
                     request, user
                 )
