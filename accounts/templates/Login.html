@@ -6,43 +6,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
+  <title>Log in</title>
   <link rel="stylesheet" href="{% static 'css/login.css' %}">
   <link rel="icon" type="image/svg+xml" href="{% static 'images/lock.svg' %}">
 </head>
 <body>
 
 
-  <div class="login-container">
+  <main class="login-container">
 
     
     {% if messages %}
       {% for message in messages %}
-        <p class="error-msg">
+        <p class="error-msg" role="alert">
           {{ message }}
         </p>
       {% endfor %}
     {% endif %}
 
-    <form class="login-box" method="POST" >
+    <form class="login-box" method="post">
       {% csrf_token %}
-      <h2>Login </h2>
+      <h1>Log in</h1>
       <div class="input-group">
-        <span class="icon">👤</span>
-        <input type="text" name="username" placeholder="Username" required>
+        <label class="visually-hidden" for="login-username"></label>
+        <span class="icon" aria-hidden="true">👤</span>
+        <input id="login-username" type="text" name="username" placeholder="Username" autocomplete="username" required>
       </div>
       <div class="input-group">
-        <span class="icon">🔒
-        </span>
-        <input type="password" name="password" placeholder=" Enter Password" required>
+        <label class="visually-hidden" for="login-password"></label>
+        <span class="icon" aria-hidden="true">🔒</span>
+        <input id="login-password" type="password" name="password" placeholder="Password" autocomplete="current-password" required>
       </div>
       <input class="button" type="submit" value="Login">
       <p class="info-cls">
-        if not have a account <a href="{% url 'user:create_account' %}" >Sign in</a>
+        Don’t have an account? <a href="{% url 'user:create_account' %}">Create one</a>
+      </p><br>
+      <p class="info-cls">
+         <a href="{% url 'user:home' %}">Home</a>
       </p>
     </form>
      
     
-  </div>
+  </main>
 </body>
 </html>

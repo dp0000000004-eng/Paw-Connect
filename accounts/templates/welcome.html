@@ -6,18 +6,18 @@
 
 {% block body %}
 
-    <section class="hero">
+    <main class="hero">
         <!-- Hero Content -->
         <div class="hero-content">
             <div class="hero-text">
                 <h1>
-                    <div class="liquid" data-text="Build your">Build your</div><br>
-                    <div class="liquid" data-text="Future">Future</div> <span>Golden</span>
+                <span class="liquid" data-text="Build your">Build your</span><br>
+                <span class="liquid" data-text="Future">Future</span> <span>Golden</span>
                 </h1>
                 <p>
                     Learn today. Build your skills.
                     Create your future.
-                </p><br><br>
+                </p>
                 {% if user.is_authenticated %}
                 <a href="{% url 'ai:ai_view' %}" class="learn-btn">
                     Paw AI →
@@ -43,12 +43,10 @@
                 </div>
 
 
-                <a href="{% url 'exam:branch' %}">
-                <div class="service-card">
+                <a href="{% url 'exam:branch' %}" class="service-card">
                     <h3>Syllabus</h3>
-                    <p>All Department Syllabus live here.</p>
-                    <span>→</span>
-                </div>
+                    <p>Find the syllabus for each department.</p>
+                    <span aria-hidden="true">→</span>
                 </a>
 
                 <div class="service-card">
@@ -57,12 +55,10 @@
                     <span>→</span>
                 </div>
 
-                <a href="{% url 'ai:ai_view' %}">
-                <div class="service-card">
-                    <h3>Pratice Tests With AI</h3>
-                    <p>test your knowledge with online tests.</p>
-                    <span>→</span>
-                </div>
+                <a href="{% url 'ai:ai_view' %}" class="service-card">
+                    <h3>Practice with AI</h3>
+                    <p>Test your knowledge with online practice.</p>
+                    <span aria-hidden="true">→</span>
                 </a>
 
                 <div class="service-card">
@@ -77,9 +73,8 @@
                     <span>→</span>
                 </div>
 
-
             </div>
-        </section>
-    </section> 
+    </section>
+    </main>
 
 {% endblock %}

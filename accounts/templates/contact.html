@@ -10,32 +10,19 @@
 {% endblock %}
 
 {% block body %}
-    <section class="page">
-        <h1>
-            Collage Email- <a href="mailto:{{ datas.email }}">Principal</a><br>
-            Collage Phone- {{ datas.contact_no }}
-        </h1>
-    </section>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <main class="page contact-page">
+        <h1>Contact</h1>
+        <address class="contact-details">
+            <p>
+                <span>College email</span>
+                <a href="mailto:{{ datas.email }}">{{ datas.email }}</a>
+            </p>
+            <p>
+                <span>College phone</span>
+                <a href="tel:{{ datas.contact_no }}">{{ datas.contact_no }}</a>
+            </p>
+        </address>
+    </main>
     <br>
     <br>
 {% endblock %}

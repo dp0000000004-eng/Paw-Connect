@@ -5,43 +5,29 @@
 {% endblock %}
 
 {% block body %}
-<style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-    }
-
-    th,
-    td {
-        padding: 0.75rem;
-        border: 1px solid black;
-        
-        text-align: left;
-    }
-
-    th {
-        background-color: black;
-    }
-
-    tr:nth-child(even) {
-        background-color: #1683FF;
-    }
-</style>
-<section class="page">
-    <table>
-        <tr>
-            <th>Id</th>
-            <th>branch</th>
-        </tr>
-        {% for branch in branches %}
-        <tr>
-            <td>{{ branch.id }}</td>
-            <td>
-                <h1><a href="{% url 'exam:syllabus' branch.id %}">{{ branch.name }}</a></h1>
-            </td>
-            {% endfor %}
-        </tr>
-    </table>
-</section>
+<main class="page">
+    <h1>Departments</h1>
+    <div class="table-scroll" role="region" aria-label="Departments" tabindex="0">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Department</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for branch in branches %}
+                    <tr>
+                        <td>{{ branch.id }}</td>
+                        <td><a href="{% url 'exam:syllabus' branch.id %}">{{ branch.name }}</a></td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="2">No departments are available yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
 {% endblock %}

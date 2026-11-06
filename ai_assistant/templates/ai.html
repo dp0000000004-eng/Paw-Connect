@@ -13,15 +13,16 @@
 </head>
 <body>
 
+{% if messages %}
+  {% for message in messages %}
+    <div class="notice" role="alert">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+
 <header>
   <div class="mark">
-{% if messages %}
-    {% for message in messages %}
-      <div role="alert" style="margin: 16px auto; max-width: 720px; padding: 12px 16px; color: #991b1b; background:#22304A ; border: 1px solid #22304A ; border-radius: 8px;">
-        {{ message }}
-      </div>
-    {% endfor %}
-{% endif %}
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <ellipse cx="12" cy="15.5" rx="5.2" ry="4.3" fill="#0B1220"/>
       <ellipse cx="5.6" cy="9.2" rx="1.9" ry="2.3" fill="#0B1220"/>
@@ -54,7 +55,7 @@
         <div class="avatar">👾</div>
         <div class="bubbleR">
           <div class="who">Paw AI</div>
-          {{ chat.response }}
+          <div class="message-content">{{ chat.response }}</div>
         </div>
       </div>
     {% empty %}
@@ -68,26 +69,129 @@
     {% endfor %}
   </div>
 
-  <form method="post" id="chatForm">
+  <div class="chat-feedback" id="chatFeedback" role="status" aria-live="polite"></div>
+  <form method="post" id="chatForm" action="{% url 'ai:ai_view' %}">
     {% csrf_token %}
-    <label for="prompt">Prompt</label>
+    <label class="visually-hidden" for="prompt">Prompt</label>
     <input type="text" id="prompt" name="prompt" placeholder="Ask Paw AI anything…" autocomplete="off" required>
-    <input type="submit" value="&#10148;">
+    <input type="submit" value="&#10148;" aria-label="Send message">
   </form>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
 
 <script>
-  // Auto-scroll to the latest message on load, and after each POST reload.
   const log = document.getElementById('chatLog');
-  if (log) log.scrollTop = log.scrollHeight;
+  const form = document.getElementById('chatForm');
+  const promptInput = document.getElementById('prompt');
+  const submitButton = form.querySelector('input[type="submit"]');
+  const feedback = document.getElementById('chatFeedback');
 
-  const contents = document.querySelectorAll('.bubbleR')
+  function scrollToLatest() {
+    log.scrollTop = log.scrollHeight;
+  }
 
-  contents.forEach((content) => {
-    const markdown = content.textContent;
-    console.log(markdown);
-    content.innerHTML = marked.parse(markdown);
+  function renderMarkdown(element, markdown) {
+    if (window.marked && window.DOMPurify) {
+      element.innerHTML = window.DOMPurify.sanitize(window.marked.parse(markdown));
+    } else {
+      element.textContent = markdown;
+    }
+  }
+
+  function addMessage(role, text, isThinking = false) {
+    const row = document.createElement('div');
+    row.className = `row ${role}`;
+
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    avatar.textContent = role === 'user' ? 'You' : 'AI';
+    avatar.setAttribute('aria-hidden', 'true');
+
+    const bubble = document.createElement('div');
+    bubble.className = role === 'user' ? 'bubble' : 'bubbleR';
+    if (isThinking) bubble.classList.add('is-thinking');
+
+    const who = document.createElement('div');
+    who.className = 'who';
+    who.textContent = role === 'user' ? 'You' : 'Paw AI';
+
+    const message = document.createElement('div');
+    message.className = 'message-content';
+    if (role === 'bot' && !isThinking) {
+      renderMarkdown(message, text);
+    } else {
+      message.textContent = text;
+    }
+
+    bubble.append(who, message);
+    row.append(avatar, bubble);
+    log.append(row);
+    scrollToLatest();
+    return { row, bubble, message };
+  }
+
+  log.querySelectorAll('.bubbleR .message-content').forEach((message) => {
+    const markdown = message.textContent;
+    renderMarkdown(message, markdown);
+  });
+  scrollToLatest();
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const prompt = promptInput.value.trim();
+    if (submitButton.disabled) return;
+    if (!prompt) {
+      feedback.textContent = 'Enter a message before sending.';
+      promptInput.focus();
+      return;
+    }
+
+    feedback.textContent = '';
+    addMessage('user', prompt);
+    const thinking = addMessage('bot', 'Paw AI is thinking…', true);
+    submitButton.disabled = true;
+    form.setAttribute('aria-busy', 'true');
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+          'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      });
+
+      const contentType = response.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        throw new Error('Your session may have expired. Please sign in again.');
+      }
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error('Paw AI could not respond. Please try again.');
+      }
+
+      const chats = data.chats || [];
+      const savedChat = chats[chats.length - 1];
+      if (!savedChat || typeof savedChat.response !== 'string') {
+        throw new Error('Paw AI returned an unexpected response. Please try again.');
+      }
+
+      thinking.row.remove();
+      addMessage('bot', savedChat.response);
+      if (promptInput.value.trim() === prompt) promptInput.value = '';
+      promptInput.focus();
+    } catch (error) {
+      thinking.bubble.classList.remove('is-thinking');
+      thinking.message.textContent = error.message || 'Paw AI could not respond. Please try again.';
+      feedback.textContent = 'Your prompt is still here. You can try sending it again.';
+      scrollToLatest();
+    } finally {
+      submitButton.disabled = false;
+      form.removeAttribute('aria-busy');
+    }
   });
 
 </script>

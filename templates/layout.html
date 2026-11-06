@@ -32,7 +32,7 @@
 </head>
 <body>
         
-    <section class="sec-nav">
+    <div class="sec-nav">
         <header class="navbar">
             <a href="{% url 'user:home' %}" class="logo" id="logo">
                 <img src="{% static 'images/brand.svg' %}" alt="PawByte" height="32">
@@ -50,7 +50,7 @@
             </nav>
             <div class="nav__right">
             {% if user.is_authenticated %}
-                <a href="{% url 'user:logout' %}" title="Account settings">
+                <a href="{% url 'user:logout' %}" title="Log out" aria-label="Log out">
                     <span class="nav__avatar">{{ user.username|slice:":1"|upper }}</span>
                 </a>
             {% else %}
@@ -58,16 +58,12 @@
             {% endif %}
              </div>
         </header>
-    </section>
-        <hr class="slimline">
+    </div>
+    <hr class="slimline">
 
     <!-- Plugin Body -->
     {% block body %}
     {% endblock %}
-    <script src="{% static 'components/NavLink.js' %}"></script>
-
-
-</body>
 <footer class="site-footer">
     <div class="footer-top">
 
@@ -89,8 +85,8 @@
         <div class="footer-col">
             <h4>About</h4>
             <a href="#">About PawConnect</a>
-            <a href="https://gpangul.org/" target="_blank">Govt. Polytechnic Angul</a>
-            <a href="#">Meet the Team</a>
+            <a href="https://gpangul.org/" target="_blank" rel="noopener noreferrer">Govt. Polytechnic Angul</a>
+            <a href=" https://dp0000000004-eng.github.io/paw_gang/">Meet the Team</a>
         </div>
 
         <div class="footer-col">
@@ -109,7 +105,7 @@
         <a href="#" aria-label="Instagram">
             <i class="ti ti-brand-instagram"></i>
         </a>
-        <a href="#" aria-label="Email">
+        <a href="mailto:pawbytes.dev@gmail.com" aria-label="Email">
             <i class="ti ti-mail"></i>
         </a>
         <span class="footer-divider">|</span>
@@ -128,4 +124,6 @@
         </p>
     </div>
 </footer>
+    <script src="{% static 'components/NavLink.js' %}"></script>
+</body>
 </html>
