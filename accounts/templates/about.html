@@ -15,125 +15,54 @@
 
 {% block body %}
 
-    <main class="hero">
-        <br>
-        <br>
-        <br>
-        <br>
+    <main class="hero about-page">
         <h1 class="main-Head">
             Govt. Polytechnic, Angul
         </h1>
 
-
-        <!-- Profile Cards -->
-        
-            <section class="cards">
-                {% for hod in hods %}
-
-                <!-- Card 1 -->
-                    <article class="card">
-
-                        <div class="profile">
-                            <span><img src="char.png"</span>
-                        </div>
-
-                        <h2 class="name">
-                            {{ hod.name }}
-                        </h2>
-
-                        <p class="role">
-                            {{ hod.description }}
-                        </p>
-
-                    </article>
-                {% empty %}
-                    <h1>
-                        No Data Available
-                    </h1>
-                {% endfor %}
-           
+        <section class="cards" aria-label="Department heads">
+            {% for hod in hods %}
+                <article class="card">
+                    <div class="profile" aria-hidden="true">
+                        <span>{{ hod.name|first|upper }}</span>
+                    </div>
+                    <h2 class="name">{{ hod.name }}</h2>
+                    <p class="role">{{ hod.description }}</p>
+                </article>
+            {% empty %}
+                <p class="empty-state">No department heads are available yet.</p>
+            {% endfor %}
         </section>
-        <h1> BRANCHS</h1>
-         <section class="branchs">
-                        <article class="branch">
-
-                <h2 class="br-name">
-                    CE & IoT
-                </h2>
-
-                <p class="br-role">
-                    Skill Development &amp;<br>
-                    Technical Education<br>
-                    Department, Odisha
-                </p>
-                        </article>
-                              <article class="branch">
-
-                <h2 class="br-name">
-                    ELECTRICAL ENGINEERING
-                </h2>
-
-                <p class="br-role">
-                    Skill Development &amp;<br>
-                    Technical Education<br>
-                    Department, Odisha
-                </p>
-                        </article>
-                              <article class="branch">
-
-                <h2 class="br-name">
-                    MECHANICAL ENGINEERING
-                </h2>
-
-                <p class="br-role">
-                    Skill Development &amp;<br>
-                    Technical Education<br>
-                    Department, Odisha
-                </p>
-                        </article>
-                              <article class="branch">
-
-                <h2 class="br-name">
-                    CIVIL ENGINEERING
-                </h2>
-
-                <p class="br-role">
-                   Civil engineering is a branch of engineering that
-                    focuses on the design, construction, and maintenance of 
-                    infrastructure such as roads, bridges, dams, airports, and buildings. 
-                    It applies principles of physics, mathematics, and material science to solve 
-                    practical problems and create safe, sustainable structures.
-                </p>
-                        </article>
+        <section class="branch-section" aria-labelledby="branches-heading">
+            <h2 id="branches-heading">Departments</h2>
+            <div class="branchs">
                 <article class="branch">
-
-                <h2 class="br-name">
-                    METALLURGY
-                </h2>
-
-                <p class="br-role">
-                    Skill Development &amp;<br>
-                    Technical Education<br>
-                    Department, Odisha
-                </p>
-                        </article>
+                    <h3 class="br-name">CE &amp; IoT</h3>
+                    <p class="br-role">Skill Development &amp; Technical Education Department, Odisha</p>
+                </article>
                 <article class="branch">
+                    <h3 class="br-name">Electrical Engineering</h3>
+                    <p class="br-role">Skill Development &amp; Technical Education Department, Odisha</p>
+                </article>
+                <article class="branch">
+                    <h3 class="br-name">Mechanical Engineering</h3>
+                    <p class="br-role">Skill Development &amp; Technical Education Department, Odisha</p>
+                </article>
+                <article class="branch">
+                    <h3 class="br-name">Civil Engineering</h3>
+                    <p class="br-role">Design, construction, and maintenance of essential infrastructure and the built environment.</p>
+                </article>
+                <article class="branch">
+                    <h3 class="br-name">Metallurgy</h3>
+                    <p class="br-role">Skill Development &amp; Technical Education Department, Odisha</p>
+                </article>
+                <article class="branch">
+                    <h3 class="br-name">Mining</h3>
+                    <p class="br-role">Skill Development &amp; Technical Education Department, Odisha</p>
+                </article>
+            </div>
+        </section>
 
-                <h2 class="br-name">
-                    MINNING
-                </h2>
-
-                <p class="br-role">
-                    Skill Development &amp;<br>
-                    Technical Education<br>
-                    Department, Odisha
-                </p>
-                        </article>
-                        
-            </section>
-
-
-        <!-- Footer -->
         <footer class="footer">
             Govt. Polytechnic, Angul
         </footer>

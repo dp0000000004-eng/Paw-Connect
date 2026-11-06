@@ -40,6 +40,7 @@ body {
   text-align: center;
 }
 
+.login-box h1,
 .login-box h2 {
   margin-bottom: 20px;
 }
@@ -70,6 +71,23 @@ body {
   min-width: 0;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.input-group:focus-within {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
 /* Options */
 .options {
   display: flex;
@@ -94,6 +112,12 @@ body {
   border-radius: 50px;
   cursor: pointer;
   justify-content: center;
+}
+
+.button:focus-visible,
+.info-cls a:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
 }
 
 .button:hover {
@@ -123,9 +147,11 @@ body {
 
 .error-msg {
   text-align:center;
-  color:red;
+  color:#fff;
   font-family:'NTR', sans-serif;
-  background-color: transparent black;
+  background-color:rgba(127, 29, 29, 0.85);
+  border-radius:8px;
+  padding:10px 14px;
 }
 
 .info-cls {
@@ -136,11 +162,21 @@ body {
 
 .info-cls a{
     text-decoration:none;
-    color:#6a0dad;
+    color:#f4bd32;
     transition:ease 0.75s;
 }
 
 .info-cls a:hover {
     text-decoration:underline;
-    color:#6a0dad;
+    color:#ffe08a;
+}
+
+@media (max-width: 420px) {
+  .login-container {
+    padding: 16px;
+  }
+
+  .login-box {
+    padding: 26px 18px;
+  }
 }

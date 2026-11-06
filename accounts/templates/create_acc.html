@@ -6,47 +6,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create</title>
+  <title>Create account</title>
   <link rel="icon" type="image/svg+xml" href="{% static 'images/lock.svg' %}">
   <link rel="stylesheet" href="{% static 'css/create.css' %}">
 </head>
 <body>
 
 
-  <div class="login-container">
+  <main class="login-container">
 
     
     {% if messages %}
       {% for message in messages %}
-        <p class="error-msg">
+        <p class="error-msg" role="alert">
           {{ message }}
         </p>
       {% endfor %}
     {% endif %}
 
-    <form class="login-box" method="POST" >
+    <form class="login-box" method="post">
       {% csrf_token %}
-      <h2>Create Account</h2>
+      <h1>Create Account</h1>
       <div class="input-group">
-        <span class="icon">👤</span>
-        <input type="text" name="username" placeholder="Username" required>
+        <label class="visually-hidden" for="create-username">Username</label>
+        <span class="icon" aria-hidden="true">👤</span>
+        <input id="create-username" type="text" name="username" placeholder="Username" autocomplete="username" required>
       </div>
       <div class="input-group">
-        <span class="icon">✉️</span>
-        <input type="email" name="email" placeholder="email" required>
+        <label class="visually-hidden" for="create-email">Email address</label>
+        <span class="icon" aria-hidden="true">✉️</span>
+        <input id="create-email" type="email" name="email" placeholder="Email address" autocomplete="email" required>
       </div>
       <div class="input-group">
-        <span class="icon">🔒
-        </span>
-        <input type="password" name="password" placeholder=" Enter Password" required>
+        <label class="visually-hidden" for="create-password">Password</label>
+        <span class="icon" aria-hidden="true">🔒</span>
+        <input id="create-password" type="password" name="password" placeholder="Password" autocomplete="new-password" required>
       </div>
       <input class="button" type="submit" value="Create">
       <p class="info-cls">
-        if have a account <a href="{% url 'user:login' %}" >Login in</a>
+        Already have an account? <a href="{% url 'user:login' %}">Log in</a>
+      </p><br>
+      <p class="info-cls">
+         <a href="{% url 'user:home' %}">Home</a>
       </p>
     </form>
      
     
-  </div>
+  </main>
 </body>
 </html>

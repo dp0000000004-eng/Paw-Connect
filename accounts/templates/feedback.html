@@ -17,32 +17,31 @@
 {% endblock %}
 
 {% block body %}
-    <section class="page">
-        <h1>
-            Feedback
-        </h1>
+    <main class="page feedback-page">
+        <section aria-labelledby="feedback-heading">
+            <h1 id="feedback-heading">Feedback</h1>
+            {% if user.is_authenticated %}
+                <form method="post">
+                    {% csrf_token %}
+                    <label class="visually-hidden" for="feedback-description">Your feedback</label>
+                    <textarea id="feedback-description" name="description" placeholder="Share your feedback" maxlength="1000" required></textarea>
+                    <button type="submit">Send feedback</button>
+                </form>
+            {% else %}
+                <p class="feedback-login">Please <a href="{% url 'user:login' %}">log in</a> to send feedback.</p>
+            {% endif %}
+        </section>
 
-        <form method="post">
-            {% csrf_token %}
-            <input type="text" name="Put You Feedback" placeholder="description">
-            <input type="submit" value="Send">
-        </form>
-    </section>
-
-
-    <div class="feedbacks">
-        <h3>Users FeedBacks</h3>
-        {% for feedback in feedbacks %}
-        <h4>
-            👤{{ feedback.user }}
-        </h4>
-        <p>
-           {{ feedback.description }}
-        </p>
-        {% empty %}
-        <h1>
-            No FeedBacks Yet
-        </h1>
-        {% endfor %}
-    </div>
+        <section class="feedbacks" aria-labelledby="feedback-list-heading">
+            <h2 id="feedback-list-heading">Student feedback</h2>
+            {% for feedback in feedbacks %}
+                <article class="feedback-entry">
+                    <h3>{{ feedback.user }}</h3>
+                    <p>{{ feedback.description }}</p>
+                </article>
+            {% empty %}
+                <p class="empty-state">No feedback yet.</p>
+            {% endfor %}
+        </section>
+    </main>
 {% endblock %}
