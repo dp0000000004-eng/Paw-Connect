@@ -17,7 +17,7 @@ The goal is a project that's genuinely useful day-to-day on campus, buildable by
 - **Frontend:** Django templates + HTML + CSS + JS
 - **Database:** PostgreSQL
 - **AI:** External LLM API
-- **Deployment:** Vercel
+- **Deployment:** Render
 
 ## Screenshots
 
