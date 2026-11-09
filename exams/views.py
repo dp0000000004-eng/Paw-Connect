@@ -46,3 +46,26 @@ def semester_API_view(request):
     return Response(
         semesterSerializer.data
     )
+
+@api_view(['GET'])
+@renderer_classes([TemplateHTMLRenderer])
+def study_note_view(request):
+    return Response(template_name="exams/study_note.html")
+
+
+@api_view(['GET'])
+@renderer_classes([TemplateHTMLRenderer])
+def priv_paper(request):
+    return Response(template_name="exams/priv_paper.html")
+
+
+@api_view(['GET'])
+@renderer_classes([TemplateHTMLRenderer])
+def revision_view(request):
+    return Response(template_name="exams/revision.html")
+
+
+@api_view(['GET'])
+@renderer_classes([TemplateHTMLRenderer])
+def vid_support_view(request):
+    return Response(template_name="exams/vid_support.html")
