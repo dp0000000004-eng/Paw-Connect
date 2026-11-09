@@ -23,6 +23,9 @@ load_dotenv()
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def chat(request):
 
+    if request.user.is_authenticated == False:
+        return redirect('user:login')
+
     greetings = [
 
     f"Nice to see you, {request.user.username}. What’s new?",
