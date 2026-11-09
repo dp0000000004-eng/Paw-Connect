@@ -18,7 +18,6 @@ from django.contrib import messages
 
 load_dotenv()
 
-@login_required
 @api_view(['GET', 'POST'])
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def chat(request):
