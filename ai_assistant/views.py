@@ -23,7 +23,9 @@ load_dotenv()
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def chat(request):
 
-    if request.user.is_authenticated == False:
+    if request.user.is_authenticated:
+        pass
+    else:
         return redirect('user:login')
 
     greetings = [
