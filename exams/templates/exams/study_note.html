@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#10131c">
+	<title>Study Notes</title>
+	<style>
+		* { box-sizing: border-box; }
+		body {
+			min-height: 100vh;
+			margin: 0;
+			display: grid;
+			place-items: center;
+			padding: 24px;
+			color: #f7f7fb;
+			background: radial-gradient(ellipse at 18% 18%, #5148a633, transparent 42%),
+									radial-gradient(ellipse at 85% 82%, #2bbca426, transparent 38%), #10131c;
+			font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+		}
+		main {
+			width: min(100%, 760px);
+			padding: clamp(36px, 8vw, 76px);
+			text-align: center;
+			border: 1px solid #ffffff1a;
+			border-radius: 28px;
+			background: linear-gradient(145deg, #ffffff12, #ffffff05);
+			box-shadow: 0 30px 100px #00000059;
+			backdrop-filter: blur(18px);
+		}
+		.brand {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			margin-bottom: 48px;
+			color: #d3d5e0;
+			font-size: 13px;
+			font-weight: 700;
+			letter-spacing: .13em;
+			text-transform: uppercase;
+		}
+		.brand-mark {
+			display: grid;
+			width: 30px;
+			height: 30px;
+			place-items: center;
+			border-radius: 10px;
+			color: #10131c;
+			background: #a9f0d7;
+			font-size: 17px;
+		}
+		.eyebrow {
+			margin: 0 0 16px;
+			color: #a9f0d7;
+			font-size: 12px;
+			font-weight: 700;
+			letter-spacing: .18em;
+			text-transform: uppercase;
+		}
+		h1 {
+			margin: 0;
+			font-size: clamp(42px, 8vw, 76px);
+			line-height: .98;
+			letter-spacing: -.065em;
+		}
+		h1 span { color: #a9f0d7; }
+		.description {
+			max-width: 440px;
+			margin: 24px auto 32px;
+			color: #a6a9b8;
+			font-size: 16px;
+			line-height: 1.7;
+		}
+		.coming-soon {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			padding: 15px 23px;
+			border: 1px solid #a9f0d759;
+			border-radius: 999px;
+			color: #c9f8e6;
+			background: #a9f0d71a;
+			font: inherit;
+			font-size: 14px;
+			font-weight: 700;
+			letter-spacing: .02em;
+			cursor: pointer;
+            text-decoration: none;
+
+		}
+		.status-dot {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: #a9f0d7;
+			box-shadow: 0 0 14px #a9f0d7bf;
+		}
+		.footer { margin: 48px 0 0; color: #777b8c; font-size: 12px; }
+		@media (max-width: 520px) {
+			body { padding: 16px; }
+			main { border-radius: 22px; }
+			.brand { margin-bottom: 40px; }
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<div class="brand"><span class="brand-mark" aria-hidden="true">✦</span> Paw Connect</div>
+		<p class="eyebrow">A better way to study</p>
+		<h1>Your study notes,<br><span>reimagined.</span></h1>
+		<p class="description">A fresh space for your notes and exam prep is on its way. We’re putting the finishing touches on it.</p>
+		<a href="{% url 'user:home' %}" class="coming-soon" type="button" disabled aria-label="Study notes feature coming soon">
+			<span class="status-dot" aria-hidden="true"></span> Back To Page
+        </a>
+		<p class="footer">Made for curious minds and their favorite companions.</p>
+	</main>
+</body>
+</html>

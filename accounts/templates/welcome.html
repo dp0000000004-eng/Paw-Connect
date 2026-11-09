@@ -36,11 +36,11 @@
             <h2>Services</h2>
             <div class="service-container">
                 
-                <div class="service-card">
+                <a href="{% url 'exam:study_note' %}" class="service-card">
                     <h3>Study Notes</h3>
                     <p>Read simple and useful study notes.</p>
                     <span>→</span>
-                </div>
+                </a>
 
 
                 <a href="{% url 'exam:branch' %}" class="service-card">
@@ -49,11 +49,11 @@
                     <span aria-hidden="true">→</span>
                 </a>
 
-                <div class="service-card">
+                <a href="{% url 'exam:priv_paper' %}" class="service-card">
                     <h3>Previous Papers</h3>
                     <p>Solve Previous year question papers.</p>
                     <span>→</span>
-                </div>
+                </a>
 
                 <a href="{% url 'ai:ai_view' %}" class="service-card">
                     <h3>Practice with AI</h3>
@@ -61,17 +61,17 @@
                     <span aria-hidden="true">→</span>
                 </a>
 
-                <div class="service-card">
+                <a href="{% url 'exam:vid_support_view' %}" class="service-card">
                     <h3>Video Support </h3>
                     <p>Learn concepts through educational videos.</p>
                     <span>→</span>
-                </div>
+                </a>
 
-                <div class="service-card">
+                <a href="{% url 'exam:revision_view' %}" class="service-card">
                     <h3>Quick Revision</h3>
                     <p>Revise Important topics in less time.</p>
                     <span>→</span>
-                </div>
+                </a>
 
             </div>
     </section>
