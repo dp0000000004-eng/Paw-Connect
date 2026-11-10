@@ -54,9 +54,7 @@ def createAccount(request):
                 email = ""
                 raw_password = ""
 
-                login(
-                    request, user
-                )
+                login(request, user)
                 return redirect('user:home')
 
     except IntegrityError:

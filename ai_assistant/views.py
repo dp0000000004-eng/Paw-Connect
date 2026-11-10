@@ -152,10 +152,7 @@ def chat(request):
             greets = random.choice(greetings)
             messages.error(request, message=str(e))
             return Response(
-                {
-                    "chats": chatsSerializer.data,
-                    "greets": greets,
-                },
+                {"chats": chatsSerializer.data,"greets": greets},
                 template_name="ai.html",
                 status=400
             )
@@ -165,10 +162,7 @@ def chat(request):
     greets = random.choice(greetings)
 
     return Response(
-        {
-            "chats": chatsSerializer.data,
-            "greets": greets
-        },
+        {"chats": chatsSerializer.data,"greets": greets},
         template_name="ai.html"
     )
         

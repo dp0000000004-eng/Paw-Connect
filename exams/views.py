@@ -13,26 +13,21 @@ from rest_framework_csv.renderers import CSVRenderer
 def departments(request):
 
     branches = Departments.objects.all()
-
     return render(
         request,
         'exams/branchs.html',
-        {
-            "branches": branches
-        }
+        {"branches": branches}
     )
 
 
 @api_view(['GET', 'POST'])
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def syllabus(request, branch_id):
+
     syllabuses = Syllabus.objects.filter(branch=branch_id)
     syllabusesSerializer = SyllabusSerializer(syllabuses, many=True)
-
     return Response(
-        {
-            "syllabuses": syllabusesSerializer.data
-        },
+        {"syllabuses": syllabusesSerializer.data},
         template_name="exams/links.html"
     )
 
@@ -40,9 +35,9 @@ def syllabus(request, branch_id):
 @api_view(['GET', 'POST'])
 @renderer_classes([JSONRenderer, BrowsableAPIRenderer])
 def semester_API_view(request):
+
     semesters = Semester.objects.all()
     semesterSerializer = SemesterSerializer(semesters, many=True)
-
     return Response(
         semesterSerializer.data
     )
