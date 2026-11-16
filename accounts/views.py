@@ -18,6 +18,8 @@ from .serializers import FeedBackSerializer, ContactSerializer
 from rest_framework_xml.renderers import XMLRenderer
 from rest_framework_yaml.renderers import YAMLRenderer
 from rest_framework_csv.renderers import CSVRenderer
+from .throttles import ConttactTrottle, FeedBackTrottle
+from rest_framework.decorators import throttle_classes
 
 
 # ---------------------------------------------------------------------------
@@ -155,6 +157,7 @@ def about_view(request):
 
 
 @api_view(['GET', 'POST'])
+@throttle_classes([FeedBackTrottle])
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def feedback(request):
 
@@ -197,8 +200,8 @@ def logout_view(request):
     return redirect('user:home')
 
 
-
 @api_view(['GET', 'POST'])
+@throttle_classes([ConttactTrottle])
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def contact_view(request):
 
