@@ -168,5 +168,6 @@ REST_FRAMEWORK = {
         "ten":"10/minute",
         "two":"2/minute",
         "max_ai_prompt":"12/minute",
+        "fifteen":"15/minute",
     }
 }
