@@ -166,6 +166,7 @@ REST_FRAMEWORK = {
 
     "DEFAULT_THROTTLE_RATES":{
         "ten":"10/minute",
-        "two":"2/minute"
+        "two":"2/minute",
+        "max_ai_prompt":"12/minute",
     }
 }

@@ -14,18 +14,21 @@ from rest_framework_xml.renderers import XMLRenderer
 from rest_framework_yaml.renderers import YAMLRenderer
 from rest_framework_csv.renderers import CSVRenderer
 from dotenv import load_dotenv
+from rest_framework.decorators import throttle_classes
 from django.contrib import messages
+from .throttles import AIPromptThrottle
 
 load_dotenv()
 
 @api_view(['GET', 'POST'])
+@throttle_classes([AIPromptThrottle])
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def chat(request):
 
-    if request.user.is_authenticated:
-        pass
-    else:
-        return redirect('user:login')
+    # if request.user.is_authenticated:
+    #     pass
+    # else:
+    #     return redirect('user:login')
 
     greetings = [
 
@@ -53,7 +56,7 @@ def chat(request):
 
             client = OpenAI(
                 base_url="https://integrate.api.nvidia.com/v1",
-                api_key=os.environ.get('NVIDIA_AI_API_KEY'),
+                api_key=os.getenv('NVIDIA_AI_API_KEY'),
                 timeout=60.0
             )
 
