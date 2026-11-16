@@ -8,6 +8,8 @@ from .serializers import SyllabusSerializer, SemesterSerializer
 from rest_framework_xml.renderers import XMLRenderer
 from rest_framework_yaml.renderers import YAMLRenderer
 from rest_framework_csv.renderers import CSVRenderer
+from rest_framework.decorators import throttle_classes
+from .throttles import ResourceThrottle
 
 
 def departments(request):
@@ -21,6 +23,7 @@ def departments(request):
 
 
 @api_view(['GET', 'POST'])
+@throttle_classes([ResourceThrottle])
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def syllabus(request, branch_id):
 
@@ -33,6 +36,7 @@ def syllabus(request, branch_id):
 
 
 @api_view(['GET', 'POST'])
+@throttle_classes([ResourceThrottle])
 @renderer_classes([JSONRenderer, BrowsableAPIRenderer])
 def semester_API_view(request):
 
@@ -43,24 +47,28 @@ def semester_API_view(request):
     )
 
 @api_view(['GET'])
+@throttle_classes([ResourceThrottle])
 @renderer_classes([TemplateHTMLRenderer])
 def study_note_view(request):
     return Response(template_name="exams/study_note.html")
 
 
 @api_view(['GET'])
+@throttle_classes([ResourceThrottle])
 @renderer_classes([TemplateHTMLRenderer])
 def priv_paper(request):
     return Response(template_name="exams/priv_paper.html")
 
 
 @api_view(['GET'])
+@throttle_classes([ResourceThrottle])
 @renderer_classes([TemplateHTMLRenderer])
 def revision_view(request):
     return Response(template_name="exams/revision.html")
 
 
 @api_view(['GET'])
+@throttle_classes([ResourceThrottle])
 @renderer_classes([TemplateHTMLRenderer])
 def vid_support_view(request):
     return Response(template_name="exams/vid_support.html")
