@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CE &amp; IoT Videos | PawConnect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0b1220;
+    --surface: #121b2e;
+    --line: #1f2b45;
+    --text: #e6ecf7;
+    --muted: #8a97b2;
+    --amber: #f5a524;
+    --teal: #2dd4bf;
+  }
+  * { box-sizing: border-box; }
+  html { color-scheme: dark; }
+  body {
+    margin: 0; background: var(--navy); color: var(--text);
+    font-family: "Inter", system-ui, sans-serif; line-height: 1.5;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 40px 20px 64px; }
+
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: "Sora", sans-serif; font-weight: 700; font-size: 1.1rem;
+  }
+  .brand .dot {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: var(--amber); color: var(--navy);
+    display: grid; place-items: center; font-size: 0.95rem;
+  }
+  h1 {
+    font-family: "Sora", sans-serif; font-weight: 700;
+    font-size: clamp(1.7rem, 4vw, 2.3rem);
+    margin: 28px 0 6px; letter-spacing: -0.01em;
+  }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+
+  .tools { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; }
+  .search {
+    flex: 1; padding: 11px 14px; background: var(--surface); color: var(--text);
+    border: 1px solid var(--line); border-radius: 10px; font: inherit;
+  }
+  .search::placeholder { color: var(--muted); }
+  .search:focus-visible, a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--teal); outline-offset: 2px;
+  }
+  .count { color: var(--muted); font-size: 0.9rem; white-space: nowrap; }
+
+  .notice {
+    background: var(--surface); border: 1px solid var(--line);
+    border-left: 3px solid var(--amber); padding: 10px 14px; border-radius: 8px;
+    margin-bottom: 16px; color: var(--muted); font-size: 0.92rem;
+  }
+  .notice button {
+    margin-left: 8px; background: none; border: 0; color: var(--teal);
+    font: inherit; cursor: pointer; text-decoration: underline; padding: 0;
+  }
+  .state { color: var(--muted); padding: 28px 0; text-align: center; }
+
+  .branch { margin-bottom: 36px; }
+  .branch-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 0 0 14px; }
+  .branch-head h2 { font-family: "Sora", sans-serif; font-size: 1.3rem; margin: 0; }
+  .sem {
+    color: var(--amber); border: 1px solid var(--amber); border-radius: 999px;
+    padding: 1px 10px; font-size: 0.82rem;
+  }
+
+  details.cat { border-top: 1px solid var(--line); padding: 4px 0; }
+  details.cat:last-child { border-bottom: 1px solid var(--line); }
+  summary {
+    cursor: pointer; padding: 12px 2px; list-style: none;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: "Sora", sans-serif; font-weight: 600; font-size: 1rem;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary .n { color: var(--teal); font-family: "Inter", sans-serif; font-weight: 400; font-size: 0.88rem; }
+  summary::before {
+    content: ""; width: 7px; height: 7px; margin-right: 12px; flex: none;
+    border-right: 2px solid var(--amber); border-bottom: 2px solid var(--amber);
+    transform: rotate(-45deg); transition: transform .15s;
+  }
+  details[open] > summary::before { transform: rotate(45deg); }
+  summary .label { flex: 1; }
+
+  ul { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 10px; }
+  li {
+    background: var(--surface); border: 1px solid var(--line);
+    border-left: 3px solid var(--line); border-radius: 10px; padding: 12px 16px;
+    transition: border-color .15s;
+  }
+  li:hover { border-left-color: var(--amber); }
+  li a.title {
+    color: var(--text); font-weight: 500; text-decoration: none;
+    font-size: 1rem; overflow-wrap: anywhere;
+  }
+  li a.title:hover { color: var(--amber); text-decoration: underline; }
+  .url { display: block; margin-top: 4px; color: var(--teal); font-size: 0.84rem; overflow-wrap: anywhere; }
+
+  @media (prefers-reduced-motion: reduce) { li, summary::before { transition: none; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="brand"><span class="dot" aria-hidden="true">P</span> PawConnect</div>
+  <h1>CE &amp; IoT video library</h1>
+  <p class="sub">Handpicked YouTube courses and project videos. Select a title to open it.</p>
+
+  <div class="tools">
+    <input id="q" class="search" type="search" placeholder="Search videos" aria-label="Search videos">
+    <span id="count" class="count" aria-live="polite"></span>
+  </div>
+
+  <div id="notice" class="notice" hidden></div>
+  <div id="state" class="state">Loading videos…</div>
+  <div id="root"></div>
+</main>
+
+<script>
+  // Your Django/DRF endpoint. Response shape:
+  // [{ id, branch, semseter, link: { category: [{ title, url }, ...], ... } }]
+  const API_URL = "http://127.0.0.1:8000/exams/video-support/1";
+
+  // Used only when the API can't be reached, so the page still previews offline.
+//   const SAMPLE = [{
+//     id: 0, branch: "Computer Engineering 1 CE&IoT", semseter: 1,
+//     link: {
+//       iot_full_courses: [
+//         { title: "IoT Course - Learn IoT in 5 Hours (Intellipaat)", url: "https://www.youtube.com/watch?v=b7GC4Zr74M0" }
+//       ],
+//       arduino: [
+//         { title: "Arduino Course for Beginners (freeCodeCamp)", url: "https://www.youtube.com/watch?v=zJ-LqeX_fLU" }
+//       ]
+//     }
+//   }];
+
+  const rootEl = document.getElementById("root");
+  const stateEl = document.getElementById("state");
+  const noticeEl = document.getElementById("notice");
+  const countEl = document.getElementById("count");
+  const qEl = document.getElementById("q");
+  let branches = [];
+
+  const isSafeUrl = u => {
+    try { const p = new URL(u, location.href).protocol; return p === "http:" || p === "https:"; }
+    catch { return false; }
+  };
+
+  // "computer_engineering_core" -> "Computer engineering core"
+  const pretty = key => {
+    const s = key.replace(/_/g, " ").trim();
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
+
+  // Accepts link as an object, or as a JSON string if the field is stored as text.
+  function parseLink(link) {
+    if (typeof link === "string") { try { link = JSON.parse(link); } catch { return {}; } }
+    return link && typeof link === "object" ? link : {};
+  }
+
+  function normalize(data) {
+    return (Array.isArray(data) ? data : []).map(b => {
+      const cats = {};
+      Object.entries(parseLink(b.link)).forEach(([key, items]) => {
+        const good = (Array.isArray(items) ? items : [])
+          .filter(v => v && v.title && v.url && isSafeUrl(v.url));
+        if (good.length) cats[key] = good;
+      });
+      return { branch: b.branch, semester: b.semseter ?? b.semester, cats };
+    }).filter(b => Object.keys(b.cats).length);
+  }
+
+  function render() {
+    const term = qEl.value.trim().toLowerCase();
+    rootEl.replaceChildren();
+    let total = 0;
+
+    branches.forEach(b => {
+      const section = document.createElement("section");
+      section.className = "branch";
+
+      const head = document.createElement("div");
+      head.className = "branch-head";
+      const h2 = document.createElement("h2");
+      h2.textContent = b.branch || "Videos";
+      head.append(h2);
+      if (b.semester != null) {
+        const sem = document.createElement("span");
+        sem.className = "sem";
+        sem.textContent = "Semester " + b.semester;
+        head.append(sem);
+      }
+      section.append(head);
+
+      let shownInBranch = 0;
+      Object.entries(b.cats).forEach(([key, items]) => {
+        const shown = items.filter(v => v.title.toLowerCase().includes(term));
+        if (!shown.length) return;
+        shownInBranch += shown.length;
+        total += shown.length;
+
+        const details = document.createElement("details");
+        details.className = "cat";
+        details.open = true;
+
+        const summary = document.createElement("summary");
+        const label = document.createElement("span");
+        label.className = "label";
+        label.textContent = pretty(key);
+        const n = document.createElement("span");
+        n.className = "n";
+        n.textContent = shown.length;
+        summary.append(label, n);
+
+        const ul = document.createElement("ul");
+        shown.forEach(v => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.className = "title";
+          a.href = v.url;                 // url stays as the link target
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.textContent = v.title;        // title is the anchor text
+          const small = document.createElement("span");
+          small.className = "url";
+          li.append(a, small);
+          ul.append(li);
+        });
+
+        details.append(summary, ul);
+        section.append(details);
+      });
+
+      if (shownInBranch) rootEl.append(section);
+    });
+
+    countEl.textContent = total + (total === 1 ? " video" : " videos");
+    stateEl.hidden = total > 0;
+    if (!total) stateEl.textContent = branches.length
+      ? "No videos match your search. Try a shorter keyword."
+      : "No videos yet. Add some in the admin panel.";
+  }
+
+  async function load() {
+    noticeEl.hidden = true;
+    stateEl.hidden = false;
+    stateEl.textContent = "Loading videos…";
+    try {
+      const res = await fetch(API_URL, { headers: { Accept: "application/json" } });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      branches = normalize(await res.json());
+    } catch (err) {
+      noticeEl.hidden = false;
+      noticeEl.textContent = "Could not reach " + API_URL + " (" + err.message + "). Showing sample videos.";
+      const retry = document.createElement("button");
+      retry.textContent = "Retry";
+      retry.addEventListener("click", load);
+      noticeEl.append(retry);
+      branches = normalize(SAMPLE);
+    }
+    render();
+  }
+
+  qEl.addEventListener("input", render);
+  load();
+</script>
+</body>
+</html>

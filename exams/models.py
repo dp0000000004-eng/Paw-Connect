@@ -28,10 +28,10 @@ class Syllabus(models.Model):
     def __str__(self):
         return f"{self.link} - {self.semester}"
 
-class StudyNotes(models.Model):
+class StudyVideo(models.Model):
     branch = models.ForeignKey(Departments, on_delete=models.CASCADE, related_name='dep_note')
     semseter = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='semi_notes')
-    link = models.URLField()
+    link = models.JSONField(default=list, blank=True)
 
     def __str__(self):
         return f"{self.branch} {self.semseter}"

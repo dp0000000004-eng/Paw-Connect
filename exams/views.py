@@ -10,6 +10,9 @@ from rest_framework_yaml.renderers import YAMLRenderer
 from rest_framework_csv.renderers import CSVRenderer
 from rest_framework.decorators import throttle_classes
 from .throttles import ResourceThrottle
+from .models import StudyVideo
+from .serializers import StudyVideoSerializer
+from django.http import JsonResponse
 
 
 def departments(request):
@@ -67,8 +70,20 @@ def revision_view(request):
     return Response(template_name="exams/revision.html")
 
 
+def videoDept(request):
+    branches = Departments.objects.all()
+    return render(
+        request,
+        'exams/VidBranchs.html',
+        {"branches": branches}
+    )
+
+
 @api_view(['GET'])
 @throttle_classes([ResourceThrottle])
-@renderer_classes([TemplateHTMLRenderer])
-def vid_support_view(request):
-    return Response(template_name="exams/vid_support.html")
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
+def vid_support_view(request, branch_id):
+    video = StudyVideo.objects.filter(branch=branch_id).all()
+    videoSerializer = StudyVideoSerializer(video, many=True)
+
+    return Response(videoSerializer.data, template_name="exams/video.html")

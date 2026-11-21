@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from .models import Chat
 import os
 import random
@@ -25,10 +25,10 @@ load_dotenv()
 @renderer_classes([TemplateHTMLRenderer, JSONRenderer, XMLRenderer, CSVRenderer, YAMLRenderer])
 def chat(request):
 
-    # if request.user.is_authenticated:
-    #     pass
-    # else:
-    #     return redirect('user:login')
+    if request.user.is_authenticated:
+        pass
+    else:
+        return redirect('user:login')
 
     greetings = [
 
