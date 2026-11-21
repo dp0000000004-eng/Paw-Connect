@@ -1,4 +1,4 @@
-from .models import Semester, Syllabus , StudyNotes
+from .models import Semester, Syllabus , StudyVideo
 from rest_framework import serializers
 import bleach
 
@@ -35,16 +35,14 @@ class SyllabusSerializer(serializers.ModelSerializer):
         fields = ['id', 'branch', 'semester', 'link']
 
 
-class StudyNoteSerializer(serializers.ModelSerializer):
+class StudyVideoSerializer(serializers.ModelSerializer):
 
     def validate_branch(self, value):
         return bleach.clean(value)
     def validate_branch(self, value):
-        return bleach.clean(value)
-    def validate_link(self, value):
         return bleach.clean(value)
 
     branch = serializers.StringRelatedField()
     class Meta:
-        model = StudyNotes
+        model = StudyVideo
         fields = ['id', 'branch', 'semseter', 'link']

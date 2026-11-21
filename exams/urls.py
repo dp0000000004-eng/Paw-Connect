@@ -10,5 +10,6 @@ urlpatterns = [
     path('study-note/', views.study_note_view, name="study_note"),
     path('priv-paper/', views.priv_paper, name="priv_paper"),
     path('revision-support/', views.revision_view, name="revision_view"),
-    path('video-support/', views.vid_support_view, name="vid_support_view"),
+    path('vid-dept/', views.videoDept, name="vid_dept"),
+    path('video-support/<int:branch_id>', views.vid_support_view, name="vid_support_view"),
 ]
