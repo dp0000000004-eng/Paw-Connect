@@ -29,9 +29,19 @@ class Syllabus(models.Model):
         return f"{self.link} - {self.semester}"
 
 class StudyVideo(models.Model):
-    branch = models.ForeignKey(Departments, on_delete=models.CASCADE, related_name='dep_note')
-    semseter = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='semi_notes')
+    branch = models.ForeignKey(Departments, on_delete=models.CASCADE, related_name='dept_video')
+    semseter = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='semi_video')
     link = models.JSONField(default=list, blank=True)
 
     def __str__(self):
         return f"{self.branch} {self.semseter}"
+
+
+class StudyHandNote(models.Model):
+    branch = models.ForeignKey(Departments, on_delete=models.CASCADE, related_name="dept_notes")
+    semseter = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='semi_notes')
+    link = models.JSONField(default=list, blank=True)
+
+
+    def __str__(self):
+        return f"{self.branch} - {self.semseter}"

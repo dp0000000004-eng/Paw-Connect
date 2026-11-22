@@ -10,8 +10,8 @@ from rest_framework_yaml.renderers import YAMLRenderer
 from rest_framework_csv.renderers import CSVRenderer
 from rest_framework.decorators import throttle_classes
 from .throttles import ResourceThrottle
-from .models import StudyVideo
-from .serializers import StudyVideoSerializer
+from .models import StudyVideo, StudyHandNote
+from .serializers import StudyVideoSerializer, StudyNotesSerializer
 from django.http import JsonResponse
 
 
@@ -49,11 +49,32 @@ def semester_API_view(request):
         semesterSerializer.data
     )
 
+
+
+def study_dept_note_view(request):
+    dept = Departments.objects.all()
+    return render(request, "exams/deptnote.html", {"branches":dept})
+
+
 @api_view(['GET'])
 @throttle_classes([ResourceThrottle])
-@renderer_classes([TemplateHTMLRenderer])
-def study_note_view(request):
-    return Response(template_name="exams/study_note.html")
+@renderer_classes([TemplateHTMLRenderer, JSONRenderer])
+def study_note_view(request, branch_id):
+
+    notes = StudyHandNote.objects.filter(branch=branch_id).all()
+    notesSerializer = StudyNotesSerializer(notes, many=True)
+    payload = notesSerializer.data
+    if request.accepted_renderer.format == 'html':
+        branch = Departments.objects.filter(pk=branch_id).first()
+        return Response(
+            {
+                "branch": branch,
+                "branch_id": branch_id,
+            },
+            template_name="exams/study_note.html",
+        )
+    return Response(payload)
+
 
 
 @api_view(['GET'])

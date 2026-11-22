@@ -1,118 +1,437 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="theme-color" content="#10131c">
-	<title>Study Notes</title>
-	<style>
-		* { box-sizing: border-box; }
-		body {
-			min-height: 100vh;
-			margin: 0;
-			display: grid;
-			place-items: center;
-			padding: 24px;
-			color: #f7f7fb;
-			background: radial-gradient(ellipse at 18% 18%, #5148a633, transparent 42%),
-									radial-gradient(ellipse at 85% 82%, #2bbca426, transparent 38%), #10131c;
-			font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-		}
-		main {
-			width: min(100%, 760px);
-			padding: clamp(36px, 8vw, 76px);
-			text-align: center;
-			border: 1px solid #ffffff1a;
-			border-radius: 28px;
-			background: linear-gradient(145deg, #ffffff12, #ffffff05);
-			box-shadow: 0 30px 100px #00000059;
-			backdrop-filter: blur(18px);
-		}
-		.brand {
-			display: inline-flex;
-			align-items: center;
-			gap: 10px;
-			margin-bottom: 48px;
-			color: #d3d5e0;
-			font-size: 13px;
-			font-weight: 700;
-			letter-spacing: .13em;
-			text-transform: uppercase;
-		}
-		.brand-mark {
-			display: grid;
-			width: 30px;
-			height: 30px;
-			place-items: center;
-			border-radius: 10px;
-			color: #10131c;
-			background: #a9f0d7;
-			font-size: 17px;
-		}
-		.eyebrow {
-			margin: 0 0 16px;
-			color: #a9f0d7;
-			font-size: 12px;
-			font-weight: 700;
-			letter-spacing: .18em;
-			text-transform: uppercase;
-		}
-		h1 {
-			margin: 0;
-			font-size: clamp(42px, 8vw, 76px);
-			line-height: .98;
-			letter-spacing: -.065em;
-		}
-		h1 span { color: #a9f0d7; }
-		.description {
-			max-width: 440px;
-			margin: 24px auto 32px;
-			color: #a6a9b8;
-			font-size: 16px;
-			line-height: 1.7;
-		}
-		.coming-soon {
-			display: inline-flex;
-			align-items: center;
-			gap: 10px;
-			padding: 15px 23px;
-			border: 1px solid #a9f0d759;
-			border-radius: 999px;
-			color: #c9f8e6;
-			background: #a9f0d71a;
-			font: inherit;
-			font-size: 14px;
-			font-weight: 700;
-			letter-spacing: .02em;
-			cursor: pointer;
-            text-decoration: none;
+{% extends 'layout.html' %}
 
-		}
-		.status-dot {
-			width: 8px;
-			height: 8px;
-			border-radius: 50%;
-			background: #a9f0d7;
-			box-shadow: 0 0 14px #a9f0d7bf;
-		}
-		.footer { margin: 48px 0 0; color: #777b8c; font-size: 12px; }
-		@media (max-width: 520px) {
-			body { padding: 16px; }
-			main { border-radius: 22px; }
-			.brand { margin-bottom: 40px; }
-		}
-	</style>
-</head>
-<body>
-	<main>
-		<div class="brand"><span class="brand-mark" aria-hidden="true">✦</span> Paw Connect</div>
-		<p class="eyebrow">A better way to study</p>
-		<h1>Your study notes,<br><span>reimagined.</span></h1>
-		<p class="description">A fresh space for your notes and exam prep is on its way. We’re putting the finishing touches on it.</p>
-		<a href="{% url 'user:home' %}" class="coming-soon" type="button" disabled aria-label="Study notes feature coming soon">
-			<span class="status-dot" aria-hidden="true"></span> Back To Page
-        </a>
-		<p class="footer">Made for curious minds and their favorite companions.</p>
-	</main>
-</body>
-</html>
+{% block title %}Study Notes{% endblock %}
+
+{% block style %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+  .notes-page {
+    --np-surface: rgba(7, 29, 70, .7);
+    --np-deep: #06142e;
+    --np-line: rgba(255,255,255,.14);
+    --np-text: #f8faff;
+    --np-muted: #b8c5d9;
+    --np-amber: #f4bd32;
+    --np-teal: #45c3e6;
+    width: min(1040px, 92%); margin: 0 auto 48px; padding: 38px 0 56px;
+    color: var(--np-text); font-family: "Inter", system-ui, sans-serif; line-height: 1.5;
+  }
+  .notes-page :focus-visible { outline: 2px solid var(--np-teal); outline-offset: 2px; }
+  .notes-page h1 {
+    font-family: "Sora", sans-serif; font-weight: 700;
+    font-size: clamp(1.7rem, 4vw, 2.4rem); margin: 0 0 6px; letter-spacing: -0.01em;
+  }
+  .np-eyebrow { color: var(--np-amber); text-transform: uppercase; letter-spacing: .14em; font-size: .78rem; font-weight: 700; margin: 0 0 8px; }
+  .np-sub { color: var(--np-muted); margin: 0 0 22px; }
+
+  .np-tools { display: flex; gap: 12px; align-items: center; margin-bottom: 14px; }
+  .np-search {
+    flex: 1; padding: 11px 14px; background: var(--np-surface); color: var(--np-text);
+    border: 1px solid var(--np-line); border-radius: 10px; font: inherit;
+  }
+  .np-search::placeholder { color: var(--np-muted); }
+  .np-count { color: var(--np-muted); font-size: 0.9rem; white-space: nowrap; }
+
+  .np-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 26px; }
+  .np-chip {
+    background: var(--np-surface); color: var(--np-muted); font: inherit; font-size: 0.88rem;
+    border: 1px solid var(--np-line); border-radius: 999px; padding: 6px 14px; cursor: pointer;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .np-chip:hover { color: var(--np-text); border-color: var(--np-muted); }
+  .np-chip[aria-pressed="true"] { background: var(--np-amber); border-color: var(--np-amber); color: #0b1220; font-weight: 500; }
+  .np-chip .n { opacity: .75; margin-left: 6px; }
+
+  .np-notice {
+    background: var(--np-surface); border: 1px solid var(--np-line); border-left: 3px solid var(--np-amber);
+    padding: 12px 14px; border-radius: 8px; margin-bottom: 20px; color: var(--np-muted); font-size: 0.92rem;
+  }
+  .np-notice button {
+    margin-left: 8px; background: none; border: 0; color: var(--np-teal);
+    font: inherit; cursor: pointer; text-decoration: underline; padding: 0;
+  }
+
+  .np-block { margin-bottom: 38px; }
+  .np-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 0 0 14px; }
+  .np-head h2 { font-family: "Sora", sans-serif; font-size: 1.3rem; margin: 0; }
+  .np-sem { color: var(--np-amber); border: 1px solid var(--np-amber); border-radius: 999px; padding: 1px 10px; font-size: 0.82rem; }
+  .np-group { margin: 0 0 22px; }
+  .np-group h3 { font-family: "Sora", sans-serif; font-size: 0.98rem; font-weight: 600; margin: 0 0 10px; color: var(--np-muted); }
+  .np-group h3 .n { color: var(--np-teal); font-family: "Inter", sans-serif; font-weight: 400; margin-left: 8px; font-size: 0.86rem; }
+
+  .np-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+
+  /* Drive-style file tile: preview band on top, details and actions below */
+  .np-card {
+    background: var(--np-surface); border: 1px solid var(--np-line); border-radius: 14px;
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: transform .15s, border-color .15s;
+  }
+  .np-card:hover { transform: translateY(-2px); border-color: var(--k); }
+  .np-thumb {
+    height: 96px; position: relative; display: grid; place-items: center; color: var(--k);
+    background:
+      radial-gradient(circle at 25% 15%, color-mix(in srgb, var(--k) 20%, transparent), transparent 62%),
+      repeating-linear-gradient(0deg, transparent 0 15px, rgba(255,255,255,.035) 15px 16px),
+      repeating-linear-gradient(90deg, transparent 0 15px, rgba(255,255,255,.035) 15px 16px),
+      var(--np-deep);
+    border-bottom: 1px solid var(--np-line);
+  }
+  .np-ico svg { width: 42px; height: 42px; display: block; }
+  .np-kind {
+    position: absolute; left: 10px; top: 10px; font-size: 0.72rem; padding: 2px 9px; border-radius: 999px;
+    background: rgba(11,18,32,.78); color: var(--k); border: 1px solid color-mix(in srgb, var(--k) 45%, transparent);
+  }
+  .np-body { padding: 12px 14px 4px; flex: 1; }
+  a.np-title {
+    color: var(--np-text); font-weight: 500; text-decoration: none; overflow-wrap: anywhere;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  a.np-title:hover { color: var(--np-amber); text-decoration: underline; }
+  .np-host { display: block; margin-top: 4px; color: var(--np-teal); font-size: 0.8rem; }
+  .np-actions { display: flex; gap: 8px; flex-wrap: wrap; padding: 10px 14px 14px; }
+  .np-btn {
+    font: inherit; font-size: 0.82rem; padding: 5px 12px; border-radius: 8px; cursor: pointer; text-decoration: none;
+    background: transparent; color: var(--np-text); border: 1px solid var(--np-line);
+    transition: border-color .15s, color .15s;
+  }
+  .np-btn:hover { border-color: var(--np-teal); color: var(--np-teal); }
+  .np-btn.primary { background: var(--np-amber); border-color: var(--np-amber); color: #0b1220; font-weight: 500; }
+  .np-btn.primary:hover { color: #0b1220; filter: brightness(1.08); }
+
+  .np-skel { height: 190px; border-radius: 14px; border: 1px solid var(--np-line);
+    background: linear-gradient(100deg, var(--np-surface) 30%, #1a2540 50%, var(--np-surface) 70%);
+    background-size: 200% 100%; animation: np-shimmer 1.3s linear infinite; }
+  @keyframes np-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+  .np-empty { color: var(--np-muted); padding: 36px 0; text-align: center; }
+
+  dialog.np-dialog {
+    padding: 0; border: 1px solid var(--np-line); border-radius: 14px; background: var(--np-deep);
+    color: var(--np-text); width: min(960px, 94vw); height: min(82vh, 740px); overflow: hidden;
+  }
+  dialog.np-dialog[open] { display: flex; flex-direction: column; }
+  dialog.np-dialog::backdrop { background: rgba(5, 9, 18, .78); }
+  .np-dhead { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--np-line); }
+  .np-dtitle { flex: 1; font-family: "Sora", sans-serif; font-weight: 600; font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .np-dialog iframe { flex: 1; width: 100%; border: 0; background: #fff; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .np-card, .np-chip, .np-btn { transition: none; }
+    .np-skel { animation: none; }
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<main class="notes-page" id="npRoot" data-api="{% url 'exam:study_note' branch_id %}">
+  <p class="np-eyebrow">Learning library</p>
+  <h1 id="npTitle">{% if branch %}{{ branch.name }} study notes{% else %}Study notes{% endif %}</h1>
+  <p class="np-sub">Browse and preview shared study materials by semester. Search by file name or filter by category.</p>
+
+  <div class="np-tools">
+    <input id="npSearch" class="np-search" type="search" placeholder="Search notes" aria-label="Search notes">
+    <span id="npCount" class="np-count" aria-live="polite"></span>
+  </div>
+  <div id="npChips" class="np-chips" role="group" aria-label="Filter by category"></div>
+  <div id="npNotice" class="np-notice" hidden></div>
+  <div id="npContent"></div>
+</main>
+
+<dialog id="npPreview" class="np-dialog" aria-label="File preview">
+  <div class="np-dhead">
+    <span id="npDTitle" class="np-dtitle"></span>
+    <a id="npDOpen" class="np-btn primary" target="_blank" rel="noopener noreferrer">Open in Drive</a>
+    <button type="button" id="npDClose" class="np-btn">Close</button>
+  </div>
+  <iframe id="npFrame" title="File preview" allow="autoplay" referrerpolicy="no-referrer"></iframe>
+</dialog>
+
+<script>
+(function () {
+  const root = document.getElementById("npRoot");
+  const API = root.dataset.api || window.location.pathname;
+  const titleEl = document.getElementById("npTitle");
+
+  const content = document.getElementById("npContent");
+  const chipsEl = document.getElementById("npChips");
+  const countEl = document.getElementById("npCount");
+  const searchEl = document.getElementById("npSearch");
+  const noticeEl = document.getElementById("npNotice");
+  const dlg = document.getElementById("npPreview");
+  const frame = document.getElementById("npFrame");
+
+  let notes = [];
+  let active = "all";
+
+  var KIND = {
+    folder: { label: "Folder",       color: "#f5a524", path: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>' },
+    doc:    { label: "Google Doc",   color: "#60a5fa", path: '<path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>' },
+    sheet:  { label: "Google Sheet", color: "#4ade80", path: '<path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5M8 13h8M8 17h8M12 11v8"/>' },
+    slides: { label: "Slides",       color: "#fb923c", path: '<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M12 16v4M8 20h8"/>' },
+    form:   { label: "Form",         color: "#a78bfa", path: '<rect x="5" y="4" width="14" height="16" rx="2"/><path d="M9 9h6M9 13h6M9 17h3"/>' },
+    file:   { label: "Drive file",   color: "#2dd4bf", path: '<path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5"/>' },
+    link:   { label: "Link",         color: "#8a97b2", path: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>' }
+  };
+
+  function svg(kind) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + KIND[kind].path + "</svg>";
+  }
+
+  function driveKind(u) {
+    if (/\/folders\//.test(u)) return "folder";
+    if (/docs\.google\.com\/document/.test(u)) return "doc";
+    if (/docs\.google\.com\/spreadsheets/.test(u)) return "sheet";
+    if (/docs\.google\.com\/presentation/.test(u)) return "slides";
+    if (/docs\.google\.com\/forms/.test(u)) return "form";
+    if (/drive\.google\.com\/(file\/d\/|open\?id=|uc\?)/.test(u)) return "file";
+    return "link";
+  }
+  function driveId(u) {
+    var m = u.match(/\/(?:d|folders)\/([\w-]+)/) || u.match(/[?&]id=([\w-]+)/);
+    return m ? m[1] : null;
+  }
+  function previewUrl(kind, id) {
+    if (!id) return null;
+    if (kind === "file")   return "https://drive.google.com/file/d/" + id + "/preview";
+    if (kind === "doc")    return "https://docs.google.com/document/d/" + id + "/preview";
+    if (kind === "sheet")  return "https://docs.google.com/spreadsheets/d/" + id + "/preview";
+    if (kind === "slides") return "https://docs.google.com/presentation/d/" + id + "/preview";
+    if (kind === "folder") return "https://drive.google.com/embeddedfolderview?id=" + id + "#grid";
+    return null;
+  }
+  function hostOf(u) { try { return new URL(u).hostname; } catch (e) { return ""; } }
+  function isSafe(u) {
+    try { var p = new URL(u, location.href).protocol; return p === "http:" || p === "https:"; }
+    catch (e) { return false; }
+  }
+  function pretty(key) {
+    var s = String(key).replace(/_/g, " ").trim();
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  function h(tag, props, kids) {
+    var el = document.createElement(tag);
+    Object.keys(props || {}).forEach(function (k) {
+      if (k === "text") el.textContent = props[k];
+      else if (k === "class") el.className = props[k];
+      else if (k.slice(0, 2) === "on") el.addEventListener(k.slice(2), props[k]);
+      else el.setAttribute(k, props[k]);
+    });
+    (kids || []).forEach(function (c) { if (c) el.append(c); });
+    return el;
+  }
+
+  /* ---- data ---- */
+  function parseLink(link) {
+    if (typeof link === "string") {
+      try { link = JSON.parse(link); } catch (e) { return {}; }
+    }
+    return link && typeof link === "object" && !Array.isArray(link) ? link : {};
+  }
+
+  function normalizeJson(json) {
+    const records = Array.isArray(json) ? json : (json.notes || []);
+
+    return records.map(function (record) {
+      const groups = [];
+      const links = parseLink(record.link);
+
+      Object.keys(links).forEach(function (category) {
+        const items = (Array.isArray(links[category]) ? links[category] : [])
+          .map(function (item) {
+            if (typeof item === "string") {
+              return { title: item, url: item };
+            }
+
+            return {
+              title: (item && item.title) || "Untitled file",
+              url: (item && item.url) || ""
+            };
+          })
+          .filter(function (item) {
+            return item.url && isSafe(item.url);
+          });
+
+        if (items.length) {
+          groups.push({
+            key: category,
+            items: items
+          });
+        }
+      });
+
+      return {
+        id: record.id,
+        branch: record.branch || "",
+        semester: record.semseter || record.semester || "",
+        groups: groups
+      };
+    }).filter(function (record) {
+      return record.groups.length;
+    });
+  }
+
+  /* ---- preview dialog ---- */
+  function openPreview(item, src) {
+    document.getElementById("npDTitle").textContent = item.title;
+    document.getElementById("npDOpen").href = item.url;
+    frame.src = src;
+    dlg.showModal();
+  }
+  dlg.addEventListener("close", function () { frame.src = "about:blank"; });
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+  document.getElementById("npDClose").addEventListener("click", function () { dlg.close(); });
+
+  /* ---- card ---- */
+  function card(item) {
+    var kind = driveKind(item.url), id = driveId(item.url), meta = KIND[kind];
+    var el = h("article", { "class": "np-card" });
+    el.style.setProperty("--k", meta.color);
+
+    var ico = h("span", { "class": "np-ico" });
+    ico.innerHTML = svg(kind);
+    el.append(h("div", { "class": "np-thumb" }, [h("span", { "class": "np-kind", text: meta.label }), ico]));
+
+    el.append(h("div", { "class": "np-body" }, [
+      h("a", { "class": "np-title", href: item.url, target: "_blank", rel: "noopener noreferrer", text: item.title }),
+      h("span", { "class": "np-host", text: hostOf(item.url) })
+    ]));
+
+    var actions = h("div", { "class": "np-actions" }, [
+      h("a", { "class": "np-btn primary", href: item.url, target: "_blank", rel: "noopener noreferrer", text: "Open in Drive" })
+    ]);
+    var pv = previewUrl(kind, id);
+    if (pv) actions.append(h("button", { "class": "np-btn", type: "button", text: "Preview", onclick: function () { openPreview(item, pv); } }));
+    if (kind === "file" && id) {
+      actions.append(h("a", { "class": "np-btn", href: "https://drive.google.com/uc?export=download&id=" + id, text: "Download" }));
+    }
+    var copy = h("button", { "class": "np-btn", type: "button", text: "Copy link" });
+    copy.addEventListener("click", function () {
+      var done = function () { copy.textContent = "Copied"; setTimeout(function () { copy.textContent = "Copy link"; }, 1400); };
+      if (navigator.clipboard) navigator.clipboard.writeText(item.url).then(done);
+    });
+    actions.append(copy);
+    el.append(actions);
+    return el;
+  }
+
+  /* ---- render ---- */
+  function matches(item, term) { return !term || item.title.toLowerCase().indexOf(term) !== -1; }
+
+  function chip(key, label, n) {
+    return h("button", {
+      "class": "np-chip", type: "button", "aria-pressed": String(active === key),
+      onclick: function () { active = key; render(); }
+    }, [document.createTextNode(label), h("span", { "class": "n", text: n })]);
+  }
+
+  function render() {
+    var term = searchEl.value.trim().toLowerCase();
+    var totals = {}, all = 0;
+    notes.forEach(function (n) { n.groups.forEach(function (g) {
+      var c = g.items.filter(function (i) { return matches(i, term); }).length;
+      totals[g.key] = (totals[g.key] || 0) + c;
+      all += c;
+    }); });
+    if (active !== "all" && !(active in totals)) active = "all";
+
+    chipsEl.replaceChildren(chip("all", "All", all));
+    Object.keys(totals).forEach(function (k) { chipsEl.append(chip(k, pretty(k), totals[k])); });
+
+    content.replaceChildren();
+    var shown = 0;
+    notes.forEach(function (n) {
+      var sec = h("section", { "class": "np-block" });
+      var headKids = [h("h2", { text: n.branch || "Study notes" })];
+      if (n.semester !== "" && n.semester != null) {
+        headKids.push(h("span", { "class": "np-sem", text: "Semester " + n.semester }));
+      }
+      sec.append(h("div", { "class": "np-head" }, headKids));
+
+      var any = false;
+      n.groups.forEach(function (g) {
+        if (active !== "all" && g.key !== active) return;
+        var items = g.items.filter(function (i) { return matches(i, term); });
+        if (!items.length) return;
+        any = true; shown += items.length;
+        var grid = h("div", { "class": "np-grid" });
+        items.forEach(function (i) { grid.append(card(i)); });
+        sec.append(h("div", { "class": "np-group" }, [
+          h("h3", { text: pretty(g.key) }, [h("span", { "class": "n", text: items.length })]),
+          grid
+        ]));
+      });
+      if (any) content.append(sec);
+    });
+
+    countEl.textContent = shown + (shown === 1 ? " item" : " items");
+    if (!shown) {
+      content.append(h("p", { "class": "np-empty", text: notes.length
+        ? "No notes match your search. Try a shorter keyword."
+        : "No study notes have been added for this branch yet." }));
+    }
+  }
+
+  /* ---- ajax ---- */
+  function skeleton() {
+    chipsEl.replaceChildren();
+    var grid = h("div", { "class": "np-grid" });
+    for (var i = 0; i < 6; i++) grid.append(h("div", { "class": "np-skel" }));
+    content.replaceChildren(grid);
+  }
+
+  function showLoadError(error) {
+    noticeEl.hidden = false;
+    noticeEl.replaceChildren(
+      document.createTextNode("Could not load study notes (" + (error && error.message ? error.message : error) + ")."),
+      h("button", { type: "button", onclick: load, text: "Retry" })
+    );
+    notes = [];
+    render();
+  }
+
+  function load() {
+    noticeEl.hidden = true;
+    countEl.textContent = "";
+    skeleton();
+
+    const request = new XMLHttpRequest();
+    request.open("GET", API, true);
+    request.setRequestHeader("Accept", "application/json");
+    request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+    request.onreadystatechange = function () {
+      if (request.readyState !== XMLHttpRequest.DONE) return;
+
+      if (request.status >= 200 && request.status < 300) {
+        try {
+          const json = JSON.parse(request.responseText);
+          notes = normalizeJson(json);
+          if (notes[0] && notes[0].branch && titleEl) {
+            titleEl.textContent = notes[0].branch + " study notes";
+          }
+          render();
+        } catch (error) {
+          showLoadError(error);
+        }
+      } else {
+        showLoadError(new Error("HTTP " + request.status));
+      }
+    };
+
+    request.onerror = function () {
+      showLoadError(new Error("Network error"));
+    };
+
+    request.send();
+  }
+
+  searchEl.addEventListener("input", render);
+  load();
+})();
+</script>
+{% endblock %}
