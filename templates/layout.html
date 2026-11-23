@@ -45,8 +45,8 @@
             <nav class="navLinks" id="siteNav">
                 <a href="{% url 'user:home' %}">Home</a>
                 <a href="{% url 'user:about' %}">About</a>
-                <a href="{% url 'user:feedback' %}">Feedback</a>
                 <a href="{% url 'user:contact' %}">Contact</a>
+                <a href="{% url 'user:feedback' %}">Feedback</a>
             </nav>
             <div class="nav__right">
             {% if user.is_authenticated %}
@@ -79,7 +79,7 @@
             <h4>Account</h4>
             <a href="{% url 'user:login' %}">Login</a>
             <a href="{% url 'user:create_account' %}">Create Account</a>
-            <a href="#">Dashboard</a>
+            <a href="https://paw-connect-0zgw.onrender.com/admin" target="_blank">Dashboard</a>
         </div>
 
         <div class="footer-col">
@@ -102,7 +102,7 @@
         <a href="https://github.com/dp0000000004-eng/Paw-Connect" target="_blank" rel="noopener" aria-label="GitHub">
             <i class="ti ti-brand-github"></i>
         </a>
-        <a href="https://instagram.com/paw._.connect" aria-label="Instagram">
+        <a href="https://instagram.com/paw._.connect" aria-label="Instagram" target="_blank">
             <i class="ti ti-brand-instagram"></i>
         </a>
         <a href="mailto:pawbytes.dev@gmail.com" aria-label="Email">
@@ -110,14 +110,13 @@
         </a>
         <span class="footer-divider">|</span>
         <a href="#">Forum</a>
-        <a href="#">About</a>
+        <a href="https://dp0000000004-eng.github.io/scale-of-paw-conenct/" target="_blank">Scale</a>
         <a href="#">Academy</a>
     </div>
 
     <div class="footer-bottom">
         <p>
-            PawConnect is built by students, for students — attendance, notices, exam results,
-            and an AI study buddy, all in one campus portal.
+            PawConnect is built by students, for students — all in one campus portal.
         </p>
         <p class="footer-copyright">
             &copy; 2026 PawBytes &middot; PawConnect | Govt. Polytechnic Angul, Odisha. All Rights Reserved.
