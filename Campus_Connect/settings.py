@@ -36,6 +36,17 @@ ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOSTS'),
 ]
 
+TURNSTILE_SITE_KEY = os.environ.get("TURNSTILE_SITE_KEY", "")
+TURNSTILE_SECRET_KEY = os.environ.get("TURNSTILE_SECRET_KEY", "")
+TURNSTILE_ALLOWED_HOSTNAMES = [
+    hostname.strip().lower().lstrip(".")
+    for hostname in os.environ.get(
+        "TURNSTILE_ALLOWED_HOSTNAMES",
+        os.environ.get("ALLOWED_HOSTS", ""),
+    ).split(",")
+    if hostname.strip() and "*" not in hostname
+]
+
 
 DEBUG=True
 
@@ -65,6 +76,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'Campus_Connect.middleware.FirstRequestMiddleware',
 ]
 
 
@@ -172,3 +184,10 @@ REST_FRAMEWORK = {
         "fifteen":"15/minute",
     }
 }
+
+
+from django.http import HttpRequest
+
+
+if HttpRequest:
+    print("Done")

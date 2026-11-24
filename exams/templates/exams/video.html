@@ -124,7 +124,7 @@
 <script>
   // Your Django/DRF endpoint. Response shape:
   // [{ id, branch, semseter, link: { category: [{ title, url }, ...], ... } }]
-  const API_URL = "http://127.0.0.1:8000/exams/video-support/1";
+  const API_URL = root.dataset.api || window.location.pathname;
 
   // Used only when the API can't be reached, so the page still previews offline.
 //   const SAMPLE = [{

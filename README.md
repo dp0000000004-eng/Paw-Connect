@@ -19,6 +19,30 @@ The goal is a project that's genuinely useful day-to-day on campus, buildable by
 - **AI:** External LLM API
 - **Deployment:** Render
 
+## Cloudflare Turnstile
+
+New browser visitors must complete a Cloudflare Turnstile check once before
+accessing the site. After successful server-side verification, PawConnect stores
+a signed, HTTP-only, secure cookie in that browser for one year.
+
+Configure these environment variables in `.env` for local development and in
+the deployment environment for production:
+
+- `TURNSTILE_SITE_KEY` — the public site key from the Cloudflare dashboard.
+- `TURNSTILE_SECRET_KEY` — the private secret key; never expose or commit it.
+- `TURNSTILE_ALLOWED_HOSTNAMES` — comma-separated hostnames registered for
+  this Turnstile widget (for example, `paw-connect-0zgw.onrender.com`). If
+  omitted, the configured `ALLOWED_HOSTS` value is used.
+
+The hostname in the browser address bar must also be enabled in the widget's
+Cloudflare dashboard settings. For local development, use a test site key and
+secret from Cloudflare's Turnstile testing documentation, or register the
+local hostname you use (for example, `localhost` or `127.0.0.1`) with your
+widget. The hostname must match the browser URL, not just the production
+hostname.
+
+Serve the site over HTTPS so browsers accept the secure verification cookie.
+
 ## Screenshots
 
 # Home
