@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick human check | PawConnect</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background:
+                radial-gradient(circle at 50% 20%, rgba(56, 132, 255, 0.34), transparent 38rem),
+                #06142e;
+            color: #f8faff;
+        }
+
+        .verification-card {
+            width: min(100%, 440px);
+            padding: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            background: rgba(10, 25, 54, 0.94);
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+            text-align: center;
+        }
+
+        .paw-mark {
+            width: 52px;
+            height: 52px;
+            margin: 0 auto 16px;
+            display: grid;
+            place-items: center;
+            border-radius: 16px;
+            background: #ef9f27;
+            color: #18243a;
+            font-size: 25px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: clamp(26px, 7vw, 34px);
+            line-height: 1.15;
+        }
+
+        .intro {
+            margin: 0 auto 24px;
+            max-width: 340px;
+            color: #c4cce0;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .message {
+            margin: 0 0 16px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: rgba(255, 176, 176, 0.1);
+            color: #ffd7d7;
+            font-size: 14px;
+            line-height: 1.45;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .cf-turnstile {
+            min-height: 65px;
+        }
+
+        button {
+            width: 100%;
+            min-height: 48px;
+            border: 0;
+            border-radius: 12px;
+            background: #ef9f27;
+            color: #241707;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: #ffb54a;
+            transform: translateY(-1px);
+        }
+
+        button:focus-visible {
+            outline: 3px solid rgba(255, 255, 255, 0.85);
+            outline-offset: 3px;
+        }
+
+        .privacy-note {
+            margin: 18px 0 0;
+            color: #9ca9c4;
+            font-size: 12px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+            }
+
+            .verification-card {
+                padding: 28px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="verification-card" aria-labelledby="verification-title">
+        <div class="paw-mark" aria-hidden="true">🐾</div>
+        <h1 id="verification-title">Are you human?</h1>
+        <p class="intro">Just one quick check before we let you in. It helps keep PawConnect safe.</p>
+
+        {% if error %}
+            <p class="message" role="alert">{{ error }}</p>
+        {% endif %}
+        <p id="turnstile-client-error" class="message" role="alert" hidden></p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="cf-turnstile"
+                data-sitekey="{{ site_key }}"
+                data-error-callback="onTurnstileError">
+            </div>
+
+            <button type="submit">Continue</button>
+        </form>
+        <p class="privacy-note">Protected by a privacy-friendly security check.</p>
+    </main>
+
+    <script>
+        function onTurnstileError(errorCode) {
+            const message = document.getElementById("turnstile-client-error");
+            const code = String(errorCode);
+            let explanation =
+                "Cloudflare could not complete verification. Check the hostname configuration and your network connection.";
+            if (code === "110200") {
+                explanation =
+                    "This hostname is not enabled for the Turnstile site key. Add the hostname from your browser address bar in Cloudflare.";
+            } else if (code === "200500" || code === "script-load") {
+                explanation =
+                    "Your browser could not load Cloudflare Turnstile. Check your connection and allow challenges.cloudflare.com.";
+            }
+            message.textContent = explanation + " Error code: " + code;
+            message.hidden = false;
+            console.error("Cloudflare Turnstile error:", errorCode);
+            return false;
+        }
+
+        window.addEventListener("error", function (event) {
+            if (event.target.id === "turnstile-script") {
+                onTurnstileError("script-load");
+            }
+        }, true);
+    </script>
+    <script id="turnstile-script"
+            src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+            async defer></script>
+</body>
+</html>

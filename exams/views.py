@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Syllabus, Semester
 from accounts.models import Departments
 from rest_framework.decorators import api_view, renderer_classes
@@ -106,5 +106,15 @@ def videoDept(request):
 def vid_support_view(request, branch_id):
     video = StudyVideo.objects.filter(branch=branch_id).all()
     videoSerializer = StudyVideoSerializer(video, many=True)
+    payload = videoSerializer.data
 
-    return Response(videoSerializer.data, template_name="exams/video.html")
+    if request.accepted_renderer.format == 'html':
+            branch = Departments.objects.filter(Branch=branch_id).first()
+            return Response(
+                {
+                    "branch": branch,
+                    "branch_id": branch_id,
+                },
+                template_name="exams/video.html",
+            )
+    return Response(payload)

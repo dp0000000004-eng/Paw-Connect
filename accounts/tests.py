@@ -1,9 +1,12 @@
 from unittest.mock import patch
 
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.core import signing
+from django.test import Client, TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient
+
+from Campus_Connect.middleware import COOKIE_NAME, COOKIE_SALT
 
 from .forms import FeedbackForm, StudentForm
 from .models import (
@@ -22,6 +25,24 @@ from .serializers import (
     HOD_ModelSerializer,
     StudentsSerializer,
 )
+
+
+class VerifiedClient(Client):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.cookies[COOKIE_NAME] = signing.dumps(
+            {"verified": True},
+            salt=COOKIE_SALT,
+        )
+
+
+class VerifiedAPIClient(APIClient):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.cookies[COOKIE_NAME] = signing.dumps(
+            {"verified": True},
+            salt=COOKIE_SALT,
+        )
 
 
 class ModelTests(TestCase):
@@ -96,6 +117,8 @@ class FormTests(TestCase):
 
 
 class ViewTests(TestCase):
+    client_class = VerifiedClient
+
     def setUp(self):
         self.user = User.objects.create_user(
             username="tester",
@@ -199,6 +222,8 @@ class ViewTests(TestCase):
 
 class ExtraAccountViewTests(TestCase):
     """More coverage for signup, sessions, and protected pages."""
+
+    client_class = VerifiedClient
 
     def setUp(self):
         self.user = User.objects.create_user(
@@ -383,8 +408,10 @@ class AccountSerializerTests(TestCase):
 
 
 class AccountRestApiViewTests(TestCase):
+    client_class = VerifiedAPIClient
+
     def setUp(self):
-        self.client = APIClient()
+        self.client = VerifiedAPIClient()
         self.user = User.objects.create_user(
             username="apiuser",
             email="api@example.com",

@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from accounts.views import home
+from .middleware import verify_human
+from django import views
+
 
 urlpatterns = [
     path('', home, name='root'),
@@ -24,4 +27,5 @@ urlpatterns = [
     path('ai/', include('ai_assistant.urls')),
     path('exams/', include('exams.urls')),
     path('user/', include('accounts.urls')),
+    path('is-human/', verify_human, name="verify_human"),
 ]
